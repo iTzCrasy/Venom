@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="Venom.Windows.MainViewMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Venom.Windows"
+             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Material:Card Grid.Column="0" Grid.Row="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
+            <StackPanel>
+                <Material:ColorZone Mode="Dark">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Margin="6">Markierungen</TextBlock>
+                    </StackPanel>
+                </Material:ColorZone>
+                <StackPanel Margin="4">
+                    <TreeView MinWidth="220">
+                        <TreeViewItem Header="Player">
+                            <TreeViewItem Header="Banana" />
+                            <TreeViewItem Header="Grape">
+                                <TextBlock>
+                                    <Run Text="Grapes for us" />
+                                </TextBlock>
+                            </TreeViewItem>
+                            <TreeViewItem Header="Peach" />
+                            <TreeViewItem Header="Pear" />
+                            <TreeViewItem Header="Strawberry" />
+                        </TreeViewItem>
+                        <TreeViewItem Header="Allys" IsExpanded="True">
+                            <TreeViewItem Header="Amiga" />
+                        </TreeViewItem>
+                    </TreeView>
+                </StackPanel>
+            </StackPanel>
+        </Material:Card>
+
+        <Material:Card x:Name="MapCard" Grid.Column="1" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
+            <StackPanel>
+                <StackPanel>
+                    <Canvas>
+                        <Canvas Height="{Binding ActualHeight, ElementName=MapCard, Mode=OneWay}" Width="{Binding ActualWidth, ElementName=MapCard, Mode=OneWay}" Background="Green" Name="MapRender">
+                            <Canvas.RenderTransform>
+                                <TransformGroup>
+                                    <TranslateTransform Y="{Binding MapFocusY, Mode=OneWay}" />
+                                    <TranslateTransform X="{Binding MapFocusX, Mode=OneWay}" />
+                                </TransformGroup>
+                            </Canvas.RenderTransform>
+                        </Canvas>
+                        <Canvas Height="{Binding ActualHeight, ElementName=MapCard, Mode=OneWay}" Width="25" Top="0" Left="0" Background="#55000000"/>
+                        <!--<StackPanel>
+                            <TextBlock Margin="2" Text="455" Foreground="White"/>
+                            <TextBlock Margin="2" Text="455" Foreground="White"/>
+                            <TextBlock Margin="2" Text="455" Foreground="White"/>
+                            <TextBlock Margin="2" Text="455" Foreground="White"/>
+                            <TextBlock Margin="2" Text="455" Foreground="White"/>
+                        </StackPanel>-->
+                        <Canvas Height="25" Width="{Binding ActualWidth, ElementName=MapCard, Mode=OneWay}" Background="#55000000">
+                        </Canvas>
+                    </Canvas>
+                </StackPanel>
+            </StackPanel>
+        </Material:Card>
+
+        <Material:Card Grid.Column="2" Margin="2" UniformCornerRadius="0" VerticalAlignment="Top" Height="292">
+            <StackPanel>
+                <Canvas Margin="23" Height="250" Width="250" Background="Green" Name="Minimap" MouseLeftButtonDown="Minimap_MouseLeftButtonDown" MouseLeftButtonUp="Minimap_MouseLeftButtonUp" MouseMove="Minimap_MouseMove">
+                    <!--<Canvas.Clip>
+                        <RectangleGeometry Rect="0, 0, 250, 250" />
+                    </Canvas.Clip>-->
+                    <Canvas.RenderTransform>
+                        <TransformGroup>
+                            <TranslateTransform Y="{Binding MapFocusY, Mode=OneWay}" />
+                            <TranslateTransform X="{Binding MapFocusX, Mode=OneWay}" />
+                        </TransformGroup>
+                    </Canvas.RenderTransform>
+                </Canvas>
+            </StackPanel>
+        </Material:Card>
+
+    </Grid>
+</UserControl>

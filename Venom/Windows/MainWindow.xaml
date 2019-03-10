@@ -1,0 +1,81 @@
+﻿<Window x:Class="Venom.Windows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Venom"
+        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" 
+        xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:Windows="clr-namespace:Venom.Windows"
+        xmlns:Viewmodels="clr-namespace:Venom.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow"  
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <Material:DialogHost>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="24"/>
+                </Grid.RowDefinitions>
+
+                <Fluent:Ribbon x:Name="ribbon" Grid.Row="0" CanQuickAccessLocationChanging="False" CanCustomizeQuickAccessToolBarItems="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False">
+                    <!--Backstage-->
+                    <Fluent:Ribbon.Menu>
+                        <Fluent:Backstage HideContextTabsOnOpen="True" Header="Menu">
+                            <Fluent:BackstageTabControl>
+                                <Fluent:BackstageTabItem Header="Test">
+                                    <Fluent:RibbonGroupBox Header="Anzeigen" >
+                                        <Windows:StartViewSelectServer/>
+                                    </Fluent:RibbonGroupBox>
+                                </Fluent:BackstageTabItem>
+                                <Fluent:BackstageTabItem Header="Test" />
+                                <Fluent:SeparatorTabItem />
+                                <Fluent:BackstageTabItem Header="Account" />
+                                <Fluent:SeparatorTabItem />
+                                <Fluent:Button Header="Einstellungen" Size="Middle" />
+                                <Fluent:BackstageTabItem Header="Informationen" />
+                            </Fluent:BackstageTabControl>
+                        </Fluent:Backstage>
+                    </Fluent:Ribbon.Menu>
+
+                    <Fluent:Ribbon.ContextualGroups>
+                        <Fluent:RibbonContextualTabGroup Header="4856" Visibility="Visible" x:Name="toolsGroup" Background="Green" BorderBrush="Green" />
+                    </Fluent:Ribbon.ContextualGroups>
+
+                    <!--Tabs-->
+                    <Fluent:RibbonTabItem Header="Start" x:Name="RibbonTabStart">
+                        <Fluent:RibbonGroupBox Header="">
+                            <Fluent:Button Header="Karte" Command="{Binding CmdViewMainMap}"/>
+                        </Fluent:RibbonGroupBox>
+                    </Fluent:RibbonTabItem>
+
+                    <Fluent:RibbonTabItem Header="Statistiken">
+                        <Fluent:RibbonGroupBox Header="Anzeige">
+                            <Fluent:Button Header="Gesamt" Command="{Binding CmdViewStatsAll}"/>
+                            <Fluent:Button Header="Spieler" Command="{Binding CmdViewStatsRankPlayer}" />
+                            <Fluent:Button Header="Stämme" Command="{Binding CmdViewStatsRankAlly}"/>
+                        </Fluent:RibbonGroupBox>
+                    </Fluent:RibbonTabItem>
+                </Fluent:Ribbon>
+                <Material:TransitioningContent Grid.Row="1" Content="{Binding Path=MainView}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
+                <Fluent:StatusBar Grid.Row="2">
+                    <Separator HorizontalAlignment="Left" />
+
+                    <Fluent:StatusBarItem ToolTip="Your ToolTip" Content="{Binding CurrentUser}" HorizontalAlignment="Left" />
+
+                    <Fluent:StatusBarItem Title="Item placed on the right side"
+                          HorizontalAlignment="Right"
+                          Value="Your value which is also used as content if no content is set." />
+                </Fluent:StatusBar>
+            </Grid>
+            
+        </Material:DialogHost>
+    </Grid>
+</Window>

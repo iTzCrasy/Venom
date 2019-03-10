@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Venom.Windows.StartViewSelectServer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Models="clr-namespace:Venom.Windows.ViewModels"
+             mc:Ignorable="d">
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Name="Logo" Source="/Venom;component/Venom-Logo_300x300.png" Stretch="None" VerticalAlignment="Top" UseLayoutRounding="True"/>
+        <StackPanel Orientation="Horizontal" Margin="0,200,0,0" >
+            <Material:Card Margin="10" UniformCornerRadius="0">
+                <StackPanel Width="400" Height="393">
+                    <Material:ColorZone Mode="Dark" Padding="0" VerticalAlignment="Top">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBlock Margin="10">Profil Auswählen / Hinzufügen</TextBlock>
+                        </StackPanel>
+                    </Material:ColorZone>
+                    <StackPanel Margin="4">
+                        <ListView Name="Userlist" Height="300" PreviewMouseLeftButtonUp="UserlistSelected">
+                            <ListView.ContextMenu>
+                                <ContextMenu Name="UserlistContext">
+                                    <MenuItem Header="Entfernen" Name="DeleteUser" Click="DeleteUserClick"/>
+                                </ContextMenu>
+                            </ListView.ContextMenu>
+                            <ListView.GroupStyle>
+                                <GroupStyle>
+                                    <GroupStyle.HeaderTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Name}"/>
+                                        </DataTemplate>
+                                    </GroupStyle.HeaderTemplate>
+                                </GroupStyle>
+                            </ListView.GroupStyle>
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="Welt" Width="60" DisplayMemberBinding="{Binding Server}" />
+                                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
+                                    <GridViewColumn Header="Action" Width="100" DisplayMemberBinding="{Binding Action}" />
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
+                    </StackPanel>
+                    <Grid Margin="4">
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonStart" IsEnabled="False" Click="ButtonStartClick">
+                            Benutzen
+                        </Button>
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Benutzer Hinzufügen" HorizontalAlignment="Right" Click="ButtonAddProfileClick">
+                            <Material:PackIcon Kind="Plus" Height="24" Width="24" />
+                        </Button>
+                    </Grid>
+                </StackPanel>
+            </Material:Card>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

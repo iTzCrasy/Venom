@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Core;
 //using System.Drawing;
 
 namespace Venom.Windows
@@ -90,7 +91,7 @@ namespace Venom.Windows
                     {
                         var ImageT = new Image
                         {
-                            Source = Core.Map.GetInstance.GetVillageImage( Core.EVillageSize.S6 ).ImageFile
+                            Source = Map.GetInstance.GetVillageImage( EVillageSize.S6 ).ImageFile
                         };
 
                         ImageT.Height = 38;

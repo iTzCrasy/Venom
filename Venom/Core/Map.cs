@@ -7,12 +7,55 @@ using System.IO;
 using System.IO.Compression;
 using System.Diagnostics;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace Core
 {
-    public class Map : Singleton<Map>
+	public struct VillageImages
+	{
+		public EVillageSize Size;
+		public EVillageType Type;
+		public BitmapImage ImageFile;
+	}
+
+	public enum EVillageType : int
+	{
+		DEFAULT = 0,
+		DEFAULT_LEFT,
+		BONUS_DEFAULT,
+		BONUS_LEFFT
+	}
+
+	public enum EVillageSize : int
+	{
+		S1 = 0,
+		S2,
+		S3,
+		S4,
+		S5,
+		S6
+	}
+
+	public struct DecorationImages
+	{
+		public int ID;
+		public BitmapImage ImageFile;
+	}
+
+
+	public class Map : Singleton<Map>
     {
-        public Map()
+		protected byte[] _Decoration = new byte[1000000];
+		protected List<VillageImages> _VillageImages = new List<VillageImages>( );
+		protected List<DecorationImages> _DecorationImages = new List<DecorationImages>( );
+
+		/// <summary>
+		/// Get Images
+		/// </summary>
+		public VillageImages GetVillageImage( EVillageSize Size ) => _VillageImages.FirstOrDefault( p => p.Size.Equals( Size ) );
+
+
+		public Map()
         {
 
         }
@@ -34,8 +77,6 @@ namespace Core
         /// </summary>
         public async Task LoadDecoration()
         {
-            Debug.WriteLine( Path.GetFullPath( "Resources" ) );
-
             var WorldFile = ".//Resources//world.dat.gz";
             if( File.Exists( WorldFile ) )
             {
@@ -76,13 +117,13 @@ namespace Core
 
             return Task.WhenAll( Tasks );
         }
-        private async Task LoadVillageImage( EVillageSize S, EVillageType T, string Filename )
+        private async Task LoadVillageImage( EVillageSize villageSize, EVillageType villageType, string Filename )
         {
             var PathData = Path.GetFullPath( "Resources" ) + "//Images//Villages//Default//v2_";
             _VillageImages.Add( new VillageImages
             {
-                Size = S,
-                Type = T,
+                Size = villageSize,
+                Type = villageType,
                 ImageFile = await Task.Run( ( ) => new BitmapImage( new Uri( PathData + Filename ) ) )
             } );
         }
@@ -131,54 +172,19 @@ namespace Core
             return Task.WhenAll( Tasks );
         }
 
-        private async Task LoadDecorationImage( byte Deco, string Filename )
+        private async Task LoadDecorationImage( int decorationId, string Filename )
         {
             var PathData = Path.GetFullPath( "Resources" ) + "//Images//Map//Default//";
             _DecorationImages.Add( new DecorationImages
             {
-                ID = Deco,
+                ID = decorationId,
                 ImageFile = await Task.Run( () => new BitmapImage( new Uri( PathData + Filename ) ) )
             } );
+
         }
 
-        /// <summary>
-        /// Get Images
-        /// </summary>
-        public VillageImages GetVillageImage( EVillageSize Size ) => _VillageImages.FirstOrDefault( p => p.Size.Equals( Size ) );
 
-        protected byte [] _Decoration = new byte [ 1000000 ];
-        protected List<VillageImages> _VillageImages = new List<VillageImages>();
-        protected List<DecorationImages> _DecorationImages = new List<DecorationImages>();
     }
 
-    public struct VillageImages
-    {
-        public EVillageSize Size;
-        public EVillageType Type;
-        public BitmapImage ImageFile;
-    }
 
-    public enum EVillageType : int
-    {
-        DEFAULT = 0,
-        DEFAULT_LEFT,
-        BONUS_DEFAULT,
-        BONUS_LEFFT
-    }
-
-    public enum EVillageSize : int
-    {
-        S1 = 0,
-        S2,
-        S3,
-        S4,
-        S5,
-        S6
-    }
-
-    public struct DecorationImages
-    {
-        public byte ID;
-        public BitmapImage ImageFile;
-    }
 }

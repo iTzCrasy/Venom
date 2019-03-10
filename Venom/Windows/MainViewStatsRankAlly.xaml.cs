@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Core;
 
 namespace Venom.Windows
 {
@@ -25,7 +26,7 @@ namespace Venom.Windows
         {
             InitializeComponent( );
 
-            Allylist.ItemsSource = Core.Game.GetInstance.GetAllyList( );
+            Allylist.ItemsSource = Game.GetInstance.GetAllyList( );
             Allylist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
 

@@ -38,6 +38,7 @@ namespace Venom.Windows
                         Width = 250,
                         Height = 250
                     };
+
                     var TestImage = new Image
                     {
                         Source = new BitmapImage( new Uri( "https://de161.die-staemme.de/page.php?page=topo_image&player_id=undefined&village_id=null&x=" + X + "&y=" + Y + "&church=3&political=0&war=0&watchtower=0&key=1148549741&cur=null&focus=1992&local_cache=0" ) ),

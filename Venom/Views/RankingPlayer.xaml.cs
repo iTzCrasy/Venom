@@ -14,18 +14,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Venom.Windows
+namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainViewStats.xaml
+    /// Interaktionslogik für RankingPlayer.xaml
     /// </summary>
-    public partial class MainViewStatsRankPlayer : UserControl
+    public partial class RankingPlayer : UserControl
     {
-        public MainViewStatsRankPlayer( )
+        public RankingPlayer( )
         {
-            InitializeComponent();
+            InitializeComponent( );
 
-            Playerlist.ItemsSource = Core.Game.GetInstance.GetPlayerList( );
             Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
     }

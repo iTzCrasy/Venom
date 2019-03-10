@@ -17,17 +17,17 @@ using System.Windows.Shapes;
 namespace Venom.Windows
 {
     /// <summary>
-    /// Interaktionslogik für MainViewStatsRankAlly.xaml
+    /// Interaktionslogik für MainViewStats.xaml
     /// </summary>
-    public partial class MainViewStatsRankAlly : UserControl
+    public partial class MainViewRanking : UserControl
     {
-        public MainViewStatsRankAlly( )
+        public MainViewRanking( int Type )
         {
-            InitializeComponent( );
+            InitializeComponent();
 
-            Allylist.ItemsSource = Core.Game.GetInstance.GetAllyList( );
-            Allylist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+            DataContext = new Venom.ViewModels.MainViewModelRanking( Type );
+
+            //Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
-
     }
 }

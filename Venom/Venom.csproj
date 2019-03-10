@@ -133,18 +133,22 @@
     <Compile Include="Domain\CommandExt.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\MainViewModelMap.cs" />
+    <Compile Include="ViewModels\MainViewModelRanking.cs" />
     <Compile Include="ViewModels\StatsRankPlayer.cs" />
+    <Compile Include="Views\RankingAllys.xaml.cs">
+      <DependentUpon>RankingAllys.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RankingPlayer.xaml.cs">
+      <DependentUpon>RankingPlayer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\MainViewMap.xaml.cs">
       <DependentUpon>MainViewMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainViewStatsRankPlayer.xaml.cs">
-      <DependentUpon>MainViewStatsRankPlayer.xaml</DependentUpon>
+    <Compile Include="Windows\MainViewRanking.xaml.cs">
+      <DependentUpon>MainViewRanking.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainViewStatsAll.xaml.cs">
       <DependentUpon>MainViewStatsAll.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MainViewStatsRankAlly.xaml.cs">
-      <DependentUpon>MainViewStatsRankAlly.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainWindowStatusbar.xaml.cs">
       <DependentUpon>MainWindowStatusbar.xaml</DependentUpon>
@@ -174,19 +178,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RankingAllys.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RankingPlayer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainViewMap.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainViewStatsRankPlayer.xaml">
+    <Page Include="Windows\MainViewRanking.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MainViewStatsAll.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\MainViewStatsRankAlly.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

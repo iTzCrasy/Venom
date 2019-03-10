@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Venom.Windows.MainViewRanking"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:Venom.Windows"
+             xmlns:Core="clr-namespace:Core;assembly=Core"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d"
+             x:Name="RankingPlayer">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Material:Card x:Name="MapCard" Grid.Column="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
+            <StackPanel>
+                <Material:ColorZone Mode="Dark">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Margin="6">Suche</TextBlock>
+                    </StackPanel>
+                </Material:ColorZone>
+                <StackPanel Margin="4">
+                    <TextBox />
+                </StackPanel>
+            </StackPanel>
+        </Material:Card>
+        <Material:TransitioningContent Grid.Column="1" Content="{Binding Path=CurrentView}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
+    </Grid>
+</UserControl>

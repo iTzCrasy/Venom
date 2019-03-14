@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Core;
 
 namespace Venom.Windows
 {
@@ -24,15 +25,15 @@ namespace Venom.Windows
         {
             InitializeComponent( );
 
-            PlayerCount.DataContext = Core.Game.GetInstance.GetPlayerList( ).Count;
-            VillageCount.DataContext = Core.Game.GetInstance.GetVillageList( ).Count;
-            AllyCount.DataContext = Core.Game.GetInstance.GetAllyList( ).Count;
-            BarbarVillages.DataContext = Core.Game.GetInstance.GetVillagesByPlayer( 0 ).Count;
-            PlayerVillages.DataContext = Core.Game.GetInstance.GetVillageList( ).Count - Core.Game.GetInstance.GetVillagesByPlayer( 0 ).Count;
-            BonusVillages.DataContext = Core.Game.GetInstance.GetVillagesBonusAll( ).Count;
-            PlayerInAlly.DataContext = Core.Game.GetInstance.GetPlayerAllyAll( ).Count;
-            PlayerWithoutAlly.DataContext = Core.Game.GetInstance.GetPlayerByAlly( 0 ).Count;
-            ConquerCount.DataContext = Core.Game.GetInstance.GetConquerList( ).Count;
+            PlayerCount.DataContext = Game.GetInstance.GetPlayerList( ).Count;
+            VillageCount.DataContext = Game.GetInstance.GetVillageList( ).Count;
+            AllyCount.DataContext = Game.GetInstance.GetAllyList( ).Count;
+            BarbarVillages.DataContext = Game.GetInstance.GetVillagesByPlayer( 0 ).Count;
+            PlayerVillages.DataContext = Game.GetInstance.GetVillageList( ).Count - Game.GetInstance.GetVillagesByPlayer( 0 ).Count;
+            BonusVillages.DataContext = Game.GetInstance.GetVillagesBonusAll( ).Count;
+            PlayerInAlly.DataContext = Game.GetInstance.GetPlayerAllyAll( ).Count;
+            PlayerWithoutAlly.DataContext = Game.GetInstance.GetPlayerByAlly( 0 ).Count;
+            ConquerCount.DataContext = Game.GetInstance.GetConquerList( ).Count;
         }
     }
 }

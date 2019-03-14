@@ -5,6 +5,10 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Core;
+using Venom.Core;
+using Venom.Windows;
+using Venom.Windows.ViewModels;
 
 namespace Venom
 {
@@ -13,17 +17,18 @@ namespace Venom
     /// </summary>
     public partial class App : Application
     {
-        protected override void OnStartup( StartupEventArgs e )
-        {
-            base.OnStartup( e );
+		private void AppStartup( object sender, StartupEventArgs e )
+		{
+			ResourceManager.GetInstance.Initialize( );
 
-            Core.Game.GetInstance.LoadServerList( );
+			Game.GetInstance.LoadServerList( );
 
-            var Win = new Windows.StartWindow
+            var startWindow = new StartWindow
             {
-                DataContext = new Windows.ViewModels.StartViewSelectServerModel( )
+                DataContext = new StartViewSelectServerModel( )
             };
-            Win.Show( );
+			
+            startWindow.Show( );
         }
     }
 }

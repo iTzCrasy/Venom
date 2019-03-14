@@ -19,7 +19,7 @@ namespace Venom
     {
 		private void AppStartup( object sender, StartupEventArgs e )
 		{
-			ResourceManager.GetInstance.LoadArchive( );
+			ResourceManager.GetInstance.Initialize( );
 
 			Game.GetInstance.LoadServerList( );
 

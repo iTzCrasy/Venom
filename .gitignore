@@ -191,6 +191,9 @@ ClientBin/
 *.dbproj.schemaview
 *.jfm
 *.pfx
+# ignore temporary key
+!Venom_TemporaryKey.pfx
+
 *.publishsettings
 node_modules/
 orleans.codegen.cs
@@ -259,3 +262,4 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+

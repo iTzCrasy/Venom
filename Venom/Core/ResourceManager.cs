@@ -8,93 +8,141 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using Core;
 
 namespace Venom.Core
 {
 	internal class ResourceManager : Singleton<ResourceManager>
 	{
-		private readonly Dictionary<string, BitmapImage> _mapImages = new Dictionary<string, BitmapImage>( );
+		private readonly string _archivePath = Path.Combine( Directory.GetCurrentDirectory( ), "resources.zip" );
 
-		private readonly Dictionary<string, BitmapImage> _villageImages = new Dictionary<string, BitmapImage>( );
+		private Dictionary<string, BitmapImage> _mapImages;
 
-		private readonly string _archivePath = Path.Combine( "./", "resources.zip" );
+		private Dictionary<string, BitmapImage> _villageImages;
 
 
-
-		private ResourceManager( )
+		/// <summary>
+		/// initializes all resources
+		/// </summary>
+		public void Initialize( )
 		{
-			Debug.Assert( File.Exists( _archivePath ) );
+			// Initialize needs to be run from the ui thread!
+			Debug.Assert( Dispatcher.FromThread( Thread.CurrentThread ) != null );
+
+			OpenArchive( ( archive ) =>
+			{
+				_mapImages = LoadImagesFromArchive( archive, "Images/Map/Default/" );
+				_villageImages = LoadImagesFromArchive( archive, "Images/Villages/Default/" );
+
+				// check if images were actually loaded
+				Debug.Assert( _mapImages.Count > 0 || _villageImages.Count > 0 );
+			} );
 		}
 
-		public void LoadArchive( )
+		public void OpenArchive( Action<ZipArchive> action )
 		{
+			if( !File.Exists( _archivePath ) )
+			{
+				throw new FileNotFoundException( $"Resource file not found at: {_archivePath}" );
+			}
+
 			using( var zipFile = new FileStream( _archivePath, FileMode.Open ) )
 			{
 				using( var archive = new ZipArchive( zipFile, ZipArchiveMode.Read ) )
 				{
-					LoadMapImages( archive );
-
-
-
-
-					Debugger.Break( );
-
-					//var entry = archive.GetEntry( "" );
-
-					//using( var reader = new StreamReader( entry.Open( ) ) )
-					//{
-					//	// reader.ReadToEndAsync()
-					//}
+					action( archive );
 				}
 			}
 		}
 
-		private void LoadMapImages( ZipArchive archive )
+		public async Task OpenArchiveAsync( Func<ZipArchive, Task> action )
 		{
-			var pathPrefix = "Images/Map/Default/";
-
-			var images = archive.Entries
-				.Where( ( _ ) => _.FullName.Contains( pathPrefix ) && !_.FullName.Equals( pathPrefix ) )
-				.Select( ( _ ) => new { _.FullName, Name = _.FullName.Replace( pathPrefix, string.Empty ) } );
-
-			foreach( var i in images )
+			if( !File.Exists( _archivePath ) )
 			{
+				throw new FileNotFoundException( $"Resource file not found at: {_archivePath}" );
+			}
+
+			using( var zipFile = new FileStream( _archivePath, FileMode.Open ) )
+			{
+				using( var archive = new ZipArchive( zipFile, ZipArchiveMode.Read ) )
+				{
+					await action( archive )
+						.ConfigureAwait( false );
+				}
+			}
+		}
+
+		/// <summary>
+		/// Helper to directly open an entry inside the zip archive async.
+		/// </summary>
+		/// <param name="entry">path to file inside the archive</param>
+		/// <param name="action">action that is executed async</param>
+		/// <returns></returns>
+		public Task OpenEntryAsync( string entry, Func<ZipArchiveEntry, Task> action )
+		{
+			return OpenArchiveAsync( ( archive ) => action( archive.GetEntry( entry ) ) );
+		}
+
+
+
+
+		/// <summary>
+		/// Loads all images under the specified path inside the zip archive
+		/// </summary>
+		/// <param name="archive"></param>
+		/// <param name="path"></param>
+		/// <returns></returns>
+		private Dictionary<string, BitmapImage> LoadImagesFromArchive( ZipArchive archive, string path )
+		{
+			var entries = archive.Entries
+				.Where( ( _ ) => _.FullName.Contains( path ) && !_.FullName.Equals( path ) )
+				.Select( ( _ ) => new { _.FullName, Name = _.FullName.Replace( path, string.Empty ) } );
+
+			var items = new Dictionary<string, BitmapImage>( );
+
+			foreach( var i in entries )
+			{
+				if( !i.FullName.EndsWith( ".png", StringComparison.OrdinalIgnoreCase ) )
+				{
+					// log
+					Debug.Print( $"[LoadImagesFromArchive] skipping file {i.FullName}" );
+					continue;
+				}
+
 				var entry = archive.GetEntry( i.FullName );
 
 				using( var stream = entry.Open( ) )
 				{
-					var memoryStream = new MemoryStream( );
-					stream.CopyTo( memoryStream );
-
-					var bitmap = new BitmapImage( );
-					bitmap.BeginInit( );
-					bitmap.StreamSource = memoryStream;
-					bitmap.CacheOption = BitmapCacheOption.OnLoad;
-					bitmap.EndInit( );
-					bitmap.Freeze( );
-
-					_mapImages.Add( i.Name, bitmap );
+					var bitmap = LoadBitmapFromStream( stream );
+					items.Add( i.Name, bitmap );
 				}
 			}
+
+			return items;
 		}
 
 
-		public async Task ReadFile( string entryName )
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="stream"></param>
+		/// <returns></returns>
+		private BitmapImage LoadBitmapFromStream( Stream stream )
 		{
-			using( var zipFile = new FileStream( "./resource.zip", FileMode.Open ) )
-			{
-				using( var archive = new ZipArchive( zipFile, ZipArchiveMode.Read ) )
-				{
-					var entry = archive.GetEntry( entryName );
+			var memoryStream = new MemoryStream( );
+			stream.CopyTo( memoryStream );
 
-					using( var reader = new StreamReader( entry.Open( ) ) )
-					{
-						// reader.ReadToEndAsync()
-					}
-				}
-			}
+			var bitmap = new BitmapImage( );
+			bitmap.BeginInit( );
+			bitmap.StreamSource = memoryStream;
+			bitmap.CacheOption = BitmapCacheOption.OnLoad;
+			bitmap.EndInit( );
+			bitmap.Freeze( );
+
+			return bitmap;
 		}
+
 
 
 		public BitmapImage GetMapImage( string imageName )

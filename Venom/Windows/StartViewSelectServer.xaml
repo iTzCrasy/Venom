@@ -7,7 +7,7 @@
              xmlns:Models="clr-namespace:Venom.Windows.ViewModels"
              mc:Ignorable="d">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Image Name="Logo" Source="/Venom;component/Venom-Logo_300x300.png" Stretch="None" VerticalAlignment="Top" UseLayoutRounding="True"/>
+        <Image Name="Logo" Source="/Assets/Images/Venom-Logo_300x300.png" Stretch="None" VerticalAlignment="Top" UseLayoutRounding="True"/>
         <StackPanel Orientation="Horizontal" Margin="0,200,0,0" >
             <Material:Card Margin="10" UniformCornerRadius="0">
                 <StackPanel Width="400" Height="393">

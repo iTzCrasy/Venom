@@ -4,8 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Venom.Windows"
-             xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d"
              x:Name="RankingPlayer">
     <Grid>

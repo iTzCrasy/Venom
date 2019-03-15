@@ -13,22 +13,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Core;
 
-namespace Venom.Windows
+namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainViewStatsRankAlly.xaml
+    /// Interaktionslogik für RankingPlayer.xaml
     /// </summary>
-    public partial class MainViewStatsRankAlly : UserControl
+    public partial class RankingPlayer : UserControl
     {
-        public MainViewStatsRankAlly( )
+        public RankingPlayer( )
         {
             InitializeComponent( );
 
-            Allylist.ItemsSource = Game.GetInstance.GetAllyList( );
-            Allylist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+            Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
-
     }
 }

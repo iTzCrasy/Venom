@@ -23,8 +23,8 @@ namespace Venom.ViewModels
 
         //=> Statics
         public ICommand CmdViewStatsAll => new CommandExt( _ => MainView = new Windows.MainViewStatsAll( ) );
-        public ICommand CmdViewStatsRankPlayer => new CommandExt( _ => MainView = new Windows.MainViewStatsRankPlayer() );
-        public ICommand CmdViewStatsRankAlly => new CommandExt( _ => MainView = new Windows.MainViewStatsRankAlly( ) );
+        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = new Windows.MainViewRanking( 0 ) );
+        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = new Windows.MainViewRanking( 1 ) );
 
         public object MainView
         {
@@ -38,8 +38,12 @@ namespace Venom.ViewModels
             set => SetProperty( ref _CurrentUser, value  );
         }
 
-        private string _CurrentUser;
-        private object _MainView;
-        
+        public List<Core.GamePlayers> PlayerList
+        {
+            get => Core.Game.GetInstance.GetPlayerList( );
+        }
+
+        protected string _CurrentUser;
+        protected object _MainView;
     }
 }

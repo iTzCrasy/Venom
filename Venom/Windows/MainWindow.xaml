@@ -25,7 +25,7 @@
                     <RowDefinition Height="24"/>
                 </Grid.RowDefinitions>
 
-                <Fluent:Ribbon x:Name="ribbon" Grid.Row="0" CanQuickAccessLocationChanging="False" CanCustomizeQuickAccessToolBarItems="False" ShowQuickAccessToolBarAboveRibbon="False" CanMinimize="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False">
+                <Fluent:Ribbon x:Name="ribbon" Grid.Row="0" CanCustomizeQuickAccessToolBarItems="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" CanQuickAccessLocationChanging="False" ShowQuickAccessToolBarAboveRibbon="False">
                     <!--Backstage-->
                     <Fluent:Ribbon.Menu>
                         <Fluent:Backstage HideContextTabsOnOpen="True" Header="Menu">
@@ -51,16 +51,23 @@
 
                     <!--Tabs-->
                     <Fluent:RibbonTabItem Header="Start" x:Name="RibbonTabStart">
-                        <Fluent:RibbonGroupBox Header="">
-                            <Fluent:Button Header="Karte" Command="{Binding CmdViewMainMap}"/>
+                        <Fluent:RibbonGroupBox Header="Anzeige">
+                            <Fluent:ToggleButton Header="Karte" KeyTip="K" Command="{Binding CmdViewMainMap}">
+                                <Fluent:ToggleButton.LargeIcon>
+                                    <Material:PackIcon Kind="Map" Height="32" Width="32" />
+                                </Fluent:ToggleButton.LargeIcon>
+                            </Fluent:ToggleButton>
+                            <Fluent:DropDownButton Header="Ranking" ResizeMode="Both" ClosePopupOnMouseDownDelay="250">
+                                <Fluent:MenuItem Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
+                                <Fluent:MenuItem Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
+                            </Fluent:DropDownButton>
                         </Fluent:RibbonGroupBox>
+                    
                     </Fluent:RibbonTabItem>
 
                     <Fluent:RibbonTabItem Header="Statistiken">
                         <Fluent:RibbonGroupBox Header="Anzeige">
                             <Fluent:Button Header="Gesamt" Command="{Binding CmdViewStatsAll}"/>
-                            <Fluent:Button Header="Spieler" Command="{Binding CmdViewStatsRankPlayer}" />
-                            <Fluent:Button Header="Stämme" Command="{Binding CmdViewStatsRankAlly}"/>
                         </Fluent:RibbonGroupBox>
                     </Fluent:RibbonTabItem>
                 </Fluent:Ribbon>

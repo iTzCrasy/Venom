@@ -13,21 +13,21 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Core;
 
 namespace Venom.Windows
 {
     /// <summary>
     /// Interaktionslogik für MainViewStats.xaml
     /// </summary>
-    public partial class MainViewStatsRankPlayer : UserControl
+    public partial class MainViewRanking : UserControl
     {
-        public MainViewStatsRankPlayer( )
+        public MainViewRanking( int Type )
         {
             InitializeComponent();
 
-            Playerlist.ItemsSource = Game.GetInstance.GetPlayerList( );
-            Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+            DataContext = new Venom.ViewModels.MainViewModelRanking( Type );
+
+            //Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
     }
 }

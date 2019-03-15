@@ -28,7 +28,7 @@
                     <GridViewColumn Header="Villages" Width="100" DisplayMemberBinding="{Binding Villages}" />
                     <GridViewColumn Header="Points" Width="100" DisplayMemberBinding="{Binding Points, StringFormat='{}{0:0,0}'}" />
                     <GridViewColumn Header="Points / Village" Width="100" DisplayMemberBinding="{Binding PointsVillage, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Att" Width="100" DisplayMemberBinding="{Binding BashpointsAtt, StringFormat='{}{0:0,0}'}" />
+                    <GridViewColumn Header="Att" Width="100" DisplayMemberBinding="{Binding BashpointsAtt, StringFormat='{}{0:0}'}" />
                     <GridViewColumn Header="Def" Width="100" DisplayMemberBinding="{Binding BashpointsDef, StringFormat='{}{0:0,0}'}" />
                     <GridViewColumn Header="Sup" Width="100" DisplayMemberBinding="{Binding BashpointsSup, StringFormat='{}{0:0,0}'}" />
                     <GridViewColumn Header="All" Width="100" DisplayMemberBinding="{Binding BashpointsAll, StringFormat='{}{0:0,0}'}" />

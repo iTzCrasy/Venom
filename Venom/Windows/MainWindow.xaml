@@ -61,8 +61,9 @@
                                 <Fluent:MenuItem Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
                                 <Fluent:MenuItem Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
                             </Fluent:DropDownButton>
+                            <Fluent:ToggleButton Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>
+                            <Fluent:Button Header="Truppen" KeyTip="T" Command="{Binding CmdViewTroupList}" />
                         </Fluent:RibbonGroupBox>
-                    
                     </Fluent:RibbonTabItem>
 
                     <Fluent:RibbonTabItem Header="Statistiken">

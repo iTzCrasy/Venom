@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +20,9 @@ namespace Venom.Views
     /// </summary>
     public partial class TroupList : UserControl
     {
-        public TroupList()
+        public TroupList( )
         {
-            InitializeComponent();
+            InitializeComponent( );
         }
     }
 }

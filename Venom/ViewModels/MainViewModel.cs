@@ -20,6 +20,8 @@ namespace Venom.ViewModels
 
         //=> Main
         public ICommand CmdViewMainMap => new CommandExt( _ => MainView = new Windows.MainViewMap( ) );
+        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = new Views.TroupList( ) );
+
 
         //=> Statics
         public ICommand CmdViewStatsAll => new CommandExt( _ => MainView = new Windows.MainViewStatsAll( ) );

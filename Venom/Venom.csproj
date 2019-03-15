@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <None Remove="Assets\Images\Venom-Logo_300x300.png" />
+    <None Remove="Windows\MainViewStatsRankPlayer.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +30,9 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Windows\MainViewStatsRankPlayer.xaml.cs">
+      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
 

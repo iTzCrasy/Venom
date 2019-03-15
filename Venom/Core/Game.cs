@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 
-namespace Core
+namespace Venom.Core
 {
     public class Game : Singleton<Game>
     {

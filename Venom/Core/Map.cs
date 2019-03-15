@@ -10,7 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using Venom.Core;
 
-namespace Core
+namespace Venom.Core
 {
 	public struct VillageImages
 	{

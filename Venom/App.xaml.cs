@@ -5,7 +5,6 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Core;
 using Venom.Core;
 using Venom.Windows;
 using Venom.Windows.ViewModels;

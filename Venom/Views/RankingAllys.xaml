@@ -5,7 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Venom.Views"
-             xmlns:Core="clr-namespace:Core;assembly=Core"
              xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d">
     <Grid>

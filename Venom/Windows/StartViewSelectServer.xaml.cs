@@ -6,8 +6,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using Core;
 using MaterialDesignThemes.Wpf;
+using Venom.Core;
 
 namespace Venom.Windows
 {

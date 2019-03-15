@@ -1,6 +1,6 @@
 using System;
 
-namespace Core
+namespace Venom.Core
 {
     /// <summary>
     /// Singleton abstract class for creating easy singleton everywhere.

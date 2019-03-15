@@ -8,9 +8,9 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Venom.Core
 {
-    static class Network
+    public static class Network
     {
         public static string GetUrlRead( string Url )
         {

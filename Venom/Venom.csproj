@@ -73,6 +73,12 @@
   </PropertyGroup>
   <PropertyGroup />
   <ItemGroup>
+    <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Core.4.3.1\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Castle.Windsor, Version=5.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Castle.Windsor.5.0.0\lib\net45\Castle.Windsor.dll</HintPath>
+    </Reference>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
@@ -92,9 +98,12 @@
       <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
@@ -134,15 +143,12 @@
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Domain\CommandExt.cs" />
+    <Compile Include="Global.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
-    <Compile Include="ViewModels\MainViewModelMap.cs" />
-    <Compile Include="ViewModels\MainViewModelRanking.cs" />
-    <Compile Include="ViewModels\StatsRankPlayer.cs" />
-    <Compile Include="Views\RankingAllys.xaml.cs">
-      <DependentUpon>RankingAllys.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\RankingPlayer.xaml.cs">
-      <DependentUpon>RankingPlayer.xaml</DependentUpon>
+    <Compile Include="ViewModels\RankingAllyViewModel.cs" />
+    <Compile Include="ViewModels\RankingPlayerViewModel.cs" />
+    <Compile Include="Views\RankingAllyView.xaml.cs">
+      <DependentUpon>RankingAllyView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\TroupList.xaml.cs">
       <DependentUpon>TroupList.xaml</DependentUpon>
@@ -150,14 +156,11 @@
     <Compile Include="Windows\MainViewMap.xaml.cs">
       <DependentUpon>MainViewMap.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainViewRanking.xaml.cs">
-      <DependentUpon>MainViewRanking.xaml</DependentUpon>
+    <Compile Include="Views\RankingPlayerView.xaml.cs">
+      <DependentUpon>RankingPlayerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainViewStatsAll.xaml.cs">
       <DependentUpon>MainViewStatsAll.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\MainWindowStatusbar.xaml.cs">
-      <DependentUpon>MainWindowStatusbar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\StartViewSelectServer.xaml.cs">
       <DependentUpon>StartViewSelectServer.xaml</DependentUpon>
@@ -165,10 +168,6 @@
     <Compile Include="Windows\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\MainWindowRibbon.xaml.cs">
-      <DependentUpon>MainWindowRibbon.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Windows\ViewBase.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\StartViewSelectServerModel.cs" />
     <Compile Include="ViewModels\NotifyPropertyChangedExt.cs" />
@@ -184,13 +183,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RankingAllys.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="Views\RankingAllyView.xaml">
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\RankingPlayer.xaml">
       <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\TroupList.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -200,7 +195,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\MainViewRanking.xaml">
+    <Page Include="Views\RankingPlayerView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -220,19 +215,11 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\MainWindowStatusbar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Windows\StartViewSelectServer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\StartWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Windows\MainWindowRibbon.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,9 +259,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Properties\Venom-Logo_300x300.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.1 %28x86 und x64%29</ProductName>
@@ -289,20 +273,22 @@
   <ItemGroup>
     <Resource Include="Venom-Logo_300x300.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\unit_archer.png" />
-    <Resource Include="Resources\unit_axe.png" />
-    <Resource Include="Resources\unit_catapult.png" />
-    <Resource Include="Resources\unit_heavy.png" />
-    <Resource Include="Resources\unit_knight.png" />
-    <Resource Include="Resources\unit_light.png" />
-    <Resource Include="Resources\unit_marcher.png" />
-    <Resource Include="Resources\unit_ram.png" />
-    <Resource Include="Resources\unit_snob.png" />
-    <Resource Include="Resources\unit_spear.png" />
-    <Resource Include="Resources\unit_spy.png" />
-    <Resource Include="Resources\unit_sword.png" />
+    <Folder Include="Game\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\unit_archer.png" />
+    <Resource Include="Assets\Images\unit_axe.png" />
+    <Resource Include="Assets\Images\unit_catapult.png" />
+    <Resource Include="Assets\Images\unit_heavy.png" />
+    <Resource Include="Assets\Images\unit_knight.png" />
+    <Resource Include="Assets\Images\unit_light.png" />
+    <Resource Include="Assets\Images\unit_marcher.png" />
+    <Resource Include="Assets\Images\unit_ram.png" />
+    <Resource Include="Assets\Images\unit_snob.png" />
+    <Resource Include="Assets\Images\unit_spear.png" />
+    <Resource Include="Assets\Images\unit_spy.png" />
+    <Resource Include="Assets\Images\unit_sword.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\Venom-Logo_300x300.png" />

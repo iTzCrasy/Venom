@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Venom.Domain;
@@ -20,13 +21,19 @@ namespace Venom.ViewModels
 
         //=> Main
         public ICommand CmdViewMainMap => new CommandExt( _ => MainView = new Windows.MainViewMap( ) );
-        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = new Views.TroupList( ) );
+        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = Global.ViewTroupList );
 
 
         //=> Statics
         public ICommand CmdViewStatsAll => new CommandExt( _ => MainView = new Windows.MainViewStatsAll( ) );
-        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = new Windows.MainViewRanking( 0 ) );
-        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = new Windows.MainViewRanking( 1 ) );
+        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = Global.ViewRankingPlayer );
+        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = Global.ViewRankingAlly );
+
+        public ICommand TestCommand => new CommandExt( OnTestCommand );
+
+        private void OnTestCommand( object O )
+        {
+        }
 
         public object MainView
         {

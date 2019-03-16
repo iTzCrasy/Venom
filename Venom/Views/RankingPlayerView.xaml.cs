@@ -17,13 +17,13 @@ using System.Windows.Shapes;
 namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für RankingPlayer.xaml
+    /// Interaktionslogik für MainViewStats.xaml
     /// </summary>
-    public partial class RankingPlayer : UserControl
+    public partial class RankingPlayerView : UserControl
     {
-        public RankingPlayer( )
+        public RankingPlayerView()
         {
-            InitializeComponent( );
+            InitializeComponent();
 
             Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }

@@ -7,7 +7,8 @@
         xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" 
         xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Windows="clr-namespace:Venom.Windows"
-        xmlns:Viewmodels="clr-namespace:Venom.ViewModels"
+        xmlns:Models="clr-namespace:Venom.ViewModels"
+        xmlns:Views="clr-namespace:Venom.Views"
         mc:Ignorable="d"
         Title="MainWindow"  
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -52,17 +53,18 @@
                     <!--Tabs-->
                     <Fluent:RibbonTabItem Header="Start" x:Name="RibbonTabStart">
                         <Fluent:RibbonGroupBox Header="Anzeige">
-                            <Fluent:ToggleButton Header="Karte" KeyTip="K" Command="{Binding CmdViewMainMap}">
-                                <Fluent:ToggleButton.LargeIcon>
+                            <Fluent:Button Header="Karte" KeyTip="K" Command="{Binding CmdViewMainMap}">
+                                <Fluent:Button.LargeIcon>
                                     <Material:PackIcon Kind="Map" Height="32" Width="32" />
-                                </Fluent:ToggleButton.LargeIcon>
-                            </Fluent:ToggleButton>
+                                </Fluent:Button.LargeIcon>
+                            </Fluent:Button>
                             <Fluent:DropDownButton Header="Ranking" ResizeMode="Both" ClosePopupOnMouseDownDelay="250">
                                 <Fluent:MenuItem Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
                                 <Fluent:MenuItem Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
                             </Fluent:DropDownButton>
-                            <Fluent:ToggleButton Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>
+                            <Fluent:Button Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>
                             <Fluent:Button Header="Truppen" KeyTip="T" Command="{Binding CmdViewTroupList}" />
+                            <Fluent:Button Header="Test" Command="{Binding TestCommand}" CommandParameter="{x:Type Views:RankingPlayerView}" />
                         </Fluent:RibbonGroupBox>
                     </Fluent:RibbonTabItem>
 

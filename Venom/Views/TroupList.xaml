@@ -41,77 +41,77 @@
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_spear.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_spear.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_sword.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_sword.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_axe.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_axe.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_archer.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_archer.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_spy.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_spy.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_light.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_light.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_marcher.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_marcher.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_ram.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_ram.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_catapult.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_catapult.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_knight.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_knight.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Resources/unit_snob.png" Height="18" Width="18" />
+                                <Image Source="/Venom;component/Assets/Images/unit_snob.png" Height="18" Width="18" />
                             </DataTemplate>
                         </GridViewColumn.HeaderTemplate>
                     </GridViewColumn>

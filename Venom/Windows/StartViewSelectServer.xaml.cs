@@ -108,9 +108,8 @@ namespace Venom.Windows
 
 			await Map.GetInstance.Load( );
 
-			var Win = new MainWindow( );
 			Dispatcher.Invoke( ( ) => eventArgs.Session.Close( ) );
-			Win.Show( );
+            Global.StartVenom( );
 		}
 
 		private void DeleteUserClick( object sender, RoutedEventArgs e )

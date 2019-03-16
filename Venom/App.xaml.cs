@@ -18,16 +18,21 @@ namespace Venom
     {
 		private void AppStartup( object sender, StartupEventArgs e )
 		{
+            Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
+
+            Global.Initialize( ); //=> Setup Global 
+            Global.Start( ); //=> Start Venom
+
 			ResourceManager.GetInstance.Initialize( );
 
 			Game.GetInstance.LoadServerList( );
 
-            var startWindow = new StartWindow
-            {
-                DataContext = new StartViewSelectServerModel( )
-            };
+            //var startWindow = new StartWindow
+            //{
+            //    DataContext = new StartViewSelectServerModel( )
+            //};
 			
-            startWindow.Show( );
+            //startWindow.Show( );
         }
     }
 }

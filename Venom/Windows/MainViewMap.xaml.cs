@@ -26,7 +26,6 @@ namespace Venom.Windows
         public MainViewMap()
         {
             InitializeComponent();
-            DataContext = new Venom.ViewModels.MainViewModelMap( );
 
             var Rand = new Random( );
 

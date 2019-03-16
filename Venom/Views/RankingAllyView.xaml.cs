@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,16 +14,20 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Venom.Windows
+namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainWindowStatusbar.xaml
+    /// Interaktionslogik für RankingAllyView.xaml
     /// </summary>
-    public partial class MainWindowStatusbar : UserControl
+    public partial class RankingAllyView : UserControl
     {
-        public MainWindowStatusbar()
+        public RankingAllyView( )
         {
-            InitializeComponent();
+            InitializeComponent( );
+
+            DataContext = new ViewModels.RankingAllyViewModel( );
+
+            Allylist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
     }
 }

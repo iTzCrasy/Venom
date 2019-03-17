@@ -22,10 +22,9 @@ namespace Venom
 
             Global.Initialize( ); //=> Setup Global 
             Global.Start( ); //=> Start Venom
+            Global.Game.LoadServerList( );
 
-			ResourceManager.GetInstance.Initialize( );
-
-            Core.Game.GetInstance.LoadServerList( );
+            ResourceManager.GetInstance.Initialize( );
 
             //var startWindow = new StartWindow
             //{

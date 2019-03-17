@@ -7,25 +7,13 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class GameBashpoint
+    public class BashpointAllyResource : IResource
     {
-        //=> $rank, $id, $kills
-        public int Id { get; set; }
-        public long Kills { get; set; }
-        public int Rank { get; set; }
-    }
+        private readonly Dictionary<int, BashpointAllyData> _bashpointAtt = new Dictionary<int, BashpointAllyData>( );
+        private readonly Dictionary<int, BashpointAllyData> _bashpointDef = new Dictionary<int, BashpointAllyData>( );
+        private readonly Dictionary<int, BashpointAllyData> _bashpointAll = new Dictionary<int, BashpointAllyData>( );
 
-
-    internal class BashpointAlly : IResource
-    {
-        private readonly Dictionary<int, GameBashpoint> _bashpointAttack = new Dictionary<int, GameBashpoint>( );
-        private readonly Dictionary<int, GameBashpoint> _bashpointDef = new Dictionary<int, GameBashpoint>( );
-        private readonly Dictionary<int, GameBashpoint> _bashpointAll = new Dictionary<int, GameBashpoint>( );
-
-
-
-
-        public BashpointAlly( )
+        public BashpointAllyResource( )
         {
 
         }
@@ -35,7 +23,7 @@ namespace Venom.Game.Resources
             //=> Loading Bashpoints Att
             var bashpointsAllysAtt = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_att_tribe.txt" ),
-                ( buffer ) => new GameBashpoint
+                ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
                     Id = buffer.ReadInt( ),
@@ -44,13 +32,13 @@ namespace Venom.Game.Resources
 
             foreach( var i in bashpointsAllysAtt )
             {
-                _bashpointAttack.Add( i.Id, i );
+                _bashpointAtt.Add( i.Id, i );
             }
 
 
             var bashpointsAllysDef = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_def_tribe.txt" ),
-                ( buffer ) => new GameBashpoint
+                ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
                     Id = buffer.ReadInt( ),
@@ -64,7 +52,7 @@ namespace Venom.Game.Resources
 
             var bashpointsAllysAll = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_all_tribe.txt" ),
-                ( buffer ) => new GameBashpoint
+                ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
                     Id = buffer.ReadInt( ),
@@ -77,15 +65,21 @@ namespace Venom.Game.Resources
             }
         }
 
+        public BashpointAllyData GetBashpointAtt( AllyData data )
+            => _bashpointAtt.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
 
-
-        public GameBashpoint GetBashpointAttack( AllyData data )
-            => _bashpointAttack.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
-
-        public GameBashpoint GetBashpointDef( AllyData data )
+        public BashpointAllyData GetBashpointDef( AllyData data )
             => _bashpointDef.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
 
-        public GameBashpoint GetBashpointAll( AllyData data )
+        public BashpointAllyData GetBashpointAll( AllyData data )
             => _bashpointAll.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+    }
+
+    public class BashpointAllyData
+    {
+        //=> $rank, $id, $kills
+        public int Id { get; set; }
+        public long Kills { get; set; }
+        public int Rank { get; set; }
     }
 }

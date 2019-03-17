@@ -47,10 +47,10 @@ namespace Venom.ViewModels
             set => SetProperty( ref _CurrentUser, value  );
         }
 
-        public List<Core.GamePlayers> PlayerList
-        {
-            get => Core.Game.GetInstance.GetPlayerList( );
-        }
+        //public List<Core.GamePlayers> PlayerList
+        //{
+        //    get => Core.Game.GetInstance.GetPlayerList( );
+        //}
 
         protected string _CurrentUser;
         protected object _MainView;

@@ -12,27 +12,22 @@ namespace Venom.Core
 {
     internal class Game
     {
+        private readonly PlayerResource _playerResource;
         private readonly AllyResource _allyResource;
-        private readonly BashpointAlly _bashpointAlly;
+        private readonly BashpointAllyResource _bashpointAllyResource;
 
         public Game(
+            PlayerResource playerResource,
             AllyResource allyResource,
-            BashpointAlly bashpointAlly
+            BashpointAllyResource bashpointAllyResource
             )
         {
+            _playerResource = playerResource;
             _allyResource = allyResource;
-            _bashpointAlly = bashpointAlly;
+            _bashpointAllyResource = bashpointAllyResource;
 
-            _Players.Clear();
-            _Allys.Clear();
             _Villages.Clear();
             _Conquers.Clear();
-
-            _BashpointsAtt.Clear();
-            _BashpointsDef.Clear();
-            _BashpointsAll.Clear();
-
-
         }
 
         public Task Load( bool Full )
@@ -44,65 +39,15 @@ namespace Venom.Core
 
             var Tasks = new List<Task>()
             {
-                LoadPlayer()
             };
 
             if( Full )
             {
-                Tasks.Add( LoadAllys() );
                 Tasks.Add( LoadVillages() );
                 Tasks.Add( LoadConquers() );
-                Tasks.Add( LoadBashpointsPlayer() );
-                Tasks.Add( LoadBashpointsAllys() );
             }
 
             return Task.WhenAll( Tasks );
-        }
-
-        public async Task LoadPlayer()
-        {
-            var Watch = new Stopwatch();
-            Watch.Start();
-
-            var Player = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/player.txt" ),
-                (buffer) => new GamePlayers
-                {
-                    ID = buffer.ReadInt(),
-                    Name = Uri.UnescapeDataString( buffer.ReadString() ).Replace( '+', ' ' ),
-                    Ally = buffer.ReadInt(),
-                    Villages = buffer.ReadInt(),
-                    Points = buffer.ReadInt(),
-                    Rank = buffer.ReadInt()
-                } );
-            _Players = Player.ToList( );
-
-            Watch.Stop();
-            Debug.WriteLine( "Loaded Data: " + Watch.ElapsedMilliseconds + "ms" );
-        }
-
-        public async Task LoadAllys()
-        {
-            var Watch = new Stopwatch();
-            Watch.Start();
-
-            var Allys = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/ally.txt" ),
-                (buffer) => new GameAllys
-                {
-                    ID = buffer.ReadInt(),
-                    Name = Uri.UnescapeDataString( buffer.ReadString() ).Replace( '+', ' ' ),
-                    Tag = Uri.UnescapeDataString( buffer.ReadString() ).Replace( '+', ' ' ),
-                    Members = buffer.ReadInt(),
-                    Villages = buffer.ReadInt(),
-                    Points = buffer.ReadInt(),
-                    AllPoints = buffer.ReadInt(),
-                    Rank = buffer.ReadInt()
-                } );
-            _Allys = Allys.ToList( );
-
-            Watch.Stop();
-            Debug.WriteLine( "Loaded Data: " + Watch.ElapsedMilliseconds + "ms" );
         }
 
         public async Task LoadVillages()
@@ -147,91 +92,6 @@ namespace Venom.Core
             Watch.Stop();
             Debug.WriteLine( "Loaded Data: " + Watch.ElapsedMilliseconds + "ms" );
         }
-
-        public async Task LoadBashpointsPlayer()
-        {
-            var Watch = new Stopwatch();
-            Watch.Start();
-
-            //=> Loading Bashpoints Att
-            var BashpointsAtt = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_att.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong( )
-                } );
-            _BashpointsAtt = BashpointsAtt.ToDictionary( x => x.ID, y => y );
-
-            //=> Loading Bashpoints Def
-            var BashpointsDef = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_def.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong( )
-                } );
-            _BashpointsDef = BashpointsDef.ToDictionary( x => x.ID, y => y );
-
-            //=> Loading Bashpoints Att
-            var BashpointsAll = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_all.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong( )
-                } );
-            _BashpointsAll = BashpointsAll.ToDictionary( x => x.ID, y => y );
-
-            Watch.Stop();
-            Debug.WriteLine( "Loaded Data: " + Watch.ElapsedMilliseconds + "ms" );
-        }
-
-        public async Task LoadBashpointsAllys()
-        {
-            var Watch = new Stopwatch();
-            Watch.Start();
-
-            //=> Loading Bashpoints Att
-            var BashpointsAllysAtt = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_att_tribe.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong( )
-                } );
-            _BashpointsAllysAtt = BashpointsAllysAtt.ToList( );
-
-            //=> Loading Bashpoints Def
-            var BashpointsAllysDef = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_def_tribe.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong()
-                } );
-            _BashpointsAllysDef = BashpointsAllysDef.ToList( );
-
-            //=> Loading Bashpoints Att
-            var BashpointsAllysAll = await CSVReader.DownloadFileAsync(
-                new Uri( SelectedServer.Url + "/map/kill_all_tribe.txt" ),
-                (buffer) => new GameBashpoints
-                {
-                    Rank = buffer.ReadInt(),
-                    ID = buffer.ReadInt(),
-                    Kills = buffer.ReadLong( )
-                } );
-            _BashpointsAllysAll = BashpointsAllysAll.ToList( );
-
-            Watch.Stop();
-            Debug.WriteLine( "Loaded Data: " + Watch.ElapsedMilliseconds + "ms" );
-        }
-       
 
 
         /// <summary>
@@ -283,42 +143,6 @@ namespace Venom.Core
         protected List<GameConquers> _Conquers = new List<GameConquers>();
 
         /// <summary>
-        /// Bashpoint Data Section
-        /// </summary>
-        public GameBashpoints GetBashpointsPlayer( int ID, int Type )
-        {
-            switch (Type)
-            {
-                case 0:
-                    return _BashpointsAtt.FirstOrDefault( p => p.Value.ID.Equals( ID ) ).Value;
-                case 1:
-                    return _BashpointsDef.FirstOrDefault( p => p.Value.ID.Equals( ID ) ).Value;
-                case 2:
-                    return _BashpointsAll.FirstOrDefault( p => p.Value.ID.Equals( ID ) ).Value;
-            }
-            return default( GameBashpoints );
-        }
-        public GameBashpoints GetBashpointsAlly( int ID, int Type )
-        {
-            switch( Type )
-            {
-                case 0:
-                    return _BashpointsAllysAtt.FirstOrDefault( p => p.ID.Equals( ID ) );
-                case 1:
-                    return _BashpointsAllysDef.FirstOrDefault( p => p.ID.Equals( ID ) );
-                case 2:
-                    return _BashpointsAllysAll.FirstOrDefault( p => p.ID.Equals( ID ) );
-            }
-            return default( GameBashpoints );
-        }
-        public Dictionary<int, GameBashpoints> _BashpointsAtt = new Dictionary<int, GameBashpoints>();
-        public Dictionary<int, GameBashpoints> _BashpointsDef = new Dictionary<int, GameBashpoints>();
-        public Dictionary<int, GameBashpoints> _BashpointsAll = new Dictionary<int, GameBashpoints>();
-        public List<GameBashpoints> _BashpointsAllysAtt = new List<GameBashpoints>();
-        public List<GameBashpoints> _BashpointsAllysDef = new List<GameBashpoints>();
-        public List<GameBashpoints> _BashpointsAllysAll = new List<GameBashpoints>();
-
-        /// <summary>
         /// Server Base
         /// </summary>
         protected ServerInfo SelectedServer
@@ -359,13 +183,13 @@ namespace Venom.Core
         public int Points { get; set; }
         public int Rank { get; set; }
 
-        //=> Custom
-        public int PointsVillage => Points / Villages;
-        public string AllyString => Game.GetInstance.GetAlly( Ally ).Tag;
-        public long BashpointsAtt => Game.GetInstance.GetBashpointsPlayer( ID, 0 ).Kills;
-        public long BashpointsDef => Game.GetInstance.GetBashpointsPlayer( ID, 1 ).Kills;
-        public long BashpointsAll => Game.GetInstance.GetBashpointsPlayer( ID, 2 ).Kills;
-        public long BashpointsSup => Game.GetInstance.GetBashpointsPlayer( ID, 2 ).Kills - ( Game.GetInstance.GetBashpointsPlayer( ID, 0 ).Kills + Game.GetInstance.GetBashpointsPlayer( ID, 1 ).Kills );
+        ////=> Custom
+        //public int PointsVillage => Points / Villages;
+        //public string AllyString => Game.GetInstance.GetAlly( Ally ).Tag;
+        //public long BashpointsAtt => Game.GetInstance.GetBashpointsPlayer( ID, 0 ).Kills;
+        //public long BashpointsDef => Game.GetInstance.GetBashpointsPlayer( ID, 1 ).Kills;
+        //public long BashpointsAll => Game.GetInstance.GetBashpointsPlayer( ID, 2 ).Kills;
+        //public long BashpointsSup => Game.GetInstance.GetBashpointsPlayer( ID, 2 ).Kills - ( Game.GetInstance.GetBashpointsPlayer( ID, 0 ).Kills + Game.GetInstance.GetBashpointsPlayer( ID, 1 ).Kills );
     }
 
     public struct GameVillages
@@ -407,13 +231,13 @@ namespace Venom.Core
         public int OldOwner { get; set; }
     }
 
-    public struct GameBashpoints
-    {
-        //=> $rank, $id, $kills
-        public int ID { get; set; }
-        public long Kills { get; set; }
-        public int Rank { get; set; }
-    }
+    //public struct GameBashpoints
+    //{
+    //    //=> $rank, $id, $kills
+    //    public int ID { get; set; }
+    //    public long Kills { get; set; }
+    //    public int Rank { get; set; }
+    //}
 
     public struct ServerInfo
     {

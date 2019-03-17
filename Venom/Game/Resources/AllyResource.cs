@@ -13,21 +13,9 @@ namespace Venom.Game.Resources
         private readonly Dictionary<string, AllyData> _allyByName = new Dictionary<string, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByTag = new Dictionary<string, AllyData>( );
 
-
-        public AllyData GetAllyById( int id )
-            => _allyData.TryGetValue( id, out var ally ) ? ally : null;
-
-        public AllyData GetAllyByName( string name )
-            => _allyByName.TryGetValue( name, out var ally ) ? ally : null;
-
-        public AllyData GetAllyByTag( string tag )
-            => _allyByTag.TryGetValue( tag, out var ally ) ? ally : null;
-
         // #todo check performance
         public IEnumerable<AllyData> GetAllies( )
             => _allyData.Values.ToList( );
-
-
 
         public async Task InitializeAsync( ServerInfo server )
         {
@@ -55,8 +43,17 @@ namespace Venom.Game.Resources
         {
             _allyData.Add( data.Id, data );
             _allyByName.Add( data.Name, data );
-            _allyByName.Add( data.Tag, data );
+            _allyByTag.Add( data.Tag, data );
         }
+
+        public AllyData GetAllyById( int id ) => 
+            _allyData.TryGetValue( id, out var ally ) ? ally : null;
+
+        public AllyData GetAllyByName( string name ) => 
+            _allyByName.TryGetValue( name, out var ally ) ? ally : null;
+
+        public AllyData GetAllyByTag( string tag ) => 
+            _allyByTag.TryGetValue( tag, out var ally ) ? ally : null;
     }
 
     public class AllyData

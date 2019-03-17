@@ -28,10 +28,10 @@ namespace Venom.Dialogs
 
         private void AddProfileDialogLoaded( object sender, RoutedEventArgs eventArgs )
         {
-            Servers.ItemsSource = Core.Game.GetInstance.GetServerList( );
-            Servers.DisplayMemberPath = "ID";
-            Servers.SelectedValuePath = "ID";
-            Servers.Items.SortDescriptions.Add( new SortDescription( "ID", ListSortDirection.Ascending ) );
+            //Servers.ItemsSource = Core.Game.GetInstance.GetServerList( );
+            //Servers.DisplayMemberPath = "ID";
+            //Servers.SelectedValuePath = "ID";
+            //Servers.Items.SortDescriptions.Add( new SortDescription( "ID", ListSortDirection.Ascending ) );
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Venom
             //=> Setup Resources
             _Container.Register( Castle.MicroKernel.Registration.Component.For<PlayerResource>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<AllyResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAlly>( )
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAllyResource>( )
                 .LifestyleSingleton( )
                 );
 
@@ -65,13 +65,13 @@ namespace Venom
             {
                 PlayerResource,
                 AllyResource,
-                BashpointAlly,
+                BashpointAllyResource,
             };
 
             var taskList = new List<Task>( );
             foreach( var i in resources )
             {
-                taskList.Add( i.Initialize( Core.Game.GetInstance.GetSelectedServer( ) ) );
+                taskList.Add( i.InitializeAsync( Game.GetSelectedServer() ) );
             }
 
             await Task.WhenAll( taskList );
@@ -103,9 +103,12 @@ namespace Venom
             _Container.Resolve<PlayerResource>( );
         public static AllyResource AllyResource =>
             _Container.Resolve<AllyResource>( );
+        public static BashpointAllyResource BashpointAllyResource => 
+            _Container.Resolve<BashpointAllyResource>( );
 
-        public static BashpointAlly BashpointAlly 
-            => _Container.Resolve<BashpointAlly>( );
+        //=> Game
+        public static Core.Game Game =>
+            _Container.Resolve<Core.Game>( );
 
     }
 }

@@ -8,7 +8,7 @@ namespace Venom.ViewModels
 {
     public class RankingPlayerViewModel : NotifyPropertyChangedExt
     {
-        public object PlayerList => Core.Game.GetInstance.GetPlayerList( );
+        //public object PlayerList => Core.Game.GetInstance.GetPlayerList( );
 
         public RankingPlayerViewModel()
         {

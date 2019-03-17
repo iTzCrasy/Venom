@@ -58,13 +58,10 @@
                                     <Material:PackIcon Kind="Map" Height="32" Width="32" />
                                 </Fluent:Button.LargeIcon>
                             </Fluent:Button>
-                            <Fluent:DropDownButton Header="Ranking" ResizeMode="Both" ClosePopupOnMouseDownDelay="250">
-                                <Fluent:MenuItem Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
-                                <Fluent:MenuItem Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
-                            </Fluent:DropDownButton>
                             <Fluent:Button Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>
+                            <Fluent:Button Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
+                            <Fluent:Button Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
                             <Fluent:Button Header="Truppen" KeyTip="T" Command="{Binding CmdViewTroupList}" />
-                            <Fluent:Button Header="Test" Command="{Binding TestCommand}" CommandParameter="{x:Type Views:RankingPlayerView}" />
                         </Fluent:RibbonGroupBox>
                     </Fluent:RibbonTabItem>
 

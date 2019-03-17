@@ -15,6 +15,9 @@ namespace Venom.ViewModels
 {
     public class MainViewModel : NotifyPropertyChangedExt
     {
+        protected string _CurrentUser;
+        protected object _MainView;
+
         public MainViewModel( )
         {
             CurrentUser = "Moralbasher";
@@ -30,12 +33,6 @@ namespace Venom.ViewModels
         public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = Global.ViewRankingPlayer );
         public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = Global.ViewRankingAlly );
 
-        public ICommand TestCommand => new CommandExt( OnTestCommand );
-
-        private void OnTestCommand( object O )
-        {
-        }
-
         public object MainView
         {
             get => _MainView;
@@ -47,13 +44,5 @@ namespace Venom.ViewModels
             get => _CurrentUser;
             set => SetProperty( ref _CurrentUser, value  );
         }
-
-        //public List<Core.GamePlayers> PlayerList
-        //{
-        //    get => Core.Game.GetInstance.GetPlayerList( );
-        //}
-
-        protected string _CurrentUser;
-        protected object _MainView;
     }
 }

@@ -146,6 +146,7 @@
     <Compile Include="Game\Resources\AllyResource.cs" />
     <Compile Include="Game\Resources\BashpointAllyResource.cs" />
     <Compile Include="Game\Resources\BashpointPlayerResource.cs" />
+    <Compile Include="Game\Resources\ConquerResource.cs" />
     <Compile Include="Game\Resources\PlayerResource.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
     <Compile Include="Game\Resources\VillageResource.cs" />

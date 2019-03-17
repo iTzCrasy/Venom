@@ -36,6 +36,7 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAllyResource>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointPlayerResource>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<VillageResource>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ConquerResource>( ).LifestyleSingleton( ) );
 
             //=> Setup Game
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Core.Game>( ).LifestyleSingleton( ));
@@ -66,6 +67,7 @@ namespace Venom
                 BashpointAllyResource,
                 BashpointPlayerResource,
                 VillageResource,
+                ConquerResource,
             };
 
             var taskList = new List<Task>( );
@@ -109,6 +111,8 @@ namespace Venom
             _Container.Resolve<BashpointPlayerResource>( );
         public static VillageResource VillageResource =>
             _Container.Resolve<VillageResource>( );
+        public static ConquerResource ConquerResource =>
+            _Container.Resolve<ConquerResource>( );
 
         //=> Game
         public static Core.Game Game =>

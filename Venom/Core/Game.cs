@@ -6,13 +6,23 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using Venom.Game.Resources;
 
 namespace Venom.Core
 {
-    public class Game : Singleton<Game>
+    internal class Game
     {
-        public Game()
+        private readonly AllyResource _allyResource;
+        private readonly BashpointAlly _bashpointAlly;
+
+        public Game(
+            AllyResource allyResource,
+            BashpointAlly bashpointAlly
+            )
         {
+            _allyResource = allyResource;
+            _bashpointAlly = bashpointAlly;
+
             _Players.Clear();
             _Allys.Clear();
             _Villages.Clear();
@@ -247,12 +257,12 @@ namespace Venom.Core
         /// <summary>
         /// Ally Data Section
         /// </summary>
-        public GameAllys GetAlly( int ID ) => _Allys.FirstOrDefault( p => p.ID.Equals( ID ) );
-        public GameAllys GetAllyByName( string Name ) => _Allys.FirstOrDefault( p => p.Name.Equals( Name ) );
-        public GameAllys GetAllyByTag( string Tag ) => _Allys.FirstOrDefault( p => p.Tag.Equals( Tag ) );
-        public List<GameAllys> GetAllyList( ) => _Allys;
+        //public GameAllys GetAlly( int ID ) => _Allys.FirstOrDefault( p => p.ID.Equals( ID ) );
+        //public GameAllys GetAllyByName( string Name ) => _Allys.FirstOrDefault( p => p.Name.Equals( Name ) );
+        //public GameAllys GetAllyByTag( string Tag ) => _Allys.FirstOrDefault( p => p.Tag.Equals( Tag ) );
+        //public List<GameAllys> GetAllyList( ) => _Allys;
         
-        protected List<GameAllys> _Allys = new List<GameAllys>();
+        //protected List<GameAllys> _Allys = new List<GameAllys>();
 
         /// <summary>
         /// Village Data Section
@@ -370,23 +380,23 @@ namespace Venom.Core
         public int Bonus { get; set; }
     }
 
-    public struct GameAllys
-    {
-        //=> $id, $name, $tag, $members, $villages, $points, $all_points, $rank
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string Tag { get; set; }
-        public int Members { get; set; }
-        public int Villages { get; set; }
-        public int Points { get; set; }
-        public int AllPoints { get; set; }
-        public int Rank { get; set; }
+    //public struct GameAllys
+    //{
+    //    //=> $id, $name, $tag, $members, $villages, $points, $all_points, $rank
+    //    public int ID { get; set; }
+    //    public string Name { get; set; }
+    //    public string Tag { get; set; }
+    //    public int Members { get; set; }
+    //    public int Villages { get; set; }
+    //    public int Points { get; set; }
+    //    public int AllPoints { get; set; }
+    //    public int Rank { get; set; }
 
-        //=> Custom
-        public long BashpointsAtt => Game.GetInstance.GetBashpointsAlly( ID, 0 ).Kills;
-        public long BashpointsDef => Game.GetInstance.GetBashpointsAlly( ID, 1 ).Kills;
-        public long BashpointsAll => Game.GetInstance.GetBashpointsAlly( ID, 2 ).Kills;
-    }
+    //    //=> Custom
+    //    public long BashpointsAtt => Game.GetInstance.GetBashpointsAlly( ID, 0 ).Kills;
+    //    public long BashpointsDef => Game.GetInstance.GetBashpointsAlly( ID, 1 ).Kills;
+    //    public long BashpointsAll => Game.GetInstance.GetBashpointsAlly( ID, 2 ).Kills;
+    //}
 
     public struct GameConquers
     {

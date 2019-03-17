@@ -144,6 +144,7 @@
     </Compile>
     <Compile Include="Domain\CommandExt.cs" />
     <Compile Include="Game\Resources\AllyResource.cs" />
+    <Compile Include="Game\Resources\BashpointAlly.cs" />
     <Compile Include="Game\Resources\PlayerResource.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
     <Compile Include="Global.cs" />

@@ -14,12 +14,12 @@ namespace Venom
     {
         private static readonly WindsorContainer _Container;
 
-        static Global()
+        static Global( )
         {
             _Container = new WindsorContainer( );
         }
 
-        public static void Initialize()
+        public static void Initialize( )
         {
             //=> Setup Windows
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Windows.StartWindow>( ).LifestyleSingleton( ) );
@@ -28,25 +28,34 @@ namespace Venom
             //=> Setup Views
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Views.TroupList>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Views.RankingPlayerView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<Views.RankingAllyView>().LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<Views.RankingAllyView>( ).LifestyleSingleton( ) );
 
             //=> Setup Resources
             _Container.Register( Castle.MicroKernel.Registration.Component.For<PlayerResource>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<AllyResource>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAlly>( )
+                .LifestyleSingleton( )
+                );
+
+
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<Core.Game>( )
+                .LifestyleSingleton( )
+                );
+
         }
 
-        public static void Shutdown()
+        public static void Shutdown( )
         {
             //=> TODO: Implement save here!
             System.Windows.Application.Current.Shutdown( );
         }
 
-        public static void Start()
+        public static void Start( )
         {
             WindowStart.Show( );    //=> Show first window
         }
 
-        public static async void StartVenom()
+        public static async void StartVenom( )
         {
             var Watch = new Stopwatch( );
             Watch.Start( );
@@ -55,13 +64,14 @@ namespace Venom
             var resources = new IResource[]
             {
                 PlayerResource,
-                AllyResource
+                AllyResource,
+                BashpointAlly,
             };
 
             var taskList = new List<Task>( );
             foreach( var i in resources )
             {
-                taskList.Add( i.Initialize( Core.Game.GetInstance.GetSelectedServer() ) );
+                taskList.Add( i.Initialize( Core.Game.GetInstance.GetSelectedServer( ) ) );
             }
 
             await Task.WhenAll( taskList );
@@ -93,5 +103,9 @@ namespace Venom
             _Container.Resolve<PlayerResource>( );
         public static AllyResource AllyResource =>
             _Container.Resolve<AllyResource>( );
+
+        public static BashpointAlly BashpointAlly 
+            => _Container.Resolve<BashpointAlly>( );
+
     }
 }

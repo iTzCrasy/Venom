@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Venom.Game.Resources;
 
 namespace Venom.Views
 {
@@ -21,13 +22,23 @@ namespace Venom.Views
     /// </summary>
     public partial class RankingAllyView : UserControl
     {
-        public RankingAllyView( )
+        private readonly AllyResource _allyResource;
+
+        public RankingAllyView( 
+            AllyResource allyResource
+            )
         {
+            _allyResource = allyResource;
+
             InitializeComponent( );
 
-            DataContext = new ViewModels.RankingAllyViewModel( );
+            DataContext = new ViewModels.RankingAllyViewModel( )
+            {
+                AllyList = _allyResource.GetAllies( ),
+            };
 
-            Allylist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+            Allylist.Items.SortDescriptions
+                .Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
     }
 }

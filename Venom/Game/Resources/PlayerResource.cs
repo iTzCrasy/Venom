@@ -10,7 +10,7 @@ namespace Venom.Game.Resources
     internal class PlayerResource : IResource
     {
         private readonly Dictionary<int, PlayerData> _playerData = new Dictionary<int, PlayerData>( );
-        public async Task Initialize( ServerInfo server )
+        public async Task InitializeAsync( ServerInfo server )
         {
             var playerData = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/player.txt" ),

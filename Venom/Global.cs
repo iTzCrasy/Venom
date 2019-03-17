@@ -33,14 +33,12 @@ namespace Venom
             //=> Setup Resources
             _Container.Register( Castle.MicroKernel.Registration.Component.For<PlayerResource>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<AllyResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAllyResource>( )
-                .LifestyleSingleton( )
-                );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAllyResource>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointPlayerResource>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<VillageResource>( ).LifestyleSingleton( ) );
 
-
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<Core.Game>( )
-                .LifestyleSingleton( )
-                );
+            //=> Setup Game
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<Core.Game>( ).LifestyleSingleton( ));
 
         }
 
@@ -66,6 +64,8 @@ namespace Venom
                 PlayerResource,
                 AllyResource,
                 BashpointAllyResource,
+                BashpointPlayerResource,
+                VillageResource,
             };
 
             var taskList = new List<Task>( );
@@ -105,6 +105,10 @@ namespace Venom
             _Container.Resolve<AllyResource>( );
         public static BashpointAllyResource BashpointAllyResource => 
             _Container.Resolve<BashpointAllyResource>( );
+        public static BashpointPlayerResource BashpointPlayerResource =>
+            _Container.Resolve<BashpointPlayerResource>( );
+        public static VillageResource VillageResource =>
+            _Container.Resolve<VillageResource>( );
 
         //=> Game
         public static Core.Game Game =>

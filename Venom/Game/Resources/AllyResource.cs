@@ -7,7 +7,7 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    internal class AllyResource : IResource
+    public class AllyResource : IResource
     {
         private readonly Dictionary<int, AllyData> _allyData = new Dictionary<int, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByName = new Dictionary<string, AllyData>( );
@@ -71,5 +71,9 @@ namespace Venom.Game.Resources
         public int Points { get; set; }
         public int AllPoints { get; set; }
         public int Rank { get; set; }
+
+        public long BashpointAtt => Global.BashpointAllyResource.GetBashpointAtt( this ).Kills;
+        public long BashpointDef => Global.BashpointAllyResource.GetBashpointDef( this ).Kills;
+        public long BashpointAll => Global.BashpointAllyResource.GetBashpointAll( this ).Kills;
     }
 }

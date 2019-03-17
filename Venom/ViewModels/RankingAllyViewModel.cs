@@ -11,7 +11,6 @@ namespace Venom.ViewModels
     {
         public IEnumerable<AllyData> AllyList { get; set; }
 
-
         public RankingAllyViewModel( )
         {
         }

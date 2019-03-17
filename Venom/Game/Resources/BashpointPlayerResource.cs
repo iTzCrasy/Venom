@@ -7,7 +7,7 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    internal class BashpointPlayerResource : IResource
+    public class BashpointPlayerResource : IResource
     {
         private readonly Dictionary<int, BashpointPlayerData> _bashpointAtt = new Dictionary<int, BashpointPlayerData>( );
         private readonly Dictionary<int, BashpointPlayerData> _bashpointDef = new Dictionary<int, BashpointPlayerData>( );

@@ -7,7 +7,7 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    internal class BashpointAllyResource : IResource
+    public class BashpointAllyResource : IResource
     {
         private readonly Dictionary<int, BashpointAllyData> _bashpointAtt = new Dictionary<int, BashpointAllyData>( );
         private readonly Dictionary<int, BashpointAllyData> _bashpointDef = new Dictionary<int, BashpointAllyData>( );
@@ -65,14 +65,14 @@ namespace Venom.Game.Resources
             }
         }
 
-        public BashpointAllyData GetBashpointAtt( AllyData data )
-            => _bashpointAtt.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+        public BashpointAllyData GetBashpointAtt( AllyData data ) => 
+            _bashpointAtt.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
 
-        public BashpointAllyData GetBashpointDef( AllyData data )
-            => _bashpointDef.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+        public BashpointAllyData GetBashpointDef( AllyData data ) => 
+            _bashpointDef.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
 
-        public BashpointAllyData GetBashpointAll( AllyData data )
-            => _bashpointAll.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+        public BashpointAllyData GetBashpointAll( AllyData data ) => 
+            _bashpointAll.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
     }
 
     public class BashpointAllyData

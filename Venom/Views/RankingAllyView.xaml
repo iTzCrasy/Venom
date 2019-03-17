@@ -21,8 +21,9 @@
                         <TextBlock Margin="6">Suche</TextBlock>
                     </StackPanel>
                 </Material:ColorZone>
-                <StackPanel Margin="4">
-                    <TextBox />
+                <StackPanel Margin="10">
+                    <TextBox Material:HintAssist.Hint="Spielername" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
+                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchPlayer}"/>
                 </StackPanel>
             </StackPanel>
         </Material:Card>
@@ -44,9 +45,9 @@
                     <GridViewColumn Header="Mitglieder" Width="100" DisplayMemberBinding="{Binding Members}" />
                     <GridViewColumn Header="Dörfer" Width="100" DisplayMemberBinding="{Binding Villages}" />
                     <GridViewColumn Header="Punkte" Width="100" DisplayMemberBinding="{Binding Points, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Als Angreifer" Width="120" DisplayMemberBinding="{Binding BashpointsAtt, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Als Verteidiger" Width="120" DisplayMemberBinding="{Binding BashpointsDef, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Gesamt" Width="100" DisplayMemberBinding="{Binding BashpointsAll, StringFormat='{}{0:0,0}'}" />
+                    <GridViewColumn Header="Als Angreifer" Width="120" DisplayMemberBinding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}" />
+                    <GridViewColumn Header="Als Verteidiger" Width="120" DisplayMemberBinding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}" />
+                    <GridViewColumn Header="Gesamt" Width="100" DisplayMemberBinding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}" />
                 </GridView>
             </ListView.View>
         </ListView>

@@ -34,7 +34,7 @@ namespace Venom.Views
 
             DataContext = new ViewModels.RankingAllyViewModel( )
             {
-                AllyList = _allyResource.GetAllies( ),
+                AllyList = _allyResource.GetAllyList( ),
             };
 
             Allylist.Items.SortDescriptions

@@ -148,6 +148,7 @@
     <Compile Include="Game\Resources\BashpointPlayerResource.cs" />
     <Compile Include="Game\Resources\PlayerResource.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
+    <Compile Include="Game\Resources\VillageResource.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\RankingAllyViewModel.cs" />

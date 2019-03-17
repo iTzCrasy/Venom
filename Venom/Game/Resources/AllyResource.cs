@@ -7,15 +7,16 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class AllyResource : IResource
+    internal class AllyResource : IResource
     {
         private readonly Dictionary<int, AllyData> _allyData = new Dictionary<int, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByName = new Dictionary<string, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByTag = new Dictionary<string, AllyData>( );
 
-        // #todo check performance
-        public IEnumerable<AllyData> GetAllies( )
-            => _allyData.Values.ToList( );
+        public AllyResource()
+        {
+
+        }
 
         public async Task InitializeAsync( ServerInfo server )
         {
@@ -45,6 +46,9 @@ namespace Venom.Game.Resources
             _allyByName.Add( data.Name, data );
             _allyByTag.Add( data.Tag, data );
         }
+
+        public IEnumerable<AllyData> GetAllyList( ) => 
+            _allyData.Values.ToList( );
 
         public AllyData GetAllyById( int id ) => 
             _allyData.TryGetValue( id, out var ally ) ? ally : null;

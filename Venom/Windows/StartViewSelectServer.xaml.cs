@@ -62,10 +62,10 @@ namespace Venom.Windows
 
 			eventArgs.Cancel( ); //=> Cancel Close
 			eventArgs.Session.UpdateContent( new Dialogs.ProgressDialog( ) );
-			Game.GetInstance.SetSelectedServer( SelectedServer );
-			await Game.GetInstance.Load( false );
+            Core.Game.GetInstance.SetSelectedServer( SelectedServer );
+			await Core.Game.GetInstance.Load( false );
 
-			var Player = Game.GetInstance.GetPlayer( Username );
+			var Player = Core.Game.GetInstance.GetPlayer( Username );
 			if( Player.Equals( default( GamePlayers ) ) )
 			{
 				Debug.WriteLine( "Player Not Valid" );
@@ -97,12 +97,12 @@ namespace Venom.Windows
 			Debug.Assert( Userlist.SelectedItem is Profile );
 
 			var Profile = ( Profile )Userlist.SelectedItem;
-			Game.GetInstance.SetSelectedServer( Profile.Server );
-			Game.GetInstance.SetSelectedPlayer( Profile.Name );
+            Core.Game.GetInstance.SetSelectedServer( Profile.Server );
+            Core.Game.GetInstance.SetSelectedPlayer( Profile.Name );
 
 			var Watch = new Stopwatch( );
 			Watch.Start( );
-			await Game.GetInstance.Load( true );
+			await Core.Game.GetInstance.Load( true );
 			Watch.Stop( );
 			Debug.WriteLine( "Loaded Data Finished: " + Watch.ElapsedMilliseconds );
 

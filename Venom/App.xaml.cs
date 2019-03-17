@@ -25,7 +25,7 @@ namespace Venom
 
 			ResourceManager.GetInstance.Initialize( );
 
-			Game.GetInstance.LoadServerList( );
+            Core.Game.GetInstance.LoadServerList( );
 
             //var startWindow = new StartWindow
             //{

@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Venom.Core;
 
 namespace Venom.Dialogs
 {
@@ -29,7 +28,7 @@ namespace Venom.Dialogs
 
         private void AddProfileDialogLoaded( object sender, RoutedEventArgs eventArgs )
         {
-            Servers.ItemsSource = Game.GetInstance.GetServerList( );
+            Servers.ItemsSource = Core.Game.GetInstance.GetServerList( );
             Servers.DisplayMemberPath = "ID";
             Servers.SelectedValuePath = "ID";
             Servers.Items.SortDescriptions.Add( new SortDescription( "ID", ListSortDirection.Ascending ) );

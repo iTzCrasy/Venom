@@ -143,6 +143,9 @@
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Domain\CommandExt.cs" />
+    <Compile Include="Game\Resources\AllyResource.cs" />
+    <Compile Include="Game\Resources\PlayerResource.cs" />
+    <Compile Include="Game\Resources\Resource.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\RankingAllyViewModel.cs" />
@@ -273,9 +276,7 @@
   <ItemGroup>
     <Resource Include="Venom-Logo_300x300.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Game\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Images\unit_archer.png" />
     <Resource Include="Assets\Images\unit_axe.png" />

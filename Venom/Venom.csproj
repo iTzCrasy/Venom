@@ -143,13 +143,13 @@
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Domain\CommandExt.cs" />
-    <Compile Include="Game\Resources\AllyResource.cs" />
-    <Compile Include="Game\Resources\BashpointAllyResource.cs" />
-    <Compile Include="Game\Resources\BashpointPlayerResource.cs" />
-    <Compile Include="Game\Resources\ConquerResource.cs" />
-    <Compile Include="Game\Resources\PlayerResource.cs" />
+    <Compile Include="Game\Resources\ResourceAlly.cs" />
+    <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
+    <Compile Include="Game\Resources\ResourceBashpointPlayer.cs" />
+    <Compile Include="Game\Resources\ResourceConquer.cs" />
+    <Compile Include="Game\Resources\ResourcePlayer.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
-    <Compile Include="Game\Resources\VillageResource.cs" />
+    <Compile Include="Game\Resources\ResourceVillage.cs" />
     <Compile Include="Global.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\RankingAllyViewModel.cs" />

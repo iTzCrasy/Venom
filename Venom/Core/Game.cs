@@ -12,19 +12,8 @@ namespace Venom.Core
 {
     internal class Game
     {
-        private readonly PlayerResource _playerResource;
-        private readonly AllyResource _allyResource;
-        private readonly BashpointAllyResource _bashpointAllyResource;
-
-        public Game(
-            PlayerResource playerResource,
-            AllyResource allyResource,
-            BashpointAllyResource bashpointAllyResource
-            )
+        public Game()
         {
-            _playerResource = playerResource;
-            _allyResource = allyResource;
-            _bashpointAllyResource = bashpointAllyResource;
         }
 
         /// <summary>

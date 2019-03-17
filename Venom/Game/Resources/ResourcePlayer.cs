@@ -7,12 +7,12 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class PlayerResource : IResource
+    public class ResourcePlayer : IResource
     {
         private readonly Dictionary<int, PlayerData> _playerData = new Dictionary<int, PlayerData>( );
         private readonly Dictionary<string, PlayerData> _playerDataByName = new Dictionary<string, PlayerData>( );
 
-        public PlayerResource()
+        public ResourcePlayer()
         {
 
         }
@@ -64,13 +64,13 @@ namespace Venom.Game.Resources
         public int Rank { get; set; }
 
         public int PointsVillage => Points / Villages;
-        public string AllyString => Global.AllyResource.GetAllyById( Ally ).Tag;
-        public long BashpointAtt => Global.BashpointPlayerResource.GetBashpointAtt( this ).Kills;
-        public long BashpointDef => Global.BashpointPlayerResource.GetBashpointDef( this ).Kills;
-        public long BashpointAll => Global.BashpointPlayerResource.GetBashpointAll( this ).Kills;
+        public string AllyString => Global.ResourceAlly.GetAllyById( Ally ).Tag;
+        public long BashpointAtt => Global.ResourceBashpointPlayer.GetBashpointAtt( this ).Kills;
+        public long BashpointDef => Global.ResourceBashpointPlayer.GetBashpointDef( this ).Kills;
+        public long BashpointAll => Global.ResourceBashpointPlayer.GetBashpointAll( this ).Kills;
         public long BashpointSup => 
-            Global.BashpointPlayerResource.GetBashpointAll( this ).Kills -
-            ( Global.BashpointPlayerResource.GetBashpointAtt( this ).Kills +
-            Global.BashpointPlayerResource.GetBashpointDef( this ).Kills );
+            Global.ResourceBashpointPlayer.GetBashpointAll( this ).Kills -
+            ( Global.ResourceBashpointPlayer.GetBashpointAtt( this ).Kills +
+            Global.ResourceBashpointPlayer.GetBashpointDef( this ).Kills );
     }
 }

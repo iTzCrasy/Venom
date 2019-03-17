@@ -7,20 +7,20 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class BashpointPlayerResource : IResource
+    public class ResourceBashpointPlayer : IResource
     {
-        private readonly Dictionary<int, BashpointPlayerData> _bashpointAtt = new Dictionary<int, BashpointPlayerData>( );
-        private readonly Dictionary<int, BashpointPlayerData> _bashpointDef = new Dictionary<int, BashpointPlayerData>( );
-        private readonly Dictionary<int, BashpointPlayerData> _bashpointAll = new Dictionary<int, BashpointPlayerData>( );
+        private readonly Dictionary<int, BashpointPlayerData> _bashpointAttData = new Dictionary<int, BashpointPlayerData>( );
+        private readonly Dictionary<int, BashpointPlayerData> _bashpointDefData = new Dictionary<int, BashpointPlayerData>( );
+        private readonly Dictionary<int, BashpointPlayerData> _bashpointAllData = new Dictionary<int, BashpointPlayerData>( );
 
-        public BashpointPlayerResource()
+        public ResourceBashpointPlayer()
         {
 
         }
 
         public async Task InitializeAsync( ServerInfo server )
         {
-            var bashpointsPlayerDataAtt = await CSVReader.DownloadFileAsync(
+            var bashpointAttData = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_att.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
@@ -29,12 +29,12 @@ namespace Venom.Game.Resources
                     Kills = buffer.ReadLong( )
                 } );
 
-            foreach( var i in bashpointsPlayerDataAtt )
+            foreach( var i in bashpointAttData )
             {
-                _bashpointAtt.Add( i.Id, i );
+                _bashpointAttData.Add( i.Id, i );
             }
 
-            var bashpointsPlayerDataDef = await CSVReader.DownloadFileAsync(
+            var bashpointDefData = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_def.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
@@ -43,12 +43,12 @@ namespace Venom.Game.Resources
                     Kills = buffer.ReadLong( )
                 } );
 
-            foreach( var i in bashpointsPlayerDataDef )
+            foreach( var i in bashpointDefData )
             {
-                _bashpointDef.Add( i.Id, i );
+                _bashpointDefData.Add( i.Id, i );
             }
 
-            var bashpointsPlayerDataAll = await CSVReader.DownloadFileAsync(
+            var bashpointAllData = await CSVReader.DownloadFileAsync(
                 new Uri( server.Url + "/map/kill_all.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
@@ -57,18 +57,18 @@ namespace Venom.Game.Resources
                     Kills = buffer.ReadLong( )
                 } );
 
-            foreach( var i in bashpointsPlayerDataAll )
+            foreach( var i in bashpointAllData )
             {
-                _bashpointAll.Add( i.Id, i );
+                _bashpointAllData.Add( i.Id, i );
             }
         }
 
         public BashpointPlayerData GetBashpointAtt( PlayerData data ) =>
-            _bashpointAtt.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
         public BashpointPlayerData GetBashpointDef( PlayerData data ) =>
-            _bashpointDef.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
         public BashpointPlayerData GetBashpointAll( PlayerData data ) =>
-            _bashpointAll.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
     }
 
     public class BashpointPlayerData

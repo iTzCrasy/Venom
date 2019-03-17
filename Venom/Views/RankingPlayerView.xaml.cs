@@ -22,18 +22,18 @@ namespace Venom.Views
     /// </summary>
     public partial class RankingPlayerView : UserControl
     {
-        private readonly PlayerResource _playerResource;
+        private readonly ResourcePlayer _resourcePlayer;
 
         public RankingPlayerView(
-            PlayerResource playerResource )
+            ResourcePlayer playerResource )
         {
-            _playerResource = playerResource;
+            _resourcePlayer = playerResource;
 
             InitializeComponent();
 
             DataContext = new ViewModels.RankingPlayerViewModel( )
             {
-                PlayerList = _playerResource.GetPlayerList()
+                PlayerList = _resourcePlayer.GetPlayerList()
             };
 
             Playerlist.Items.SortDescriptions

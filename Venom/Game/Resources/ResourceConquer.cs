@@ -7,11 +7,11 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class ConquerResource : IResource
+    public class ResourceConquer : IResource
     {
         private readonly List<ConquerData> _conquerData = new List<ConquerData>( );
 
-        public ConquerResource()
+        public ResourceConquer()
         {
 
         }

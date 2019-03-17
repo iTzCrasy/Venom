@@ -36,14 +36,17 @@
 
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Dorf" Width="200"  />
-                    <GridViewColumn Header="Koordinaten" Width="130" />
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
+                    <GridViewColumn Header="Dorf" Width="180" DisplayMemberBinding="{Binding Name}" />
+                    <GridViewColumn Header="Koordinaten" Width="120" DisplayMemberBinding="{Binding CoordString}" />
+                    <GridViewColumn Header="Bauernhof" Width="100" >
+                        <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_spear.png" Height="18" Width="18" />
+                                <StackPanel>
+                                    <ProgressBar Width="60" Value="50" IsIndeterminate="False"/>
+                                    <TextBlock Text="12000/24000" FontSize="10"/>
+                                </StackPanel>
                             </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
+                        </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn Width="75" >
                         <GridViewColumn.HeaderTemplate>

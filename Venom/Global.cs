@@ -31,12 +31,12 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Views.RankingAllyView>( ).LifestyleSingleton( ) );
 
             //=> Setup Resources
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<PlayerResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<AllyResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointAllyResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<BashpointPlayerResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<VillageResource>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ConquerResource>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourcePlayer>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceAlly>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointAlly>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointPlayer>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceVillage>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceConquer>( ).LifestyleSingleton( ) );
 
             //=> Setup Game
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Core.Game>( ).LifestyleSingleton( ));
@@ -62,12 +62,12 @@ namespace Venom
             //=> TODO: Implement loading here!
             var resources = new IResource[]
             {
-                PlayerResource,
-                AllyResource,
-                BashpointAllyResource,
-                BashpointPlayerResource,
-                VillageResource,
-                ConquerResource,
+                ResourcePlayer,
+                ResourceAlly,
+                ResourceBashpointAlly,
+                ResourceBashpointPlayer,
+                ResourceVillage,
+                ResourceConquer,
             };
 
             var taskList = new List<Task>( );
@@ -101,18 +101,18 @@ namespace Venom
             _Container.Resolve<Views.RankingAllyView>( );
 
         //=> Resources
-        public static PlayerResource PlayerResource =>
-            _Container.Resolve<PlayerResource>( );
-        public static AllyResource AllyResource =>
-            _Container.Resolve<AllyResource>( );
-        public static BashpointAllyResource BashpointAllyResource => 
-            _Container.Resolve<BashpointAllyResource>( );
-        public static BashpointPlayerResource BashpointPlayerResource =>
-            _Container.Resolve<BashpointPlayerResource>( );
-        public static VillageResource VillageResource =>
-            _Container.Resolve<VillageResource>( );
-        public static ConquerResource ConquerResource =>
-            _Container.Resolve<ConquerResource>( );
+        public static ResourcePlayer ResourcePlayer =>
+            _Container.Resolve<ResourcePlayer>( );
+        public static ResourceAlly ResourceAlly =>
+            _Container.Resolve<ResourceAlly>( );
+        public static ResourceBashpointAlly ResourceBashpointAlly => 
+            _Container.Resolve<ResourceBashpointAlly>( );
+        public static ResourceBashpointPlayer ResourceBashpointPlayer =>
+            _Container.Resolve<ResourceBashpointPlayer>( );
+        public static ResourceVillage ResourceVillage =>
+            _Container.Resolve<ResourceVillage>( );
+        public static ResourceConquer ResourceConquer =>
+            _Container.Resolve<ResourceConquer>( );
 
         //=> Game
         public static Core.Game Game =>

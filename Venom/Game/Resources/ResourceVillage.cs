@@ -7,12 +7,12 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
-    public class VillageResource : IResource
+    public class ResourceVillage : IResource
     {
         private readonly Dictionary<int, VillageData> _villageData = new Dictionary<int, VillageData>();
         private readonly Dictionary<Tuple<int, int>, VillageData> _villageDataByCoord = new Dictionary<Tuple<int, int>, VillageData>( );
 
-        public VillageResource()
+        public ResourceVillage()
         {
 
         }

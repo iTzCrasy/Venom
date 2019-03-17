@@ -22,19 +22,19 @@ namespace Venom.Views
     /// </summary>
     public partial class RankingAllyView : UserControl
     {
-        private readonly AllyResource _allyResource;
+        private readonly ResourceAlly _resourceAlly;
 
         public RankingAllyView( 
-            AllyResource allyResource
+            ResourceAlly allyResource
             )
         {
-            _allyResource = allyResource;
+            _resourceAlly = allyResource;
 
             InitializeComponent( );
 
             DataContext = new ViewModels.RankingAllyViewModel( )
             {
-                AllyList = _allyResource.GetAllyList( ),
+                AllyList = _resourceAlly.GetAllyList( ),
             };
 
             Allylist.Items.SortDescriptions

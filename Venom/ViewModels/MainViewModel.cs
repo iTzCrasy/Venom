@@ -37,7 +37,7 @@ namespace Venom.ViewModels
             _profile = profile;
             _server = server;
 
-            MainView = App.Instance.ViewRankingPlayer; //=> Set Default View.
+           // MainView = App.Instance.ViewRankingPlayer; //=> Set Default View.
         }
 
         public object MainView

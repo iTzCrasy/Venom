@@ -22,22 +22,13 @@ namespace Venom.Views
     /// </summary>
     public partial class RankingPlayerView : UserControl
     {
-        private readonly ResourcePlayer _resourcePlayer;
-
-        public RankingPlayerView(
-            ResourcePlayer playerResource )
+        public RankingPlayerView()
         {
-            _resourcePlayer = playerResource;
-
             InitializeComponent();
 
-            DataContext = new ViewModels.RankingPlayerViewModel( )
-            {
-                PlayerList = _resourcePlayer.GetPlayerList()
-            };
+            DataContext = App.Instance.ViewModelRankingPlayer;
 
-            Playerlist.Items.SortDescriptions
-                .Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+            Playerlist.Items.SortDescriptions.Add( new SortDescription( "Points", ListSortDirection.Descending ) );
         }
     }
 }

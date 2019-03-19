@@ -31,7 +31,7 @@
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel>
-                                <ProgressBar Width="60" Value="50" IsIndeterminate="False" HorizontalAlignment="Left"/>
+                                <ProgressBar Width="60" Value="20000" IsIndeterminate="False" HorizontalAlignment="Left" Maximum="24000"/>
                                 <TextBlock Text="12000/24000" FontSize="10"/>
                             </StackPanel>
                         </DataTemplate>

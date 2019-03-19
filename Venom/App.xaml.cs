@@ -142,6 +142,8 @@ namespace Venom
             _Container.Resolve<MainViewModel>( );
         public TroupListViewModel ViewModelTroupList =>
             _Container.Resolve<TroupListViewModel>( );
+        public RankingPlayerViewModel ViewModelRankingPlayer =>
+            _Container.Resolve<RankingPlayerViewModel>( );
 
         //=> Resources
         public ResourcePlayer ResourcePlayer =>

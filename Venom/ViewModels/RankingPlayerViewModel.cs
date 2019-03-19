@@ -13,28 +13,44 @@ namespace Venom.ViewModels
 {
     public class RankingPlayerViewModel : NotifyPropertyChangedExt
     {
-        protected DataRowView _selectedRow;
-        public IEnumerable<PlayerData> PlayerList { get; set; }
+        private readonly ResourcePlayer _resourcePlayer;
 
-        public RankingPlayerViewModel()
+        private PlayerData _selectedPlayer;
+        private string _editUsername;
+
+        public RankingPlayerViewModel( ResourcePlayer resourcePlayer )
         {
+            _resourcePlayer = resourcePlayer;
+
+            SelectedPlayer = _resourcePlayer.GetPlayerByName( "Moralbasher" );
         }
 
         public ICommand CmdSearchPlayer => new CommandExt( OnSearchPlayer );
 
         private void OnSearchPlayer( object o )
         {
-            var data = App.Instance.ResourcePlayer.GetPlayerByName( "Moralbasher" );
+            var data = _resourcePlayer.GetPlayerByName( EditUsername );
             if( data != null )
             {
-                
+                SelectedPlayer = data;
             }
         }
 
-        public DataRowView selectedRow
+        public IEnumerable<PlayerData> PlayerList
         {
-            get => _selectedRow;
-            set => SetProperty( ref _selectedRow, value );
+            get => _resourcePlayer.GetPlayerList( );
+        }
+
+        public PlayerData SelectedPlayer
+        {
+            get => _selectedPlayer;
+            set => SetProperty( ref _selectedPlayer, value, "SelectedPlayer" );
+        }
+
+        public string EditUsername
+        {
+            get => _editUsername;
+            set => SetProperty( ref _editUsername, value, "EditUsername" );
         }
     }
 }

@@ -15,8 +15,6 @@ namespace Venom.ViewModels
         private readonly ResourcePlayer _resourcePlayer;
         private readonly ResourceVillage _resourceVillage;
 
-        public IEnumerable<VillageData> _villageList;
-
         public TroupListViewModel( 
             Profile profile,
             ResourcePlayer resourcePlayer,
@@ -34,4 +32,3 @@ namespace Venom.ViewModels
     }
 }
 
-// public IEnumerable<AllyData> AllyList { get; set; }

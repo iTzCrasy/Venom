@@ -6,9 +6,6 @@
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:Venom.ViewModels"
              mc:Ignorable="d">
-    <UserControl.DataContext>
-        <local:RankingPlayerViewModel />
-    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -25,12 +22,13 @@
                         <TextBlock Margin="6">Suche</TextBlock>
                     </StackPanel>
                 </Material:ColorZone>
-                <StackPanel Margin="4">
-                    <TextBox />
+                <StackPanel Margin="10">
+                    <TextBox Material:HintAssist.Hint="Spielername" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding EditUsername, Mode=TwoWay}" />
+                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchPlayer}"/>
                 </StackPanel>
             </StackPanel>
         </Material:Card>
-        <ListView Name="Playerlist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding PlayerList}">
+        <ListView Name="Playerlist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding PlayerList}" SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>

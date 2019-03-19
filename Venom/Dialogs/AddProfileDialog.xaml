@@ -17,14 +17,14 @@
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>-->
-        <ComboBox Material:HintAssist.Hint="Welt" x:Name="Servers" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+        <ComboBox Material:HintAssist.Hint="Welt" x:Name="Servers" ItemsSource="{Binding ServerList}" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectedItem="{Binding Path=SelectedServer, Mode=TwoWay}">
             <ComboBox.ItemsPanel>
                 <ItemsPanelTemplate>
                     <VirtualizingStackPanel/>
                 </ItemsPanelTemplate>
             </ComboBox.ItemsPanel>
         </ComboBox>
-        <TextBox Material:HintAssist.Hint="Benutzername" x:Name="Username" Style="{StaticResource MaterialDesignFloatingHintTextBox}">
+        <TextBox Material:HintAssist.Hint="Benutzername" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding Path=Username, Mode=TwoWay}">
             <!--<TextBox.Text>
                 <Binding Path="Username" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>

@@ -9,40 +9,46 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 using Venom.Domain;
+using Venom.Game;
 
 namespace Venom.ViewModels
 {
     public class MainViewModel : NotifyPropertyChangedExt
     {
-        protected string _CurrentUser;
+        private readonly Profile _profile;
+        private readonly Server _server;
         protected object _MainView;
-
-        public MainViewModel( )
-        {
-            CurrentUser = "Moralbasher";
-        }
 
         //=> Main
         public ICommand CmdViewMainMap => new CommandExt( _ => MainView = new Windows.MainViewMap( ) );
-        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = Global.ViewTroupList );
-
+        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = App.Instance.ViewTroupList );
 
         //=> Statics
         public ICommand CmdViewStatsAll => new CommandExt( _ => MainView = new Windows.MainViewStatsAll( ) );
-        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = Global.ViewRankingPlayer );
-        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = Global.ViewRankingAlly );
+        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = App.Instance.ViewRankingPlayer );
+        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = App.Instance.ViewRankingAlly );
+
+        public MainViewModel( 
+            Profile profile,
+            Server server )
+        {
+            _profile = profile;
+            _server = server;
+
+            MainView = App.Instance.ViewRankingPlayer; //=> Set Default View.
+        }
 
         public object MainView
         {
             get => _MainView;
-            set => SetProperty( ref _MainView, value );
+            set => SetProperty( ref _MainView, value, "MainView" );
         }
 
         public string CurrentUser
         {
-            get => _CurrentUser;
-            set => SetProperty( ref _CurrentUser, value  );
+            get => _profile.Local.Name;
         }
     }
 }

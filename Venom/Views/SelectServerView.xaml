@@ -1,10 +1,9 @@
-﻿<UserControl x:Class="Venom.Windows.StartViewSelectServer"
+﻿<UserControl x:Class="Venom.Views.SelectServerView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:Models="clr-namespace:Venom.Windows.ViewModels"
              mc:Ignorable="d">
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
         <Image Name="Logo" Source="/Assets/Images/Venom-Logo_300x300.png" Stretch="None" VerticalAlignment="Top" UseLayoutRounding="True"/>
@@ -17,10 +16,10 @@
                         </StackPanel>
                     </Material:ColorZone>
                     <StackPanel Margin="4">
-                        <ListView Name="Userlist" Height="300" PreviewMouseLeftButtonUp="UserlistSelected">
+                        <ListView Name="Userlist" Height="300" PreviewMouseLeftButtonUp="UserlistSelected" ItemsSource="{Binding ProfileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}">
                             <ListView.ContextMenu>
                                 <ContextMenu Name="UserlistContext">
-                                    <MenuItem Header="Entfernen" Name="DeleteUser" Click="DeleteUserClick"/>
+                                    <MenuItem Header="Entfernen" Name="DeleteUser" Command="{Binding CmdClickDel}"/>
                                 </ContextMenu>
                             </ListView.ContextMenu>
                             <ListView.GroupStyle>
@@ -42,10 +41,10 @@
                         </ListView>
                     </StackPanel>
                     <Grid Margin="4">
-                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonStart" IsEnabled="False" Click="ButtonStartClick">
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonStart" IsEnabled="False" Command="{Binding CmdClickStart}">
                             Benutzen
                         </Button>
-                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Benutzer Hinzufügen" HorizontalAlignment="Right" Click="ButtonAddProfileClick">
+                        <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Benutzer Hinzufügen" HorizontalAlignment="Right" Command="{Binding CmdClickAdd}">
                             <Material:PackIcon Kind="Plus" Height="24" Width="24" />
                         </Button>
                     </Grid>

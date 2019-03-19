@@ -23,103 +23,177 @@
                 </StackPanel>
             </StackPanel>
         </Material:Card>
-        <ListView Name="Troups" Grid.Column="1" ItemsSource="{Binding TroupList}">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
+        <DataGrid Grid.Column="1" ItemsSource="{Binding VillageList}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Dorf" Width="150" Binding="{Binding Name}" />
+                <DataGridTextColumn Header="Koordinaten" Width="110" Binding="{Binding CoordString}" />
+                <DataGridTemplateColumn Header="Bauernhof" Width="100">
+                    <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
+                            <StackPanel>
+                                <ProgressBar Width="60" Value="50" IsIndeterminate="False" HorizontalAlignment="Left"/>
+                                <TextBlock Text="12000/24000" FontSize="10"/>
+                            </StackPanel>
                         </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Dorf" Width="180" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Koordinaten" Width="120" DisplayMemberBinding="{Binding CoordString}" />
-                    <GridViewColumn Header="Bauernhof" Width="100" >
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel>
-                                    <ProgressBar Width="60" Value="50" IsIndeterminate="False"/>
-                                    <TextBlock Text="12000/24000" FontSize="10"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_sword.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_axe.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_archer.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_spy.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_light.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_marcher.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_ram.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_catapult.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_knight.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                    <GridViewColumn Width="75" >
-                        <GridViewColumn.HeaderTemplate>
-                            <DataTemplate>
-                                <Image Source="/Venom;component/Assets/Images/unit_snob.png" Height="18" Width="18" />
-                            </DataTemplate>
-                        </GridViewColumn.HeaderTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Spear -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_spear.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitSpear}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Sword -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_sword.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitSword}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Axe -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_axe.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitAxe}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Archer -->
+                <DataGridTemplateColumn Width="75" CanUserSort="True"  >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_archer.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitArcher}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Spy -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_spy.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitSpy}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Light -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_light.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitLight}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit MArcher -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_marcher.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitMarcher}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Heavy -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_heavy.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitHeavy}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Ram -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_ram.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitRam}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Catapult -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_catapult.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitCatapult}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Knight -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_knight.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitKnight}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <!-- Unit Snob -->
+                <DataGridTemplateColumn Width="75" >
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <Image Source="/Venom;component/Assets/Images/unit_snob.png" Height="18" Width="18" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding UnitSnob}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

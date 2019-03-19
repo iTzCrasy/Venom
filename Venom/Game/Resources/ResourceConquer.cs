@@ -9,17 +9,19 @@ namespace Venom.Game.Resources
 {
     public class ResourceConquer : IResource
     {
+        private readonly Server _server;
+
         private readonly List<ConquerData> _conquerData = new List<ConquerData>( );
 
-        public ResourceConquer()
+        public ResourceConquer( Server server )
         {
-
+            _server = server;
         }
 
-        public async Task InitializeAsync( ServerInfo server )
+        public async Task InitializeAsync()
         {
             var conquerData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/conquer.txt" ),
+                new Uri( _server.Local.Url + "/map/conquer.txt" ),
                 ( buffer ) => new ConquerData
                 {
                     Id = buffer.ReadInt( ),

@@ -9,20 +9,22 @@ namespace Venom.Game.Resources
 {
     public class ResourceBashpointAlly : IResource
     {
+        private readonly Server _server;
+
         private readonly Dictionary<int, BashpointAllyData> _bashpointAttData = new Dictionary<int, BashpointAllyData>( );
         private readonly Dictionary<int, BashpointAllyData> _bashpointDefData = new Dictionary<int, BashpointAllyData>( );
         private readonly Dictionary<int, BashpointAllyData> _bashpointAllData = new Dictionary<int, BashpointAllyData>( );
 
-        public ResourceBashpointAlly( )
+        public ResourceBashpointAlly( Server server )
         {
-
+            _server = server;
         }
 
-        public async Task InitializeAsync( ServerInfo server )
+        public async Task InitializeAsync()
         {
             //=> Loading Bashpoints Att
             var bashpointsAttData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_att_tribe.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_att_tribe.txt" ),
                 ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
@@ -37,7 +39,7 @@ namespace Venom.Game.Resources
 
 
             var bashpointsDefData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_def_tribe.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_def_tribe.txt" ),
                 ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
@@ -51,7 +53,7 @@ namespace Venom.Game.Resources
             }
 
             var bashpointsAllData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_all_tribe.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_all_tribe.txt" ),
                 ( buffer ) => new BashpointAllyData
                 {
                     Rank = buffer.ReadInt( ),
@@ -66,13 +68,13 @@ namespace Venom.Game.Resources
         }
 
         public BashpointAllyData GetBashpointAtt( AllyData data ) => 
-            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData( );
 
         public BashpointAllyData GetBashpointDef( AllyData data ) => 
-            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData( );
 
         public BashpointAllyData GetBashpointAll( AllyData data ) => 
-            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData();
     }
 
     public class BashpointAllyData

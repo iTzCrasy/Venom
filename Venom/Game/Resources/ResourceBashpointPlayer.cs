@@ -9,19 +9,21 @@ namespace Venom.Game.Resources
 {
     public class ResourceBashpointPlayer : IResource
     {
+        private readonly Server _server;
+
         private readonly Dictionary<int, BashpointPlayerData> _bashpointAttData = new Dictionary<int, BashpointPlayerData>( );
         private readonly Dictionary<int, BashpointPlayerData> _bashpointDefData = new Dictionary<int, BashpointPlayerData>( );
         private readonly Dictionary<int, BashpointPlayerData> _bashpointAllData = new Dictionary<int, BashpointPlayerData>( );
 
-        public ResourceBashpointPlayer()
+        public ResourceBashpointPlayer( Server server )
         {
-
+            _server = server;
         }
 
-        public async Task InitializeAsync( ServerInfo server )
+        public async Task InitializeAsync()
         {
             var bashpointAttData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_att.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_att.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
                     Rank = buffer.ReadInt( ),
@@ -35,7 +37,7 @@ namespace Venom.Game.Resources
             }
 
             var bashpointDefData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_def.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_def.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
                     Rank = buffer.ReadInt( ),
@@ -49,7 +51,7 @@ namespace Venom.Game.Resources
             }
 
             var bashpointAllData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/kill_all.txt" ),
+                new Uri( _server.Local.Url + "/map/kill_all.txt" ),
                 ( buffer ) => new BashpointPlayerData
                 {
                     Rank = buffer.ReadInt( ),
@@ -64,11 +66,11 @@ namespace Venom.Game.Resources
         }
 
         public BashpointPlayerData GetBashpointAtt( PlayerData data ) =>
-            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
         public BashpointPlayerData GetBashpointDef( PlayerData data ) =>
-            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
         public BashpointPlayerData GetBashpointAll( PlayerData data ) =>
-            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : null;
+            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
     }
 
     public class BashpointPlayerData

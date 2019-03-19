@@ -33,7 +33,7 @@
                             <Fluent:BackstageTabControl>
                                 <Fluent:BackstageTabItem Header="Test">
                                     <Fluent:RibbonGroupBox Header="Anzeigen" >
-                                        <Windows:StartViewSelectServer/>
+                                        <!--<Windows:StartViewSelectServer/>-->
                                     </Fluent:RibbonGroupBox>
                                 </Fluent:BackstageTabItem>
                                 <Fluent:BackstageTabItem Header="Test" />
@@ -71,7 +71,7 @@
                         </Fluent:RibbonGroupBox>
                     </Fluent:RibbonTabItem>
                 </Fluent:Ribbon>
-                <Material:TransitioningContent Grid.Row="1" Content="{Binding Path=MainView}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
+                <Material:TransitioningContent Grid.Row="1" Content="{Binding MainView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
                 <Fluent:StatusBar Grid.Row="2">
                     <Separator HorizontalAlignment="Left" />
 

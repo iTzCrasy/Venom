@@ -9,27 +9,29 @@ namespace Venom.Game.Resources
 {
     public class ResourceVillage : IResource
     {
+        private readonly Server _server;
+
         private readonly Dictionary<int, VillageData> _villageData = new Dictionary<int, VillageData>();
         private readonly Dictionary<Tuple<int, int>, VillageData> _villageDataByCoord = new Dictionary<Tuple<int, int>, VillageData>( );
 
-        public ResourceVillage()
+        public ResourceVillage( Server server )
         {
-
+            _server = server;
         }
 
-        public async Task InitializeAsync( ServerInfo server )
+        public async Task InitializeAsync()
         {
             var villageData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/village.txt" ),
+                new Uri( _server.Local.Url + "/map/village.txt" ),
                 ( buffer ) => new VillageData
                 {
                     Id = buffer.ReadInt( ),
-                    Name = buffer.ReadString( ),
+                    Name = Uri.UnescapeDataString( buffer.ReadString( ).Replace( '+', ' ' ) ),
                     X = buffer.ReadInt( ),
                     Y = buffer.ReadInt( ),
                     Owner = buffer.ReadInt( ),
                     Points = buffer.ReadInt( ),
-                    Bonus = buffer.ReadInt( )
+                    Bonus = buffer.ReadInt( ),
                 } );
 
             foreach( var i in villageData )
@@ -43,6 +45,10 @@ namespace Venom.Game.Resources
             _villageData.Add( data.Id, data );
             _villageDataByCoord.Add( new Tuple<int, int>( data.X, data.Y ), data );
         }
+
+        public IEnumerable<VillageData> GetVillagesByPlayer( PlayerData data ) =>
+            _villageData.Values.ToList( ).Where( x => x.Owner == data.Id );
+
     }
 
     public class VillageData
@@ -55,5 +61,20 @@ namespace Venom.Game.Resources
         public int Owner { get; set; }
         public int Points { get; set; }
         public int Bonus { get; set; }
+
+        public string CoordString => X + "|" + Y;
+
+        public int UnitSpear { get; set; }
+        public int UnitSword { get; set; }
+        public int UnitAxe { get; set; }
+        public int UnitArcher { get; set; }
+        public int UnitSpy { get; set; }
+        public int UnitLight { get; set; }
+        public int UnitMarcher { get; set; }
+        public int UnitHeavy { get; set; }
+        public int UnitRam { get; set; }
+        public int UnitCatapult { get; set; }
+        public int UnitKnight { get; set; }
+        public int UnitSnob { get; set; }
     }
 }

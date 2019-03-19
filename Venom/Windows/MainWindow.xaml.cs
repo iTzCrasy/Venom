@@ -28,7 +28,7 @@ namespace Venom.Windows
         {
             InitializeComponent();
 
-            DataContext = new Venom.ViewModels.MainViewModel( );
+            DataContext = App.Instance.ViewModelMain;
         }
 
         public ICommand TestCommand => new CommandExt( _ => Debug.WriteLine( "Test" ) ); // MainContent.Content = new MainViewStatsRankPlayer()

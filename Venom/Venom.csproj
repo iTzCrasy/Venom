@@ -127,10 +127,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Core\CSVReader.cs" />
-    <Compile Include="Core\Game.cs" />
     <Compile Include="Core\Map.cs" />
     <Compile Include="Core\Network.cs" />
-    <Compile Include="Core\Profiles.cs" />
     <Compile Include="Core\ResourceManager.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Dialogs\AddProfileDialog.xaml.cs">
@@ -143,6 +141,7 @@
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Domain\CommandExt.cs" />
+    <Compile Include="Game\Profile.cs" />
     <Compile Include="Game\Resources\ResourceAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointPlayer.cs" />
@@ -150,10 +149,12 @@
     <Compile Include="Game\Resources\ResourcePlayer.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
     <Compile Include="Game\Resources\ResourceVillage.cs" />
-    <Compile Include="Global.cs" />
+    <Compile Include="Game\Server.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\RankingAllyViewModel.cs" />
     <Compile Include="ViewModels\RankingPlayerViewModel.cs" />
+    <Compile Include="ViewModels\StartViewModel.cs" />
+    <Compile Include="ViewModels\TroupListViewModel.cs" />
     <Compile Include="Views\RankingAllyView.xaml.cs">
       <DependentUpon>RankingAllyView.xaml</DependentUpon>
     </Compile>
@@ -169,14 +170,13 @@
     <Compile Include="Windows\MainViewStatsAll.xaml.cs">
       <DependentUpon>MainViewStatsAll.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\StartViewSelectServer.xaml.cs">
-      <DependentUpon>StartViewSelectServer.xaml</DependentUpon>
+    <Compile Include="Views\SelectServerView.xaml.cs">
+      <DependentUpon>SelectServerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\StartWindow.xaml.cs">
       <DependentUpon>StartWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\StartViewSelectServerModel.cs" />
     <Compile Include="ViewModels\NotifyPropertyChangedExt.cs" />
     <Page Include="Dialogs\AddProfileDialog.xaml">
       <SubType>Designer</SubType>
@@ -222,7 +222,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Windows\StartViewSelectServer.xaml">
+    <Page Include="Views\SelectServerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -276,9 +276,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Venom-Logo_300x300.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -24,7 +24,7 @@ namespace Venom.ViewModels
 
         private void OnSearchPlayer( object o )
         {
-            var data = Global.ResourcePlayer.GetPlayerByName( "Moralbasher" );
+            var data = App.Instance.ResourcePlayer.GetPlayerByName( "Moralbasher" );
             if( data != null )
             {
                 

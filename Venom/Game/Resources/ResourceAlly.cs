@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,24 +10,30 @@ namespace Venom.Game.Resources
 {
     public class ResourceAlly : IResource
     {
+        private readonly Server _server;
+        private readonly ResourceBashpointAlly _resourceBashpoint;
+
         private readonly Dictionary<int, AllyData> _allyData = new Dictionary<int, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByName = new Dictionary<string, AllyData>( );
         private readonly Dictionary<string, AllyData> _allyByTag = new Dictionary<string, AllyData>( );
 
-        public ResourceAlly()
+        public ResourceAlly( 
+            Server server,
+            ResourceBashpointAlly resourceBashpoint )
         {
-
+            _server = server;
+            _resourceBashpoint = resourceBashpoint;
         }
 
-        public async Task InitializeAsync( ServerInfo server )
+        public async Task InitializeAsync()
         {
             var allyData = await CSVReader.DownloadFileAsync(
-                new Uri( server.Url + "/map/ally.txt" ),
-                ( buffer ) => new AllyData
+                new Uri( _server.Local.Url + "/map/ally.txt" ),
+                ( buffer ) => new AllyData( _resourceBashpoint )
                 {
                     Id = buffer.ReadInt( ),
-                    Name = Uri.UnescapeDataString( buffer.ReadString( ) ).Replace( '+', ' ' ),
-                    Tag = Uri.UnescapeDataString( buffer.ReadString( ) ).Replace( '+', ' ' ),
+                    Name = Uri.UnescapeDataString( buffer.ReadString( ).Replace( '+', ' ' ) ),
+                    Tag = Uri.UnescapeDataString( buffer.ReadString( ).Replace( '+', ' ' ) ),
                     Members = buffer.ReadInt( ),
                     Villages = buffer.ReadInt( ),
                     Points = buffer.ReadInt( ),
@@ -48,20 +55,29 @@ namespace Venom.Game.Resources
         }
 
         public IEnumerable<AllyData> GetAllyList( ) => 
-            _allyData.Values.ToList( );
+            _allyData.Values.ToList( ).Where( x => x.Points > 0 );
 
         public AllyData GetAllyById( int id ) => 
-            _allyData.TryGetValue( id, out var ally ) ? ally : null;
+            _allyData.TryGetValue( id, out var ally ) ? ally : new AllyData( null );
 
         public AllyData GetAllyByName( string name ) => 
-            _allyByName.TryGetValue( name, out var ally ) ? ally : null;
+            _allyByName.TryGetValue( name, out var ally ) ? ally : new AllyData( null );
 
         public AllyData GetAllyByTag( string tag ) => 
-            _allyByTag.TryGetValue( tag, out var ally ) ? ally : null;
+            _allyByTag.TryGetValue( tag, out var ally ) ? ally : new AllyData( null );
     }
 
     public class AllyData
     {
+        /// <summary>
+        /// Constructor, Injection
+        /// </summary>
+        private readonly ResourceBashpointAlly _resourceBashpoint;
+        public AllyData( ResourceBashpointAlly resourceBashpoint )
+        {
+            _resourceBashpoint = resourceBashpoint;
+        }
+
         //=> $id, $name, $tag, $members, $villages, $points, $all_points, $rank
         public int Id { get; set; }
         public string Name { get; set; }
@@ -72,8 +88,8 @@ namespace Venom.Game.Resources
         public int AllPoints { get; set; }
         public int Rank { get; set; }
 
-        public long BashpointAtt => Global.ResourceBashpointAlly.GetBashpointAtt( this ).Kills;
-        public long BashpointDef => Global.ResourceBashpointAlly.GetBashpointDef( this ).Kills;
-        public long BashpointAll => Global.ResourceBashpointAlly.GetBashpointAll( this ).Kills;
+        public long BashpointAtt => _resourceBashpoint.GetBashpointAtt( this ).Kills;
+        public long BashpointDef => _resourceBashpoint.GetBashpointDef( this ).Kills;
+        public long BashpointAll => _resourceBashpoint.GetBashpointAll( this ).Kills;
     }
 }

@@ -22,5 +22,10 @@ namespace Venom.ViewModels
             field = newValue;
             PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
         }
+
+        protected void UpdateProperty( [CallerMemberName]string propertyName = null )
+        {
+            PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+        }
     }
 }

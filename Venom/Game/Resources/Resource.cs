@@ -9,6 +9,6 @@ namespace Venom.Game.Resources
 {
     internal interface IResource
     {
-        Task InitializeAsync( ServerInfo server );
+        Task InitializeAsync();
     }
 }

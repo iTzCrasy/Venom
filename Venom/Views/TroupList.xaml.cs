@@ -23,6 +23,8 @@ namespace Venom.Views
         public TroupList( )
         {
             InitializeComponent( );
+
+            DataContext = App.Instance.ViewModelTroupList;
         }
     }
 }

@@ -23,7 +23,7 @@ namespace Venom.Windows
         {
             InitializeComponent();
 
-            DataContext = new ViewModels.StartViewSelectServerModel( );
+            DataContext = App.Instance.ViewModelStart;
         }
     }
 }

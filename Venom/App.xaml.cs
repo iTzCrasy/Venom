@@ -9,6 +9,7 @@ using System.Windows;
 using Castle.Windsor;
 using Venom.Core;
 using Venom.Windows;
+using Venom.Domain;
 using Venom.Views;
 using Venom.ViewModels;
 using Venom.Game;
@@ -36,6 +37,10 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<StartWindow>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ).LifestyleSingleton( ) );
 
+            //=> Setup Domains
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ClipboardHandler>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<TrayIcon>( ).LifestyleSingleton( ) );
+
             //=> Setup Game
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Profile>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Server>( ).LifestyleSingleton( ) );
@@ -60,6 +65,7 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointPlayer>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceVillage>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceConquer>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceTroup>( ).LifestyleSingleton( ) );
 
             //=> Loading Server & Profiles
             Profile.Load( );
@@ -106,7 +112,8 @@ namespace Venom
             await Task.WhenAll( taskListBashpoints );
 
             Watch.Stop( );
-            Debug.WriteLine( "New Time: " + Watch.ElapsedMilliseconds );
+
+            TrayIcon.ShowInfo( "Welcome to Venom!", "Loading finished in " + Watch.ElapsedMilliseconds + "ms" );
 
             WindowStart.Close( );   //=> Loading finished, close main window
             WindowMain.Show( );     //=> Show main window
@@ -118,6 +125,12 @@ namespace Venom
 
         public MainWindow WindowMain =>
             _Container.Resolve<MainWindow>( );
+
+        //=> Domains
+        public ClipboardHandler ClipboardHandler =>
+            _Container.Resolve<ClipboardHandler>( );
+        public TrayIcon TrayIcon =>
+            _Container.Resolve<TrayIcon>( );
 
         //=> Game
         public Profile Profile =>
@@ -144,6 +157,8 @@ namespace Venom
             _Container.Resolve<TroupListViewModel>( );
         public RankingPlayerViewModel ViewModelRankingPlayer =>
             _Container.Resolve<RankingPlayerViewModel>( );
+        public RankingAllyViewModel ViewModelRankingAlly =>
+            _Container.Resolve<RankingAllyViewModel>( );
 
         //=> Resources
         public ResourcePlayer ResourcePlayer =>

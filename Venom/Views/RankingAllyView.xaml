@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Properties="clr-namespace:Venom.Properties"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -22,12 +23,26 @@
                     </StackPanel>
                 </Material:ColorZone>
                 <StackPanel Margin="10">
-                    <TextBox Material:HintAssist.Hint="Spielername" Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
-                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchPlayer}"/>
+                    <TextBox Material:HintAssist.Hint="{x:Static Properties:Resources.StringAlly}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding EditAllyname, Mode=TwoWay}"/>
+                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchAlly}"/>
                 </StackPanel>
             </StackPanel>
         </Material:Card>
-        <ListView Name="Allylist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding AllyList}">
+        <DataGrid Grid.Column="1" ItemsSource="{Binding AllyList}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectedItem="{Binding SelectedAlly, Mode=TwoWay}" SelectionMode="Single" ScrollViewer.CanContentScroll="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderRank}" Width="60" Binding="{Binding Rank}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderName}" Width="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderTag}" Width="100" Binding="{Binding Tag}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderMember}" Width="100" Binding="{Binding Members}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderVillages}" Width="100" Binding="{Binding Villages}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderPoints}" Width="100" Binding="{Binding Points, StringFormat='{}{0:0,0}'}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderAtt}" Width="120" Binding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderDef}" Width="120" Binding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderAll}" Width="120" Binding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+            
+        <!--<ListView Name="Allylist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding AllyList}">
             <ListView.GroupStyle>
                 <GroupStyle>
                     <GroupStyle.HeaderTemplate>
@@ -50,6 +65,6 @@
                     <GridViewColumn Header="Gesamt" Width="100" DisplayMemberBinding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}" />
                 </GridView>
             </ListView.View>
-        </ListView>
+        </ListView>-->
     </Grid>
 </UserControl>

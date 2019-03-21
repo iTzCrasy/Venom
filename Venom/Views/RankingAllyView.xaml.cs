@@ -22,23 +22,16 @@ namespace Venom.Views
     /// </summary>
     public partial class RankingAllyView : UserControl
     {
-        private readonly ResourceAlly _resourceAlly;
-
-        public RankingAllyView( 
-            ResourceAlly allyResource
-            )
+        public RankingAllyView()
         {
-            _resourceAlly = allyResource;
-
             InitializeComponent( );
 
-            DataContext = new ViewModels.RankingAllyViewModel( )
-            {
-                AllyList = _resourceAlly.GetAllyList( ),
-            };
+            DataContext = App.Instance.ViewModelRankingAlly;
+        }
 
-            Allylist.Items.SortDescriptions
-                .Add( new SortDescription( "Points", ListSortDirection.Descending ) );
+        private void DataGrid_Selected( object sender, RoutedEventArgs e )
+        {
+
         }
     }
 }

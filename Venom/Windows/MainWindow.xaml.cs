@@ -14,6 +14,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Interop;
+using System.Runtime.InteropServices;
 using Fluent;
 using Venom.Domain;
 
@@ -24,11 +26,20 @@ namespace Venom.Windows
     /// </summary>
     public partial class MainWindow : IRibbonWindow
     {
+        private IntPtr _hWnd;
+        private HwndSource _hWndSource;
+
         public MainWindow()
         {
             InitializeComponent();
 
             DataContext = App.Instance.ViewModelMain;
+
+            //=> Place Hook
+            var interopHelper = new WindowInteropHelper( this );
+            _hWndSource = HwndSource.FromHwnd( interopHelper.EnsureHandle() );
+            _hWndSource.AddHook( WndProc );
+            _hWnd = SetClipboardViewer( _hWndSource.Handle );
         }
 
         public ICommand TestCommand => new CommandExt( _ => Debug.WriteLine( "Test" ) ); // MainContent.Content = new MainViewStatsRankPlayer()
@@ -46,5 +57,41 @@ namespace Venom.Windows
         /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
         /// </summary>
         public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
+
+
+        private IntPtr WndProc( IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled )
+        {
+            switch( msg )
+            {
+                case WM_CHANGECBCHAIN:
+                    if( wParam == _hWnd )
+                    {
+                        _hWnd = lParam;
+                    }
+                    else if( _hWnd != IntPtr.Zero )
+                    {
+                        SendMessage( _hWnd, msg, wParam, lParam );
+                    }
+                    break;
+
+                case WM_DRAWCLIPBOARD:
+                    //App.Instance.ClipboardHandler.Parse( ); //=> Parse Clipboard.
+                    SendMessage( _hWnd, msg, wParam, lParam );
+                    break;
+            }
+
+            return IntPtr.Zero;
+        }
+
+        internal const int WM_DRAWCLIPBOARD = 0x0308;
+        internal const int WM_CHANGECBCHAIN = 0x030D;
+        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+        internal static extern IntPtr SetClipboardViewer( IntPtr hWndNewViewer );
+
+        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+        internal static extern bool ChangeClipboardChain( IntPtr hWndRemove, IntPtr hWndNewNext );
+
+        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
+        internal static extern IntPtr SendMessage( IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam );
     }
 }

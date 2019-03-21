@@ -55,7 +55,8 @@
                         <Fluent:RibbonGroupBox Header="Anzeige">
                             <Fluent:Button Header="Karte" KeyTip="K" Command="{Binding CmdViewMainMap}">
                                 <Fluent:Button.LargeIcon>
-                                    <Material:PackIcon Kind="Map" Height="32" Width="32" />
+                                    <!--<Material:PackIcon Kind="Map" Height="32" Width="32" />-->
+                                    <Image Source="/Venom;component/Assets/Images/unit_knight.png"/>
                                 </Fluent:Button.LargeIcon>
                             </Fluent:Button>
                             <Fluent:Button Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>

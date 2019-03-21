@@ -38,7 +38,7 @@ namespace Venom.ViewModels
 
         public IEnumerable<PlayerData> PlayerList
         {
-            get => _resourcePlayer.GetPlayerList( );
+            get => _resourcePlayer.GetPlayerList( ).OrderByDescending( x => x.Points );
         }
 
         public PlayerData SelectedPlayer

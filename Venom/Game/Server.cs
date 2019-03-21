@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Xml;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Venom.Core;
 
 namespace Venom.Game
@@ -48,6 +50,13 @@ namespace Venom.Game
             //=> TODO: Implement loading server config!
             _Local = _ServerData.FirstOrDefault( x => x.Id.Equals( serverId ) );
 
+            using( var web = new WebClient( ) )
+            {
+                var xml = new XmlDocument( );
+                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_config" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
+                _Local.Config = new ServerConfig( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) ); 
+            }
+
         }
 
         public IEnumerable<ServerData> GetList( ) => _ServerData;
@@ -63,5 +72,24 @@ namespace Venom.Game
     {
         public string Id { get; set; }
         public string Url { get; set; }
+
+        public ServerConfig Config { get; set; }
+    }
+
+    public class ServerConfig
+    {
+        private readonly JObject _jObject;
+        public ServerConfig( JObject jObject )
+        {
+            _jObject = jObject;
+        }
+
+        //=> Base
+        public JToken Speed => _jObject["config"]["speed"];
+        public JToken UnitSpeed => _jObject["config"]["unit_speed"];
+        public JToken Moral => _jObject["config"]["moral"];
+
+        //=> Game
+        public JToken Archer => _jObject["config"]["game"]["archer"];
     }
 }

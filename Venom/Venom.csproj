@@ -88,6 +88,9 @@
     <Reference Include="Fluent, Version=6.1.0.326, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fluent.Ribbon.6.1.0.326\lib\net462\Fluent.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.0\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.1.1.3\lib\net45\MaterialDesignColors.dll</HintPath>
     </Reference>
@@ -140,7 +143,9 @@
     <Compile Include="Dialogs\ProgressDialog.xaml.cs">
       <DependentUpon>ProgressDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Domain\ClipboardHandler.cs" />
     <Compile Include="Domain\CommandExt.cs" />
+    <Compile Include="Domain\TrayIcon.cs" />
     <Compile Include="Game\Profile.cs" />
     <Compile Include="Game\Resources\ResourceAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
@@ -148,6 +153,7 @@
     <Compile Include="Game\Resources\ResourceConquer.cs" />
     <Compile Include="Game\Resources\ResourcePlayer.cs" />
     <Compile Include="Game\Resources\Resource.cs" />
+    <Compile Include="Game\Resources\ResourceTroup.cs" />
     <Compile Include="Game\Resources\ResourceVillage.cs" />
     <Compile Include="Game\Server.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
@@ -246,7 +252,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -277,7 +283,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Resource Include="Assets\Images\unit_archer.png" />
     <Resource Include="Assets\Images\unit_axe.png" />

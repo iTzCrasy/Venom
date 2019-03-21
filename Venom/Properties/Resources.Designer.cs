@@ -19,10 +19,10 @@ namespace Venom.Properties {
     // -Klasse über ein Tool wie ResGen oder Visual Studio automatisch generiert.
     // Um einen Member hinzuzufügen oder zu entfernen, bearbeiten Sie die .ResX-Datei und führen dann ResGen
     // mit der /str-Option erneut aus, oder Sie erstellen Ihr VS-Projekt neu.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Venom.Properties {
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Venom.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,129 @@ namespace Venom.Properties {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die All ähnelt.
+        /// </summary>
+        public static string RankingHeaderAll {
+            get {
+                return ResourceManager.GetString("RankingHeaderAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ally ähnelt.
+        /// </summary>
+        public static string RankingHeaderAlly {
+            get {
+                return ResourceManager.GetString("RankingHeaderAlly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Attack ähnelt.
+        /// </summary>
+        public static string RankingHeaderAtt {
+            get {
+                return ResourceManager.GetString("RankingHeaderAtt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Defensive ähnelt.
+        /// </summary>
+        public static string RankingHeaderDef {
+            get {
+                return ResourceManager.GetString("RankingHeaderDef", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Members ähnelt.
+        /// </summary>
+        public static string RankingHeaderMember {
+            get {
+                return ResourceManager.GetString("RankingHeaderMember", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Name ähnelt.
+        /// </summary>
+        public static string RankingHeaderName {
+            get {
+                return ResourceManager.GetString("RankingHeaderName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Points ähnelt.
+        /// </summary>
+        public static string RankingHeaderPoints {
+            get {
+                return ResourceManager.GetString("RankingHeaderPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Points / Village ähnelt.
+        /// </summary>
+        public static string RankingHeaderPointsV {
+            get {
+                return ResourceManager.GetString("RankingHeaderPointsV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die # ähnelt.
+        /// </summary>
+        public static string RankingHeaderRank {
+            get {
+                return ResourceManager.GetString("RankingHeaderRank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Support ähnelt.
+        /// </summary>
+        public static string RankingHeaderSup {
+            get {
+                return ResourceManager.GetString("RankingHeaderSup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Tag ähnelt.
+        /// </summary>
+        public static string RankingHeaderTag {
+            get {
+                return ResourceManager.GetString("RankingHeaderTag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Villages ähnelt.
+        /// </summary>
+        public static string RankingHeaderVillages {
+            get {
+                return ResourceManager.GetString("RankingHeaderVillages", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ally ähnelt.
+        /// </summary>
+        public static string StringAlly {
+            get {
+                return ResourceManager.GetString("StringAlly", resourceCulture);
             }
         }
     }

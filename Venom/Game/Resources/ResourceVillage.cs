@@ -10,20 +10,24 @@ namespace Venom.Game.Resources
     public class ResourceVillage : IResource
     {
         private readonly Server _server;
+        private readonly ResourceTroup _resourceTroup;
 
         private readonly Dictionary<int, VillageData> _villageData = new Dictionary<int, VillageData>();
         private readonly Dictionary<Tuple<int, int>, VillageData> _villageDataByCoord = new Dictionary<Tuple<int, int>, VillageData>( );
 
-        public ResourceVillage( Server server )
+        public ResourceVillage( 
+            Server server,
+            ResourceTroup resourceTroup )
         {
             _server = server;
+            _resourceTroup = resourceTroup;
         }
 
         public async Task InitializeAsync()
         {
             var villageData = await CSVReader.DownloadFileAsync(
                 new Uri( _server.Local.Url + "/map/village.txt" ),
-                ( buffer ) => new VillageData
+                ( buffer ) => new VillageData( _resourceTroup )
                 {
                     Id = buffer.ReadInt( ),
                     Name = Uri.UnescapeDataString( buffer.ReadString( ).Replace( '+', ' ' ) ),
@@ -53,6 +57,11 @@ namespace Venom.Game.Resources
 
     public class VillageData
     {
+        /// <summary>
+        /// Constructor, Injection
+        /// </summary>
+        private readonly ResourceTroup _resourceTroup;
+        public VillageData( ResourceTroup resourceVillage ) => _resourceTroup = resourceVillage;
         //=> $id, $name, $x, $y, $player, $points, $bonus
         public int Id { get; set; }
         public string Name { get; set; }
@@ -63,18 +72,6 @@ namespace Venom.Game.Resources
         public int Bonus { get; set; }
 
         public string CoordString => X + "|" + Y;
-
-        public int UnitSpear { get; set; }
-        public int UnitSword { get; set; }
-        public int UnitAxe { get; set; }
-        public int UnitArcher { get; set; }
-        public int UnitSpy { get; set; }
-        public int UnitLight { get; set; }
-        public int UnitMarcher { get; set; }
-        public int UnitHeavy { get; set; }
-        public int UnitRam { get; set; }
-        public int UnitCatapult { get; set; }
-        public int UnitKnight { get; set; }
-        public int UnitSnob { get; set; }
+        public TroupData Troup => _resourceTroup.GetTroupByVillage( this );
     }
 }

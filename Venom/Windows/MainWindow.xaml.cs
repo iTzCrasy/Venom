@@ -18,6 +18,7 @@ using System.Windows.Interop;
 using System.Runtime.InteropServices;
 using Fluent;
 using Venom.Domain;
+using System.Windows.Controls.Primitives;
 
 namespace Venom.Windows
 {
@@ -42,8 +43,6 @@ namespace Venom.Windows
             _hWnd = SetClipboardViewer( _hWndSource.Handle );
         }
 
-        public ICommand TestCommand => new CommandExt( _ => Debug.WriteLine( "Test" ) ); // MainContent.Content = new MainViewStatsRankPlayer()
-
         public RibbonTitleBar TitleBar
         {
             get => ( RibbonTitleBar )GetValue( TitleBarProperty );
@@ -57,7 +56,6 @@ namespace Venom.Windows
         /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
         /// </summary>
         public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
-
 
         private IntPtr WndProc( IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled )
         {
@@ -93,5 +91,10 @@ namespace Venom.Windows
 
         [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
         internal static extern IntPtr SendMessage( IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam );
+
+        private void VenomMainMenu_SelectionChanged( object sender, SelectionChangedEventArgs e )
+        {
+            MenuToggleButton.IsChecked = false;
+        }
     }
 }

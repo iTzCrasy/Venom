@@ -300,5 +300,8 @@
   <ItemGroup>
     <Resource Include="Assets\Images\Venom-Logo_300x300.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Images\map2.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

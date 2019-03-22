@@ -19,16 +19,6 @@ namespace Venom.ViewModels
     {
         private readonly Profile _profile;
         private readonly Server _server;
-        protected object _MainView;
-
-        //=> Main
-        public ICommand CmdViewMainMap => new CommandExt( _ => MainView = new Windows.MainViewMap( ) );
-        public ICommand CmdViewTroupList => new CommandExt( _ => MainView = App.Instance.ViewTroupList );
-
-        //=> Statics
-        public ICommand CmdViewStatsAll => new CommandExt( _ => MainView = new Windows.MainViewStatsAll( ) );
-        public ICommand CmdViewMainRankingPlayer => new CommandExt( _ => MainView = App.Instance.ViewRankingPlayer );
-        public ICommand CmdViewMainRankingAllys => new CommandExt( _ => MainView = App.Instance.ViewRankingAlly );
 
         public MainViewModel( 
             Profile profile,
@@ -37,18 +27,50 @@ namespace Venom.ViewModels
             _profile = profile;
             _server = server;
 
-           // MainView = App.Instance.ViewRankingPlayer; //=> Set Default View.
-        }
-
-        public object MainView
-        {
-            get => _MainView;
-            set => SetProperty( ref _MainView, value, "MainView" );
+            MenuItems = new[]
+            {
+                new MainMenuItem( "Truppenliste", App.Instance.ViewTroupList, "/Venom;component/Assets/Images/map2.png" ),
+                new MainMenuItem( "Rangliste Stämme", App.Instance.ViewRankingAlly, "/Venom;component/Assets/Images/unit_axe.png" ),
+                new MainMenuItem( "Rangliste Spieler", App.Instance.ViewRankingPlayer, "/Venom;component/Assets/Images/unit_snob.png" ),
+            };
         }
 
         public string CurrentUser
         {
             get => _profile.Local.Name;
+        }
+
+        public MainMenuItem[] MenuItems { get; }
+}
+
+    public class MainMenuItem : NotifyPropertyChangedExt
+    {
+        private string _title;
+        private object _content;
+        private string _image;
+        public MainMenuItem( string title, object content, string image )
+        {
+            Title = title;
+            Content = content;
+            Image = image;
+        }
+
+        public string Title
+        {
+            get => _title;
+            set => SetProperty( ref _title, value );
+        }
+
+        public object Content
+        {
+            get => _content;
+            set => SetProperty( ref _content, value );
+        }
+
+        public string Image
+        {
+            get => _image;
+            set => SetProperty( ref _image, value );
         }
     }
 }

@@ -32,9 +32,13 @@ namespace Venom.Views
 			return returnHtmlText;
 		}
 
-		private void UserlistSelected( object sender, RoutedEventArgs e )
+		private void Userlist_Selected( object sender, RoutedEventArgs e )
 		{
 			ButtonStart.IsEnabled = ( sender as ListView ).SelectedItem == null ? false : true;
 		}
-	}
+
+        private void Userlist_MouseDoubleClick( object sender, System.Windows.Input.MouseButtonEventArgs e )
+        {
+        }
+    }
 }

@@ -19,71 +19,56 @@
         FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
         <Material:DialogHost>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="24"/>
-                </Grid.RowDefinitions>
+            <Material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+                <Material:DrawerHost.LeftDrawerContent>
+                    <DockPanel MinWidth="200">
+                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                                    DockPanel.Dock="Top"
+                                    HorizontalAlignment="Right" Margin="16"
+                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                        <ListBox ItemsSource="{Binding MenuItems}" x:Name="VenomMainMenu" SelectedIndex="0" SelectionChanged="VenomMainMenu_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate DataType="MainMenu">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Image}" Width="14" Height="14"/>
+                                        <TextBlock Text="{Binding Title}" Margin="6 0 0 0"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                </Material:DrawerHost.LeftDrawerContent>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="24"/>
+                    </Grid.RowDefinitions>
 
-                <Fluent:Ribbon x:Name="ribbon" Grid.Row="0" CanCustomizeQuickAccessToolBarItems="False" IsQuickAccessToolBarMenuDropDownVisible="False" IsQuickAccessToolBarVisible="False" CanQuickAccessLocationChanging="False" ShowQuickAccessToolBarAboveRibbon="False">
-                    <!--Backstage-->
-                    <Fluent:Ribbon.Menu>
-                        <Fluent:Backstage HideContextTabsOnOpen="True" Header="Menu">
-                            <Fluent:BackstageTabControl>
-                                <Fluent:BackstageTabItem Header="Test">
-                                    <Fluent:RibbonGroupBox Header="Anzeigen" >
-                                        <!--<Windows:StartViewSelectServer/>-->
-                                    </Fluent:RibbonGroupBox>
-                                </Fluent:BackstageTabItem>
-                                <Fluent:BackstageTabItem Header="Test" />
-                                <Fluent:SeparatorTabItem />
-                                <Fluent:BackstageTabItem Header="Account" />
-                                <Fluent:SeparatorTabItem />
-                                <Fluent:Button Header="Einstellungen" Size="Middle" />
-                                <Fluent:BackstageTabItem Header="Informationen" />
-                            </Fluent:BackstageTabControl>
-                        </Fluent:Backstage>
-                    </Fluent:Ribbon.Menu>
-
-                    <Fluent:Ribbon.ContextualGroups>
-                        <Fluent:RibbonContextualTabGroup Header="4856" Visibility="Visible" x:Name="toolsGroup" Background="Green" BorderBrush="Green" />
-                    </Fluent:Ribbon.ContextualGroups>
-
-                    <!--Tabs-->
-                    <Fluent:RibbonTabItem Header="Start" x:Name="RibbonTabStart">
-                        <Fluent:RibbonGroupBox Header="Anzeige">
-                            <Fluent:Button Header="Karte" KeyTip="K" Command="{Binding CmdViewMainMap}">
-                                <Fluent:Button.LargeIcon>
-                                    <!--<Material:PackIcon Kind="Map" Height="32" Width="32" />-->
-                                    <Image Source="/Venom;component/Assets/Images/unit_knight.png"/>
-                                </Fluent:Button.LargeIcon>
-                            </Fluent:Button>
-                            <Fluent:Button Header="Statistiken" KeyTip="S" Command="{Binding CmdViewStatsAll}"/>
-                            <Fluent:Button Header="Spieler" Command="{Binding CmdViewMainRankingPlayer}" />
-                            <Fluent:Button Header="Stämme" Command="{Binding CmdViewMainRankingAllys}" />
-                            <Fluent:Button Header="Truppen" KeyTip="T" Command="{Binding CmdViewTroupList}" />
-                        </Fluent:RibbonGroupBox>
-                    </Fluent:RibbonTabItem>
-
-                    <Fluent:RibbonTabItem Header="Statistiken">
-                        <Fluent:RibbonGroupBox Header="Anzeige">
-                            <Fluent:Button Header="Gesamt" Command="{Binding CmdViewStatsAll}"/>
-                        </Fluent:RibbonGroupBox>
-                    </Fluent:RibbonTabItem>
-                </Fluent:Ribbon>
-                <Material:TransitioningContent Grid.Row="1" Content="{Binding MainView, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
-                <Fluent:StatusBar Grid.Row="2">
-                    <Separator HorizontalAlignment="Left" />
-
-                    <Fluent:StatusBarItem ToolTip="Your ToolTip" Content="{Binding CurrentUser}" HorizontalAlignment="Left" />
-
-                    <Fluent:StatusBarItem Title="Item placed on the right side"
-                          HorizontalAlignment="Right"
-                          Value="Your value which is also used as content if no content is set." />
-                </Fluent:StatusBar>
-            </Grid>
-            
+                    <Material:TransitioningContent Grid.Row="1" Content="{Binding ElementName=VenomMainMenu, Path=SelectedItem.Content}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
+                    <Material:ColorZone Grid.Row="0" Padding="4" Mode="Dark" Material:ShadowAssist.ShadowDepth="Depth2">
+                        <DockPanel>
+                            <Material:PopupBox DockPanel.Dock="Right" PlacementMode="LeftAndAlignTopEdges">
+                                <ListBox>
+                                    <ListBoxItem>Test 1</ListBoxItem>
+                                    <ListBoxItem>Test 2</ListBoxItem>
+                                    <ListBoxItem>Test 3</ListBoxItem>
+                                    <Separator/>
+                                    <ListBoxItem>Test 4</ListBoxItem>
+                                </ListBox>
+                            </Material:PopupBox>
+                            <StackPanel Orientation="Horizontal">
+                                <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}" x:Name="MenuToggleButton"/>
+                                <TextBlock Margin="16 0 0 0" VerticalAlignment="Center">Venom</TextBlock>
+                            </StackPanel>
+                        </DockPanel>
+                    </Material:ColorZone> 
+                    
+                    <!-- Statusbar -->
+                    <Material:ColorZone Grid.Row="2" Mode="Dark" Padding="24">
+                    </Material:ColorZone>
+                </Grid>
+            </Material:DrawerHost>
         </Material:DialogHost>
     </Grid>
 </Window>

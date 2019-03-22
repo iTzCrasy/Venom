@@ -16,7 +16,7 @@
                         </StackPanel>
                     </Material:ColorZone>
                     <StackPanel Margin="4">
-                        <ListView Name="Userlist" Height="300" PreviewMouseLeftButtonUp="UserlistSelected" ItemsSource="{Binding ProfileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}">
+                        <ListView Name="Userlist" Height="300" PreviewMouseLeftButtonUp="Userlist_Selected" ItemsSource="{Binding ProfileList, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding Path=SelectedProfile, Mode=TwoWay}" MouseDoubleClick="Userlist_MouseDoubleClick">
                             <ListView.ContextMenu>
                                 <ContextMenu Name="UserlistContext">
                                     <MenuItem Header="Entfernen" Name="DeleteUser" Command="{Binding CmdClickDel}"/>

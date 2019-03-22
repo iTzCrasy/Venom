@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -36,9 +37,9 @@ namespace Venom.ViewModels
             _currentContent = App.Instance.ViewSelectServer;
         }
 
-        public IEnumerable<ProfileData> ProfileList
+        public ObservableCollection<ProfileData> ProfileList
         {
-            get => _profile.GetList( );
+            get => new ObservableCollection<ProfileData>( _profile.GetList( ) );
         }
 
         public IEnumerable<ServerData> ServerList
@@ -103,7 +104,7 @@ namespace Venom.ViewModels
             App.Instance.Profile.Add( Username, SelectedServer.Id );
             App.Instance.Profile.Save( );
             UpdateProperty( "ProfileList" );
-           //Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Normal, new Action( ( ) => eventArgs.Session.Close( ) ) );
+            //Application.Current.Dispatcher.BeginInvoke( DispatcherPriority.Normal, new Action( ( ) => eventArgs.Session.Close( ) ) );
         }
 
         /// <summary>

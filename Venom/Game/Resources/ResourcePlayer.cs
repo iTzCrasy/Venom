@@ -63,6 +63,9 @@ namespace Venom.Game.Resources
 
         public PlayerData GetPlayerByName( string name ) =>
             _playerDataByName.TryGetValue( name, out var player ) ? player : new PlayerData( null, null, null );
+
+        public int GetCount( ) =>
+            _playerData.Count( );
     }
 
     public class PlayerData
@@ -97,6 +100,5 @@ namespace Venom.Game.Resources
         public long BashpointDef => _resourceBashpoint.GetBashpointDef( this ).Kills;
         public long BashpointAll => _resourceBashpoint.GetBashpointAll( this ).Kills;
         public long BashpointSup => BashpointAll - ( BashpointAtt + BashpointDef );
-       
     }
 }

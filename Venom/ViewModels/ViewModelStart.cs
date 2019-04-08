@@ -15,7 +15,7 @@ using Venom.Game;
 
 namespace Venom.ViewModels
 {
-    public class StartViewModel : NotifyPropertyChangedExt
+    public class ViewModelStart : NotifyPropertyChangedExt
     {
         private readonly Profile _profile;
         private readonly Server _server;
@@ -28,7 +28,7 @@ namespace Venom.ViewModels
         public ICommand CmdClickAdd => new CommandExt( ClickAdd );
         public ICommand CmdClickDel => new CommandExt( ClickDel );
 
-        public StartViewModel( 
+        public ViewModelStart( 
             Profile profile, 
             Server server )
         {
@@ -79,7 +79,7 @@ namespace Venom.ViewModels
         private void OnClickStart( object sender, DialogOpenedEventArgs eventArgs )
         {
             _profile.Local = SelectedProfile;
-            _server.LoadConfig( SelectedProfile.Server );
+            _server.Load( SelectedProfile.Server );
             App.Instance.Start( );
         }
 

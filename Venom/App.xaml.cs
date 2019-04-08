@@ -49,14 +49,19 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<SelectServerView>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingPlayerView>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingAllyView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<TroupList>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewTroupList>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ConquerView>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewStart>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewPlaner>( ).LifestyleSingleton( ) );
 
             //=> Setup ViewModels
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<StartViewModel>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelStart>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingPlayerViewModel>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingAllyViewModel>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<TroupListViewModel>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingPlayer>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingAlly>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelTroupList>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelConquer>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelHome>( ).LifestyleSingleton( ) );
 
             //=> Setup Resources
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourcePlayer>( ).LifestyleSingleton( ) );
@@ -141,24 +146,24 @@ namespace Venom
         //=> Views
         public SelectServerView ViewSelectServer =>
             _Container.Resolve<SelectServerView>( );
-        public TroupList ViewTroupList =>
-            _Container.Resolve<TroupList>( );
+        public ViewTroupList ViewTroupList =>
+            _Container.Resolve<ViewTroupList>( );
         public RankingPlayerView ViewRankingPlayer =>
             _Container.Resolve<RankingPlayerView>( );
         public RankingAllyView ViewRankingAlly =>
             _Container.Resolve<RankingAllyView>( );
 
         //=> ViewModels
-        public StartViewModel ViewModelStart =>
-            _Container.Resolve<StartViewModel>( );
+        public ViewModelStart ViewModelStart =>
+            _Container.Resolve<ViewModelStart>( );
         public MainViewModel ViewModelMain =>
             _Container.Resolve<MainViewModel>( );
-        public TroupListViewModel ViewModelTroupList =>
-            _Container.Resolve<TroupListViewModel>( );
-        public RankingPlayerViewModel ViewModelRankingPlayer =>
-            _Container.Resolve<RankingPlayerViewModel>( );
-        public RankingAllyViewModel ViewModelRankingAlly =>
-            _Container.Resolve<RankingAllyViewModel>( );
+        public ViewModelTroupList ViewModelTroupList =>
+            _Container.Resolve<ViewModelTroupList>( );
+        public ViewModelRankingPlayer ViewModelRankingPlayer =>
+            _Container.Resolve<ViewModelRankingPlayer>( );
+        public ViewModelRankingAlly ViewModelRankingAlly =>
+            _Container.Resolve<ViewModelRankingAlly>( );
 
         //=> Resources
         public ResourcePlayer ResourcePlayer =>

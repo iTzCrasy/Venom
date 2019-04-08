@@ -43,20 +43,25 @@ namespace Venom.Game
         }
 
         /// <summary>
-        /// Loading Server 
+        /// Loading Server Config, Units, Buildings
         /// </summary>
-        public void LoadConfig( string serverId )
+        /// <param name="serverId"></param>
+        public void Load( string serverId )
         {
-            //=> TODO: Implement loading server config!
             _Local = _ServerData.FirstOrDefault( x => x.Id.Equals( serverId ) );
 
             using( var web = new WebClient( ) )
             {
                 var xml = new XmlDocument( );
-                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_config" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
-                _Local.Config = new ServerConfig( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) ); 
-            }
 
+                //=> Config
+                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_config" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
+                _Local.Config = new ServerConfig( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
+
+                //=> Config Units
+                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_unit_info" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
+                _Local.ConfigUnits = new ServerConfigUnits( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
+            }
         }
 
         public IEnumerable<ServerData> GetList( ) => _ServerData;
@@ -74,6 +79,7 @@ namespace Venom.Game
         public string Url { get; set; }
 
         public ServerConfig Config { get; set; }
+        public ServerConfigUnits ConfigUnits { get; set; }
     }
 
     public class ServerConfig
@@ -90,6 +96,36 @@ namespace Venom.Game
         public JToken Moral => _jObject["config"]["moral"];
 
         //=> Game
-        public JToken Archer => _jObject["config"]["game"]["archer"];
+        public bool Archer => _jObject["config"]["game"]["archer"].ToObject<int>() >= 1 ? true : false;
+    }
+
+    public class ServerConfigUnits
+    {
+        private readonly JObject _jObject;
+        public ServerConfigUnits( JObject jObject )
+        {
+            _jObject = jObject;
+        }
+
+        public T GetConfig<T>( string unit, string data ) => _jObject["config"][unit][data].ToObject<T>( );
+    }
+
+    public struct ConfigUnitInfo
+    {
+        public double Build;
+        public int Pop;
     }
 }
+
+/*
+ * <sword>
+<build_time>937.5</build_time>
+<pop>1</pop>
+<speed>21.999999999296</speed>
+<attack>25</attack>
+<defense>50</defense>
+<defense_cavalry>25</defense_cavalry>
+<defense_archer>40</defense_archer>
+<carry>15</carry>
+</sword>
+*/

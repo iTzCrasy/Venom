@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,20 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Venom.Game.Resources;
 
 namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für MainViewStats.xaml
+    /// Interaktionslogik für TroupList.xaml
     /// </summary>
-    public partial class RankingPlayerView : UserControl
+    public partial class ViewTroupList : UserControl
     {
-        public RankingPlayerView()
+        public ViewTroupList( )
         {
-            InitializeComponent();
+            InitializeComponent( );
 
-            DataContext = App.Instance.ViewModelRankingPlayer;
+            DataContext = App.Instance.ViewModelTroupList;
         }
     }
 }

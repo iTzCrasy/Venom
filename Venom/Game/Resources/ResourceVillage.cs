@@ -50,9 +50,14 @@ namespace Venom.Game.Resources
             _villageDataByCoord.Add( new Tuple<int, int>( data.X, data.Y ), data );
         }
 
-        public IEnumerable<VillageData> GetVillagesByPlayer( PlayerData data ) =>
-            _villageData.Values.ToList( ).Where( x => x.Owner == data.Id );
+        public List<VillageData> GetVillagesByPlayer( PlayerData data ) =>
+            _villageData.Values.Where( x => x.Owner == data.Id ).ToList( );
 
+        public VillageData GetVillageById( int Id ) =>
+            _villageData.TryGetValue( Id, out var village ) ? village : new VillageData( null );
+
+        public int GetCount() =>
+            _villageData.Count();
     }
 
     public class VillageData
@@ -61,7 +66,7 @@ namespace Venom.Game.Resources
         /// Constructor, Injection
         /// </summary>
         private readonly ResourceTroup _resourceTroup;
-        public VillageData( ResourceTroup resourceVillage ) => _resourceTroup = resourceVillage;
+        public VillageData( ResourceTroup resourceTroup ) => _resourceTroup = resourceTroup;
         //=> $id, $name, $x, $y, $player, $points, $bonus
         public int Id { get; set; }
         public string Name { get; set; }
@@ -71,7 +76,14 @@ namespace Venom.Game.Resources
         public int Points { get; set; }
         public int Bonus { get; set; }
 
+        public List<string> Groups { get; set; }
+
         public string CoordString => X + "|" + Y;
-        public TroupData Troup => _resourceTroup.GetTroupByVillage( this );
+        public TroupData TroupOwn => _resourceTroup.GetTroupData( this, TroupType.TROUP_OWN );
+        public TroupData TroupVillage => _resourceTroup.GetTroupData( this, TroupType.TROUP_VILLAGE );
+        public TroupData TroupAway => _resourceTroup.GetTroupData( this, TroupType.TROUP_AWAY );
+        public TroupData TroupOut => _resourceTroup.GetTroupData( this, TroupType.TROUP_OUT );
+
+        public int UnitPop => _resourceTroup.GetTroupPop( _resourceTroup.GetTroupData( this, TroupType.TROUP_OWN ) );
     }
 }

@@ -19,13 +19,14 @@ using System.Runtime.InteropServices;
 using Fluent;
 using Venom.Domain;
 using System.Windows.Controls.Primitives;
+using System.ComponentModel;
 
 namespace Venom.Windows
 {
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : IRibbonWindow
+    public partial class MainWindow : Window
     {
         private IntPtr _hWnd;
         private HwndSource _hWndSource;
@@ -43,20 +44,6 @@ namespace Venom.Windows
             _hWnd = SetClipboardViewer( _hWndSource.Handle );
         }
 
-        public RibbonTitleBar TitleBar
-        {
-            get => ( RibbonTitleBar )GetValue( TitleBarProperty );
-            private set => SetValue( TitleBarPropertyKey, value );
-        }
-
-        // ReSharper disable once InconsistentNaming
-        private static readonly DependencyPropertyKey TitleBarPropertyKey = DependencyProperty.RegisterReadOnly( nameof( TitleBar ), typeof( RibbonTitleBar ), typeof( MainWindow ), new PropertyMetadata( ) );
-
-        /// <summary>
-        /// <see cref="DependencyProperty"/> for <see cref="TitleBar"/>.
-        /// </summary>
-        public static readonly DependencyProperty TitleBarProperty = TitleBarPropertyKey.DependencyProperty;
-
         private IntPtr WndProc( IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled )
         {
             switch( msg )
@@ -73,7 +60,7 @@ namespace Venom.Windows
                     break;
 
                 case WM_DRAWCLIPBOARD:
-                    //App.Instance.ClipboardHandler.Parse( ); //=> Parse Clipboard.
+                    App.Instance.ClipboardHandler.Parse( ); //=> Parse Clipboard.
                     SendMessage( _hWnd, msg, wParam, lParam );
                     break;
             }

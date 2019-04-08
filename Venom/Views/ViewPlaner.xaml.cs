@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +16,13 @@ using System.Windows.Shapes;
 namespace Venom.Views
 {
     /// <summary>
-    /// Interaktionslogik für TroupList.xaml
+    /// Interaktionslogik für ViewPlaner.xaml
     /// </summary>
-    public partial class TroupList : UserControl
+    public partial class ViewPlaner : UserControl
     {
-        public TroupList( )
+        public ViewPlaner( )
         {
             InitializeComponent( );
-
-            DataContext = App.Instance.ViewModelTroupList;
         }
     }
 }

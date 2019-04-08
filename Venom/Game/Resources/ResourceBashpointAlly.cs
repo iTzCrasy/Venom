@@ -75,6 +75,9 @@ namespace Venom.Game.Resources
 
         public BashpointAllyData GetBashpointAll( AllyData data ) => 
             _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData();
+
+        public Dictionary<int, BashpointAllyData> GetBashpointAllList( ) =>
+            _bashpointAllData;
     }
 
     public class BashpointAllyData

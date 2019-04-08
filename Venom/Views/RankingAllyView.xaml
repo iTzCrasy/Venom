@@ -8,14 +8,15 @@
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"/>
             <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
+        </Grid.ColumnDefinitions>-->
 
-        <Material:Card Grid.Column="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
+        <!--<Material:Card Grid.Column="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
             <StackPanel>
                 <Material:ColorZone Mode="Dark">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -27,21 +28,26 @@
                     <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchAlly}"/>
                 </StackPanel>
             </StackPanel>
-        </Material:Card>
-        <DataGrid Grid.Column="1" ItemsSource="{Binding AllyList}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectedItem="{Binding SelectedAlly, Mode=TwoWay}" SelectionMode="Single" ScrollViewer.CanContentScroll="True">
+        </Material:Card>-->
+        <ToolBarTray Grid.Row="0" IsLocked="True">
+            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                <TextBox Material:HintAssist.Hint="Rang / Name / Tag" Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
+            </ToolBar>
+        </ToolBarTray>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding AllyCollection}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderRank}" Width="60" Binding="{Binding Rank}"/>
-                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderName}" Width="200" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderTag}" Width="100" Binding="{Binding Tag}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderRank}" Width="60" Binding="{Binding Rank}" CanUserSort="False"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderName}" Width="200" Binding="{Binding Name}" CanUserSort="False"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderTag}" Width="100" Binding="{Binding Tag}" CanUserSort="False"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderMember}" Width="100" Binding="{Binding Members}"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderVillages}" Width="100" Binding="{Binding Villages}"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderPoints}" Width="100" Binding="{Binding Points, StringFormat='{}{0:0,0}'}"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderAtt}" Width="120" Binding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderDef}" Width="120" Binding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}"/>
-                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderAll}" Width="120" Binding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderAll}" Width="120" Binding="{Binding Kills, StringFormat='{}{0:0,0}'}"/>
             </DataGrid.Columns>
         </DataGrid>
-            
+        
         <!--<ListView Name="Allylist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding AllyList}">
             <ListView.GroupStyle>
                 <GroupStyle>

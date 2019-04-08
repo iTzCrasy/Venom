@@ -65,6 +65,9 @@ namespace Venom.Game.Resources
 
         public AllyData GetAllyByTag( string tag ) => 
             _allyByTag.TryGetValue( tag, out var ally ) ? ally : new AllyData( null );
+
+        public int GetCount( ) =>
+            _allyData.Count( );
     }
 
     public class AllyData

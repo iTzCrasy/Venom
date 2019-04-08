@@ -146,26 +146,42 @@
     <Compile Include="Domain\ClipboardHandler.cs" />
     <Compile Include="Domain\CommandExt.cs" />
     <Compile Include="Domain\TrayIcon.cs" />
+    <Compile Include="Game\Planer\IPlaner.cs" />
+    <Compile Include="Game\Planer\PlanerAttack.cs" />
     <Compile Include="Game\Profile.cs" />
+    <Compile Include="Game\ResourceCenter.cs" />
     <Compile Include="Game\Resources\ResourceAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointPlayer.cs" />
     <Compile Include="Game\Resources\ResourceConquer.cs" />
+    <Compile Include="Game\Resources\ResourceGroup.cs" />
+    <Compile Include="Game\Resources\ResourcePlaner.cs" />
     <Compile Include="Game\Resources\ResourcePlayer.cs" />
-    <Compile Include="Game\Resources\Resource.cs" />
+    <Compile Include="Game\Resources\IResource.cs" />
     <Compile Include="Game\Resources\ResourceTroup.cs" />
     <Compile Include="Game\Resources\ResourceVillage.cs" />
     <Compile Include="Game\Server.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
-    <Compile Include="ViewModels\RankingAllyViewModel.cs" />
-    <Compile Include="ViewModels\RankingPlayerViewModel.cs" />
-    <Compile Include="ViewModels\StartViewModel.cs" />
-    <Compile Include="ViewModels\TroupListViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelConquer.cs" />
+    <Compile Include="ViewModels\ViewModelRankingAlly.cs" />
+    <Compile Include="ViewModels\ViewModelRankingPlayer.cs" />
+    <Compile Include="ViewModels\ViewModelStart.cs" />
+    <Compile Include="ViewModels\ViewModelTroupList.cs" />
+    <Compile Include="ViewModels\ViewModelHome.cs" />
+    <Compile Include="Views\ConquerView.xaml.cs">
+      <DependentUpon>ConquerView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RankingAllyView.xaml.cs">
       <DependentUpon>RankingAllyView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TroupList.xaml.cs">
-      <DependentUpon>TroupList.xaml</DependentUpon>
+    <Compile Include="Views\ViewTroupList.xaml.cs">
+      <DependentUpon>ViewTroupList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewPlaner.xaml.cs">
+      <DependentUpon>ViewPlaner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewStart.xaml.cs">
+      <DependentUpon>ViewStart.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\MainViewMap.xaml.cs">
       <DependentUpon>MainViewMap.xaml</DependentUpon>
@@ -196,13 +212,25 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ConquerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RankingAllyView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\TroupList.xaml">
+    <Page Include="Views\ViewTroupList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ViewPlaner.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewStart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\MainViewMap.xaml">
       <SubType>Designer</SubType>

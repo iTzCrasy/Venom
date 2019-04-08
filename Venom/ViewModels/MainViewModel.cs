@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
 using System.Linq;
@@ -8,10 +9,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 using Venom.Domain;
 using Venom.Game;
+using Venom.Views;
 
 namespace Venom.ViewModels
 {
@@ -20,39 +23,89 @@ namespace Venom.ViewModels
         private readonly Profile _profile;
         private readonly Server _server;
 
+        private ICollectionView _menuCollection;
+
         public MainViewModel( 
             Profile profile,
-            Server server )
+            Server server,
+            ViewStart viewStart,
+            ViewTroupList viewTroupList,
+            RankingPlayerView viewRankingPlayer,
+            RankingAllyView viewRankingAlly,
+            ConquerView viewConquer,
+            ViewPlaner viewPlaner )
         {
             _profile = profile;
             _server = server;
 
-            MenuItems = new[]
+            var MenuItems = new[]
             {
-                new MainMenuItem( "Truppenliste", App.Instance.ViewTroupList, "/Venom;component/Assets/Images/map2.png" ),
-                new MainMenuItem( "Rangliste Stämme", App.Instance.ViewRankingAlly, "/Venom;component/Assets/Images/unit_axe.png" ),
-                new MainMenuItem( "Rangliste Spieler", App.Instance.ViewRankingPlayer, "/Venom;component/Assets/Images/unit_snob.png" ),
-            };
+                new MainMenuItem()
+                {
+                    Group = "Start",
+                    Title = "Start",
+                    Image = "",
+                    Content = viewStart
+                },
+                new MainMenuItem()
+                {
+                    Group = "",
+                    Title = "Truppenliste",
+                    Image = "",
+                    Content = viewTroupList
+                },
+                new MainMenuItem()
+                {
+                    Group = "Ranglisten",
+                    Title = "Rangliste Spieler",
+                    Image = "",
+                    Content = viewRankingPlayer
+                },
+                new MainMenuItem()
+                {
+                    Group = "Ranglisten",
+                    Title = "Rangliste Stämme",
+                    Image = "",
+                    Content = viewRankingAlly
+                },
+                new MainMenuItem()
+                {
+                    Group = "Ranglisten",
+                    Title = "Eroberungen",
+                    Image = "/Venom;component/Assets/Images/unit_snob.png",
+                    Content = viewConquer
+                },
+                new MainMenuItem()
+                {
+                    Group = "Planer",
+                    Title = "Angriffsplaner",
+                    Image = "",
+                    Content = viewPlaner
+                }
+            }; 
+
+            MenuCollection = CollectionViewSource.GetDefaultView( MenuItems );
+            MenuCollection.GroupDescriptions.Add( new PropertyGroupDescription( "Group" ) );
         }
 
-        public string CurrentUser
+        public ICollectionView MenuCollection
         {
-            get => _profile.Local.Name;
+            get => _menuCollection;
+            set => SetProperty( ref _menuCollection, value );
         }
-
-        public MainMenuItem[] MenuItems { get; }
-}
+    }
 
     public class MainMenuItem : NotifyPropertyChangedExt
     {
         private string _title;
         private object _content;
         private string _image;
-        public MainMenuItem( string title, object content, string image )
+        private string _group;
+
+        public string Group
         {
-            Title = title;
-            Content = content;
-            Image = image;
+            get => _group;
+            set => SetProperty( ref _group, value );
         }
 
         public string Title

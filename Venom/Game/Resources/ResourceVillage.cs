@@ -50,11 +50,17 @@ namespace Venom.Game.Resources
             _villageDataByCoord.Add( new Tuple<int, int>( data.X, data.Y ), data );
         }
 
+        public List<VillageData> GetVillageList( ) =>
+            _villageData.Values.ToList( );
+
         public List<VillageData> GetVillagesByPlayer( PlayerData data ) =>
             _villageData.Values.Where( x => x.Owner == data.Id ).ToList( );
 
         public VillageData GetVillageById( int Id ) =>
             _villageData.TryGetValue( Id, out var village ) ? village : new VillageData( null );
+
+        public VillageData GetVillageByCoord( int x, int y ) =>
+            _villageDataByCoord.TryGetValue( new Tuple<int, int>( x, y ), out var village ) ? village : new VillageData( null );
 
         public int GetCount() =>
             _villageData.Count();

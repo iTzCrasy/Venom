@@ -35,14 +35,20 @@
                                 <GridView>
                                     <GridViewColumn Header="Welt" Width="60" DisplayMemberBinding="{Binding Server}" />
                                     <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
-                                    <GridViewColumn Header="Action" Width="100" DisplayMemberBinding="{Binding Action}" />
+                                    <GridViewColumn Header="Action" Width="100" DisplayMemberBinding="{Binding Action}"/>
                                 </GridView>
                             </ListView.View>
                         </ListView>
                     </StackPanel>
                     <Grid Margin="4">
-                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Width="100" ToolTip="" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonStart" IsEnabled="False" Command="{Binding CmdClickStart}">
-                            Benutzen
+                        <Button Style="{StaticResource MaterialDesignRaisedButton}" Content="Benutzen" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="ButtonStart" IsEnabled="False" Command="{Binding CmdClickStart}">
+                            <Button.ToolTip>
+                                <StackPanel Width="100">
+                                    <Material:PackIcon Kind="Plus" Height="24" Width="24" />
+                                    <Material:PackIcon Kind="Plus" Height="24" Width="24" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <Material:PackIcon Kind="Plus" Height="24" Width="24" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
+                                </StackPanel>
+                            </Button.ToolTip>
                         </Button>
                         <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" ToolTip="Benutzer Hinzufügen" HorizontalAlignment="Right" Command="{Binding CmdClickAdd}">
                             <Material:PackIcon Kind="Plus" Height="24" Width="24" />

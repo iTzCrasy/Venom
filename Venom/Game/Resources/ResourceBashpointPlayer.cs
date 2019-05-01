@@ -65,15 +65,12 @@ namespace Venom.Game.Resources
             }
         }
 
-        public BashpointPlayerData GetBashpointAtt( PlayerData data ) =>
-            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
-        public BashpointPlayerData GetBashpointDef( PlayerData data ) =>
-            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
-        public BashpointPlayerData GetBashpointAll( PlayerData data ) =>
-            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointPlayerData();
-
         public List<BashpointPlayerData> GetBashpointAttList( ) =>
             _bashpointAttData.Values.ToList( );
+        public List<BashpointPlayerData> GetBashpointDefList( ) =>
+            _bashpointDefData.Values.ToList( );
+        public List<BashpointPlayerData> GetBashpointAllList( ) =>
+            _bashpointAllData.Values.ToList( );
     }
 
     public class BashpointPlayerData

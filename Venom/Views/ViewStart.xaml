@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <Material:Card Grid.Column="0" Grid.Row="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
             <StackPanel>
-                <Material:ColorZone Mode="Accent">
+                <Material:ColorZone Mode="Dark">
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Margin="6">Server Statistiken</TextBlock>
                     </StackPanel>

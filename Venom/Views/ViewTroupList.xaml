@@ -17,9 +17,9 @@
             </ToolBar>
         </ToolBarTray>
         <FrameworkElement x:Name="VisibilityDummy" Visibility="Collapsed"/>
-        <DataGrid Grid.Row="1" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemsSource="{Binding TroupCollection, IsAsync=True, NotifyOnSourceUpdated=True}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader">
+        <DataGrid x:Name="ViewTroups" Grid.Row="1" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemsSource="{Binding TroupCollection, IsAsync=True, NotifyOnSourceUpdated=True}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Gruppe" Width="100" />
+                <DataGridTextColumn Header="Gruppe" Width="100" Binding="{Binding Groups}" />
                 <DataGridTextColumn Header="Dorf" Width="150" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Koordinaten" Width="110" Binding="{Binding CoordString}" />
                 <DataGridTemplateColumn Header="Bauernhof" Width="100">
@@ -27,7 +27,7 @@
                         <DataTemplate>
                             <StackPanel>
                                 <ProgressBar Width="60" Value="{Binding UnitPop, Mode=OneWay}" IsIndeterminate="False" HorizontalAlignment="Left" Maximum="24000"/>
-                                <TextBlock Text="12000/24000" FontSize="10"/>
+                                <!--<TextBlock Text="12000/24000" FontSize="10"/>-->
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
@@ -99,7 +99,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <!-- Unit Archer -->
-                <!--<DataGridTemplateColumn Width="75" >
+                <DataGridTemplateColumn Width="75" x:Name="ColumnArcher" >
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <Image Source="/Venom;component/Assets/Images/unit_archer.png" Height="18" Width="18" />
@@ -115,7 +115,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                </DataGridTemplateColumn>
                 <!-- Unit Spy -->
                 <DataGridTemplateColumn Width="75" >
                     <DataGridTemplateColumn.HeaderTemplate>
@@ -153,7 +153,7 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <!-- Unit MArcher -->
-                <!--<DataGridTemplateColumn Width="75" >
+                <DataGridTemplateColumn Width="75" x:Name="ColumnMArcher">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
                             <Image Source="/Venom;component/Assets/Images/unit_marcher.png" Height="18" Width="18" />
@@ -169,7 +169,7 @@
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>-->
+                </DataGridTemplateColumn>
                 <!-- Unit Heavy -->
                 <DataGridTemplateColumn Width="75" >
                     <DataGridTemplateColumn.HeaderTemplate>

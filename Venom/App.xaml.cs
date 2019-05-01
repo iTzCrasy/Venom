@@ -16,6 +16,8 @@ using Venom.Game;
 using Venom.Game.Resources;
 using System.Diagnostics;
 
+using Venom.Style;
+
 namespace Venom
 {
     /// <summary>
@@ -44,6 +46,7 @@ namespace Venom
             //=> Setup Game
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Profile>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<Server>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<GroupHandler>( ).LifestyleSingleton( ) );
 
             //=> Setup Views
             _Container.Register( Castle.MicroKernel.Registration.Component.For<SelectServerView>( ).LifestyleSingleton( ) );
@@ -64,6 +67,7 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelHome>( ).LifestyleSingleton( ) );
 
             //=> Setup Resources
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceHandler>( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourcePlayer>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceAlly>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointAlly>( ).LifestyleSingleton( ) );

@@ -35,7 +35,7 @@
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid Grid.Row="1" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemsSource="{Binding PlayerCollection, IsAsync=True}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" SelectionMode="Single">
+        <DataGrid Grid.Row="1" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemsSource="{Binding PlayerCollection, IsAsync=True}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectionMode="Extended">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Width="80" Binding="{Binding Rank}" CanUserSort="False" />
                 <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Name}" CanUserSort="False" />
@@ -43,11 +43,11 @@
                 <DataGridTextColumn Header="Villages" Width="100" Binding="{Binding Villages}" />
                 <DataGridTextColumn Header="Points" Width="100" Binding="{Binding Points, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Points / Village" Width="120" Binding="{Binding PointsVillage, StringFormat='{}{0:0,0}'}" />
-                <DataGridTextColumn Header="Attack" Width="100" Binding="{Binding Kills, StringFormat='{}{0:0,0}'}" />
+                <DataGridTextColumn Header="Attack" Width="100" Binding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Defensive" Width="100" Binding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Support" Width="100" Binding="{Binding BashpointSup, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="All" Width="100" Binding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}" />
-                <DataGridTextColumn Header="Barb Conquer" Width="120" Binding="{Binding BarbConquer}" CanUserSort="False"/>
+                <DataGridTextColumn Header="Barb Conquer" Width="120" Binding="{Binding Barbs}" />
             </DataGrid.Columns>
         </DataGrid>
         

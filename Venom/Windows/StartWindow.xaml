@@ -15,8 +15,8 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         UseLayoutRounding="True" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <Material:DialogHost>
-            <Material:TransitioningContent Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}">
+        <Material:DialogHost Style="{StaticResource MaterialDesignEmbeddedDialogHost}">
+            <Material:TransitioningContent Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}" >
                 <ContentControl Content="{Binding CurrentContent}"/>
             </Material:TransitioningContent>
         </Material:DialogHost>

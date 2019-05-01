@@ -59,7 +59,7 @@
                     </Grid.RowDefinitions>
 
                     <Material:TransitioningContent Grid.Row="1" Content="{Binding ElementName=VenomMainMenu, Path=SelectedItem.Content}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
-                    <Material:ColorZone Grid.Row="0" Padding="4" Mode="Light" Material:ShadowAssist.ShadowDepth="Depth2">
+                    <Material:ColorZone Grid.Row="0" Padding="4" Background="White" Material:ShadowAssist.ShadowDepth="Depth2">
                         <DockPanel>
                             <Material:PopupBox DockPanel.Dock="Right" PlacementMode="LeftAndAlignTopEdges">
                                 <ListBox>
@@ -70,6 +70,8 @@
                                     <ListBoxItem>Test 4</ListBoxItem>
                                 </ListBox>
                             </Material:PopupBox>
+                            <TextBlock Text="Moralbasher" FontSize="11" DockPanel.Dock="Right" VerticalAlignment="Center" />
+                            
                             <StackPanel Orientation="Horizontal">
                                 <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}" x:Name="MenuToggleButton"/>
                                 <TextBlock Margin="16 0 0 0" VerticalAlignment="Center">Venom</TextBlock>

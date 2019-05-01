@@ -16,6 +16,7 @@ namespace Venom.ViewModels
     {
         private readonly Profile _profile;
         private readonly Server _server;
+        private readonly ResourceHandler _resourceHandler;
         private readonly ResourcePlayer _resourcePlayer;
         private readonly ResourceVillage _resourceVillage;
 
@@ -25,14 +26,17 @@ namespace Venom.ViewModels
             Profile profile,
             Server server,
             ResourcePlayer resourcePlayer,
-            ResourceVillage resourceVillage )
+            ResourceVillage resourceVillage,
+            ResourceHandler resourceHandler )
         {
             _profile = profile;
             _server = server;
             _resourcePlayer = resourcePlayer;
             _resourceVillage = resourceVillage;
+            _resourceHandler = resourceHandler;
 
-            TroupCollection = CollectionViewSource.GetDefaultView( _resourceVillage.GetVillagesByPlayer( _resourcePlayer.GetPlayerByName( _profile.Local.Name ) ).OrderBy( x => x.Id ) );
+            //TroupCollection = CollectionViewSource.GetDefaultView( _resourceVillage.GetVillagesByPlayer( _resourcePlayer.GetPlayerByName( _profile.Local.Name ) ).OrderBy( x => x.Id ) );
+            TroupCollection = CollectionViewSource.GetDefaultView( _resourceHandler.CreateTroupList( ) );
         }
 
         public ICollectionView TroupCollection
@@ -48,6 +52,7 @@ namespace Venom.ViewModels
 
         public void Update()
         {
+            TroupCollection = CollectionViewSource.GetDefaultView( _resourceHandler.CreateTroupList( ) );
             TroupCollection.Refresh( );
         }
     }

@@ -37,7 +37,7 @@ namespace Venom.Game.Resources
                 _bashpointAttData.Add( i.Id, i );
             }
 
-
+            //=> Loading Bashpoints Def
             var bashpointsDefData = await CSVReader.DownloadFileAsync(
                 new Uri( _server.Local.Url + "/map/kill_def_tribe.txt" ),
                 ( buffer ) => new BashpointAllyData
@@ -52,6 +52,8 @@ namespace Venom.Game.Resources
                 _bashpointDefData.Add( i.Id, i );
             }
 
+
+            //=> Loading Bashpoints All
             var bashpointsAllData = await CSVReader.DownloadFileAsync(
                 new Uri( _server.Local.Url + "/map/kill_all_tribe.txt" ),
                 ( buffer ) => new BashpointAllyData
@@ -67,17 +69,12 @@ namespace Venom.Game.Resources
             }
         }
 
-        public BashpointAllyData GetBashpointAtt( AllyData data ) => 
-            _bashpointAttData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData( );
-
-        public BashpointAllyData GetBashpointDef( AllyData data ) => 
-            _bashpointDefData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData( );
-
-        public BashpointAllyData GetBashpointAll( AllyData data ) => 
-            _bashpointAllData.TryGetValue( data.Id, out var bashpoint ) ? bashpoint : new BashpointAllyData();
-
-        public Dictionary<int, BashpointAllyData> GetBashpointAllList( ) =>
-            _bashpointAllData;
+        public List<BashpointAllyData> GetBashpointAttList( ) =>
+            _bashpointAttData.Values.ToList( );
+        public List<BashpointAllyData> GetBashpointDefList( ) =>
+            _bashpointDefData.Values.ToList( );
+        public List<BashpointAllyData> GetBashpointAllList( ) =>
+            _bashpointAllData.Values.ToList();
     }
 
     public class BashpointAllyData

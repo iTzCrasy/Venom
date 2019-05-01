@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 using HtmlAgilityPack;
+
+using Venom.Game;
 using Venom.Game.Resources;
 
 namespace Venom.Domain
@@ -18,14 +20,18 @@ namespace Venom.Domain
         private readonly ResourcePlayer _resourcePlayer;
         private readonly ResourceTroup _resourceTroup;
         private readonly ResourceVillage _resourceVillage;
+        private readonly GroupHandler _groupHandler;
+
         public ClipboardHandler( 
             ResourcePlayer resourcePlayer,
             ResourceTroup resourceTroup,
-            ResourceVillage resourceVillage )
+            ResourceVillage resourceVillage,
+            GroupHandler groupHandler )
         {
             _resourcePlayer = resourcePlayer;
             _resourceTroup = resourceTroup;
             _resourceVillage = resourceVillage;
+            _groupHandler = groupHandler;
         }
 
         public void Parse()
@@ -37,12 +43,13 @@ namespace Venom.Domain
                 var htmlDoc = new HtmlDocument( );
                 htmlDoc.LoadHtml( Text );
 
+                //=> Only current selected group! Handle
                 var group = htmlDoc.DocumentNode.SelectNodes( "//strong[@class=\"group-menu-item\"]" );
                 if( group != null )
                 {
                     var test = group.ElementAt( 0 );
 
-                    //=> &gt;45 Off Voll&lt;
+                    //=> &gt;Group&lt;
                     Console.WriteLine( test.InnerText.
                         Replace( "&gt;", "" ).
                         Replace( "&lt;", "" ) );
@@ -74,6 +81,7 @@ namespace Venom.Domain
                             }
                         }
 
+                        _groupHandler.HandleSelected( group.ElementAt( 0 ).InnerText.Replace( "&gt;", "" ).Replace( "&lt;", "" ), matchCoord.Value );
                         _resourceTroup.Parse( troupData );
                     }
 
@@ -89,7 +97,16 @@ namespace Venom.Domain
                 {
                     foreach( var node in groupsTable.Elements() )
                     {
-                        Console.WriteLine( node.InnerHtml );
+                        var groupDetails = node.SelectNodes( "//tr[@class=\" row_a\"]" );
+                        foreach( var nodeInner in groupDetails )
+                        {
+                            foreach( var detailsInner in nodeInner.ChildNodes )
+                            {
+                                var villageGroups = detailsInner.ChildNodes[4];
+                            }
+                            var villageId = nodeInner.SelectSingleNode( "//input[@type=\"checkbox\"]" ).GetAttributeValue( "value", "" );       
+
+                        }
                     }
                 }
             }

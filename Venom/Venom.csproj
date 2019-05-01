@@ -107,6 +107,7 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
@@ -134,6 +135,9 @@
     <Compile Include="Core\Network.cs" />
     <Compile Include="Core\ResourceManager.cs" />
     <Compile Include="Core\Singleton.cs" />
+    <Compile Include="Dialogs\AddPlanerTarget.xaml.cs">
+      <DependentUpon>AddPlanerTarget.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\AddProfileDialog.xaml.cs">
       <DependentUpon>AddProfileDialog.xaml</DependentUpon>
     </Compile>
@@ -146,15 +150,15 @@
     <Compile Include="Domain\ClipboardHandler.cs" />
     <Compile Include="Domain\CommandExt.cs" />
     <Compile Include="Domain\TrayIcon.cs" />
+    <Compile Include="Game\GroupHandler.cs" />
     <Compile Include="Game\Planer\IPlaner.cs" />
     <Compile Include="Game\Planer\PlanerAttack.cs" />
     <Compile Include="Game\Profile.cs" />
-    <Compile Include="Game\ResourceCenter.cs" />
+    <Compile Include="Game\ResourceHandler.cs" />
     <Compile Include="Game\Resources\ResourceAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointPlayer.cs" />
     <Compile Include="Game\Resources\ResourceConquer.cs" />
-    <Compile Include="Game\Resources\ResourceGroup.cs" />
     <Compile Include="Game\Resources\ResourcePlaner.cs" />
     <Compile Include="Game\Resources\ResourcePlayer.cs" />
     <Compile Include="Game\Resources\IResource.cs" />
@@ -163,6 +167,7 @@
     <Compile Include="Game\Server.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
     <Compile Include="ViewModels\ViewModelConquer.cs" />
+    <Compile Include="ViewModels\ViewModelPlaner.cs" />
     <Compile Include="ViewModels\ViewModelRankingAlly.cs" />
     <Compile Include="ViewModels\ViewModelRankingPlayer.cs" />
     <Compile Include="ViewModels\ViewModelStart.cs" />
@@ -200,6 +205,10 @@
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\NotifyPropertyChangedExt.cs" />
+    <Page Include="Dialogs\AddPlanerTarget.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\AddProfileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -297,9 +306,6 @@
     <None Include="Venom_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.1">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.1 %28x86 und x64%29</ProductName>
@@ -330,6 +336,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\map2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Venom.Style\Venom.Style.csproj">
+      <Project>{76c31e59-7749-44bb-9ce4-871ae06bd9ca}</Project>
+      <Name>Venom.Style</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

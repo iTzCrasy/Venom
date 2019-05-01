@@ -13,27 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-using Venom.Game;
-
-namespace Venom.Views
+namespace Venom.Dialogs
 {
     /// <summary>
-    /// Interaktionslogik für TroupList.xaml
+    /// Interaktionslogik für AddPlanerTarget.xaml
     /// </summary>
-    public partial class ViewTroupList : UserControl
+    public partial class AddPlanerTarget : UserControl
     {
-        public ViewTroupList( Server server )
+        public AddPlanerTarget( )
         {
             InitializeComponent( );
-
-            DataContext = App.Instance.ViewModelTroupList;
-
-            if( server.Local.Config.Archer == false )
-            {
-                ViewTroups.Columns.Remove( ColumnArcher );
-                ViewTroups.Columns.Remove( ColumnMArcher );
-            }
         }
     }
 }
-

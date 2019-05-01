@@ -78,10 +78,11 @@ namespace Venom.Game.Resources
                 {
                     var troups = match.Value.Replace( _unitType[i], $"{_troupType.ElementAt(i)}" ).Split( ' ' );
                     var trouptable = troups.AsEnumerable( ).ToList().GetRange( 1, _troupTable.Count() );
-                    AddUnits( Convert.ToInt32( village[0] ), Convert.ToInt32( village[1] ), _troupType.ElementAt( i ), 
+                    AddUnits( Convert.ToInt32( village[0] ), Convert.ToInt32( village[1] ), _troupType.ElementAt( i ),
                         new TroupData( )
                         {
-                            Troup = trouptable.Select( x => Convert.ToInt32( x ) ).ToList( )
+                            Troup = trouptable.Select( x => Convert.ToInt32( x ) ).ToList( ),
+                            Table = _troupTable
                         } );
                 }
             }
@@ -137,18 +138,33 @@ namespace Venom.Game.Resources
         [JsonProperty( "Troup" )]
         public List<int> Troup = new List<int>( );
 
-        public int UnitSpear => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_SPEAR );
-        public int UnitSword => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_SWORD );
-        public int UnitAxe => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_AXE );
-        public int UnitArcher => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_ARCHER );
-        public int UnitSpy => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_SPY );
-        public int UnitLight => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_LIGHT );
-        public int UnitMarcher => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_MARCHER );
-        public int UnitHeavy => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_HEAVY );
-        public int UnitRam => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_RAM );
-        public int UnitCatapult => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_CATAPULT );
-        public int UnitKnight => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_KNIGHT );
-        public int UnitSnob => Troup.ElementAtOrDefault( ( int )TroupTable.UNIT_SNOB );
+        public IEnumerable<TroupTable> Table = Enum.GetValues( typeof( TroupTable ) ).Cast<TroupTable>( );
+
+        private int GetTroup( TroupTable troup )
+        {
+            var index = 0;
+            var comparer = EqualityComparer<TroupTable>.Default;
+            foreach( var item in Table )
+            {
+                if( comparer.Equals( item, troup ) )
+                    return Troup.ElementAtOrDefault( index );
+                index++;
+            }
+            return 0;
+        }
+
+        public int UnitSpear => GetTroup( TroupTable.UNIT_SPEAR );
+        public int UnitSword => GetTroup( TroupTable.UNIT_SWORD );
+        public int UnitAxe => GetTroup( TroupTable.UNIT_AXE );
+        public int UnitArcher => GetTroup( TroupTable.UNIT_ARCHER );
+        public int UnitSpy => GetTroup( TroupTable.UNIT_SPY );
+        public int UnitLight => GetTroup( TroupTable.UNIT_LIGHT );
+        public int UnitMarcher => GetTroup( TroupTable.UNIT_MARCHER );
+        public int UnitHeavy => GetTroup( TroupTable.UNIT_HEAVY );
+        public int UnitRam => GetTroup( TroupTable.UNIT_RAM );
+        public int UnitCatapult => GetTroup( TroupTable.UNIT_CATAPULT );
+        public int UnitKnight => GetTroup( TroupTable.UNIT_KNIGHT );
+        public int UnitSnob => GetTroup( TroupTable.UNIT_SNOB );
     }
 
     public enum TroupTable : int

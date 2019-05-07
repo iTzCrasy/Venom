@@ -60,35 +60,40 @@ namespace Venom.Domain
                 if( unitsTable != null && group != null)
                 {
                     watch.Start( );
-
-                    foreach( var node in unitsTable.Elements() )
+                    Task.Run( () =>
                     {
-                        var troupData = "";
-                        var matchCoord = Regex.Match( node.InnerText, @"\(\d+\|\d+\)" );
-                        if( matchCoord.Success )
+                        foreach( var node in unitsTable.Elements( ) )
                         {
-                            troupData += matchCoord.Value + " ";
-                        }
-
-                        foreach( var villageNode in node.ChildNodes )
-                        {
-                            foreach( var troupNode in villageNode.ChildNodes )
+                            var troupData = "";
+                            var matchCoord = Regex.Match( node.InnerText, @"\(\d+\|\d+\)" );
+                            if( matchCoord.Success )
                             {
-                                if( !troupNode.InnerHtml.Contains( "href" ) )
+                                troupData += matchCoord.Value + " ";
+                            }
+
+                            foreach( var villageNode in node.ChildNodes )
+                            {
+                                foreach( var troupNode in villageNode.ChildNodes )
                                 {
-                                    troupData += troupNode.InnerText + " ";
+                                    if( !troupNode.InnerHtml.Contains( "href" ) )
+                                    {
+                                        troupData += troupNode.InnerText + " ";
+                                    }
                                 }
                             }
+
+                            _groupHandler.HandleSelected( group.ElementAt( 0 ).InnerText.Replace( "&gt;", "" ).Replace( "&lt;", "" ), matchCoord.Value );
+
+                            _resourceTroup.Parse( troupData );
                         }
 
-                        _groupHandler.HandleSelected( group.ElementAt( 0 ).InnerText.Replace( "&gt;", "" ).Replace( "&lt;", "" ), matchCoord.Value );
-                        _resourceTroup.Parse( troupData );
-                    }
+                        Application.Current.Dispatcher.Invoke( ( ) => App.Instance.ViewModelTroupList.Update( ) );
+                    } );
 
-                    _resourceTroup.Save( );
+                    //_resourceTroup.Save( );
 
                     watch.Stop( );
-                    App.Instance.TrayIcon.ShowInfo( "Loading", $"Loading Troups Finished in {watch.ElapsedMilliseconds}ms" );
+                    App.Instance.TrayIcon.ShowInfo( "Loading", $"Loading Troups Finished!" );
                 }
 
                 //=> Parse Groups

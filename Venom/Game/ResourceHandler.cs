@@ -101,18 +101,28 @@ namespace Venom.Game
         /// <returns></returns>
         public object CreateTroupList( ) =>
             from v in _resourceVillage.GetVillageList( ).Where( x => x.Owner.Equals( _resourcePlayer.GetPlayerByName( _profile.Local.Name ).Id ) )
-            from g in _groupHandler.GetGroupList().Where( x => x.Village.Id.Equals( v.Id ) ).DefaultIfEmpty( new GroupData() ) 
-            //join a in _groupHandler.GetGroupList( ) on v.Id equals a.Village.Id
+            join g in _groupHandler.GetGroupList( ) on v.Id equals g.Village.Id into groups
+            from groupData in groups.DefaultIfEmpty( new GroupData { Village = v } )
+            join t in _resourceTroup.GetTroupDataList() on v.Id equals t.VillageId into troups
+            from troupData in troups.DefaultIfEmpty( new TroupDataVillage { } )
             select new
             {
-                g.Groups,
+                groupData.Groups,
                 v.Name,
                 v.CoordString,
-                v.Points
+                v.Points,
+                troupData.TroupOwn,
+                troupData.TroupVillage,
+                troupData.TroupOut,
+                troupData.TroupAway,
+                UnitPop = _resourceTroup.GetTroupPop( troupData.TroupOwn ),
+                UnitPopText = $"{_resourceTroup.GetTroupPop( troupData.TroupOwn )}/24000"
             };
 
-
-        // prodGroup.DefaultIfEmpty(new Product { Name = String.Empty, CategoryID = 0 })
+        /// <summary>
+        /// Section for getting Resources 
+        /// </summary>
         public ResourcePlayer Player => _resourcePlayer;
+        public ResourceVillage Village => _resourceVillage;
     }
 }

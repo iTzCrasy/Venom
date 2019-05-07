@@ -15,15 +15,13 @@ using System.Windows.Shapes;
 namespace Venom.Windows
 {
     /// <summary>
-    /// Interaktionslogik für StartWindow.xaml
+    /// Interaktionslogik für LoadingWindow.xaml
     /// </summary>
-    public partial class StartWindow 
+    public partial class LoadingWindow
     {
-        public StartWindow()
+        public LoadingWindow( )
         {
-            InitializeComponent();
-
-            DataContext = App.Instance.ViewModelStart;
+            InitializeComponent( );
         }
     }
 }

@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         Title="Start"  
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -15,10 +14,10 @@
         FontFamily="{DynamicResource MaterialDesignFont}"
         UseLayoutRounding="True" Width="800" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
-        <Material:DialogHost Style="{StaticResource MaterialDesignEmbeddedDialogHost}">
+        <!--<Material:DialogHost Style="{StaticResource MaterialDesignEmbeddedDialogHost}">
             <Material:TransitioningContent Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}" >
                 <ContentControl Content="{Binding CurrentContent}"/>
             </Material:TransitioningContent>
-        </Material:DialogHost>
+        </Material:DialogHost>-->
     </Grid>
 </Window>

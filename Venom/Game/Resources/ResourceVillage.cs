@@ -10,24 +10,20 @@ namespace Venom.Game.Resources
     public class ResourceVillage : IResource
     {
         private readonly Server _server;
-        private readonly ResourceTroup _resourceTroup;
 
         private readonly Dictionary<int, VillageData> _villageData = new Dictionary<int, VillageData>();
         private readonly Dictionary<Tuple<int, int>, VillageData> _villageDataByCoord = new Dictionary<Tuple<int, int>, VillageData>( );
 
-        public ResourceVillage( 
-            Server server,
-            ResourceTroup resourceTroup )
+        public ResourceVillage( Server server )
         {
             _server = server;
-            _resourceTroup = resourceTroup;
         }
 
         public async Task InitializeAsync()
         {
             var villageData = await CSVReader.DownloadFileAsync(
                 new Uri( _server.Local.Url + "/map/village.txt" ),
-                ( buffer ) => new VillageData( _resourceTroup )
+                ( buffer ) => new VillageData()
                 {
                     Id = buffer.ReadInt( ),
                     Name = Uri.UnescapeDataString( buffer.ReadString( ).Replace( '+', ' ' ) ),
@@ -57,10 +53,10 @@ namespace Venom.Game.Resources
             _villageData.Values.Where( x => x.Owner == data.Id ).ToList( );
 
         public VillageData GetVillageById( int Id ) =>
-            _villageData.TryGetValue( Id, out var village ) ? village : new VillageData( null );
+            _villageData.TryGetValue( Id, out var village ) ? village : new VillageData();
 
         public VillageData GetVillageByCoord( int x, int y ) =>
-            _villageDataByCoord.TryGetValue( new Tuple<int, int>( x, y ), out var village ) ? village : new VillageData( null );
+            _villageDataByCoord.TryGetValue( new Tuple<int, int>( x, y ), out var village ) ? village : new VillageData();
 
         public int GetCount() =>
             _villageData.Count();
@@ -68,11 +64,6 @@ namespace Venom.Game.Resources
 
     public class VillageData
     {
-        /// <summary>
-        /// Constructor, Injection
-        /// </summary>
-        private readonly ResourceTroup _resourceTroup;
-        public VillageData( ResourceTroup resourceTroup ) => _resourceTroup = resourceTroup;
         //=> $id, $name, $x, $y, $player, $points, $bonus
         public int Id { get; set; }
         public string Name { get; set; }
@@ -85,11 +76,5 @@ namespace Venom.Game.Resources
         public List<string> Groups { get; set; }
 
         public string CoordString => X + "|" + Y;
-        public TroupData TroupOwn => _resourceTroup.GetTroupData( this, TroupType.TROUP_OWN );
-        public TroupData TroupVillage => _resourceTroup.GetTroupData( this, TroupType.TROUP_VILLAGE );
-        public TroupData TroupAway => _resourceTroup.GetTroupData( this, TroupType.TROUP_AWAY );
-        public TroupData TroupOut => _resourceTroup.GetTroupData( this, TroupType.TROUP_OUT );
-
-        public int UnitPop => _resourceTroup.GetTroupPop( _resourceTroup.GetTroupData( this, TroupType.TROUP_OWN ) );
     }
 }

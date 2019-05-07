@@ -1,24 +1,102 @@
-﻿<Window x:Class="Venom.Windows.MainWindow"
+﻿<Controls:MetroWindow x:Class="Venom.Windows.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Venom"
-        xmlns:Fluent="clr-namespace:Fluent;assembly=Fluent" 
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
         xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:Windows="clr-namespace:Venom.Windows"
-        xmlns:Models="clr-namespace:Venom.ViewModels"
-        xmlns:Views="clr-namespace:Venom.Views"
         mc:Ignorable="d"
-        Title="MainWindow"  
-        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-        TextElement.FontWeight="Regular"
-        TextElement.FontSize="13"
-        TextOptions.TextFormattingMode="Ideal" 
-        TextOptions.TextRenderingMode="Auto"        
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        Title="Venom"  
+        Closing="Window_Closing"
+        BorderThickness="0" 
+        GlowBrush="Black"
+        ResizeMode="CanResizeWithGrip"
+        WindowTransitionsEnabled="False"
+        WindowStartupLocation="CenterScreen" TitleCharacterCasing="Normal">
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/HamburgerMenuTemplate.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="HamburgerMenuCreatorsStyle"
+                   BasedOn="{StaticResource {x:Type Controls:HamburgerMenu}}"
+                   TargetType="{x:Type Controls:HamburgerMenu}">
+                <Setter Property="PaneBackground" Value="{DynamicResource WhiteBrush}" />
+                <Setter Property="PaneForeground" Value="{DynamicResource TextBrush}" />
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="{Binding LocalUsername}" />
+            <Button Content="Settings" />
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
     <Grid>
-        <Material:DialogHost>
+        <Border BorderBrush="{DynamicResource GrayBrush7}">
+            <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
+                                    ItemInvoked="HamburgerMenuControl_ItemInvoked"
+                                    SelectedIndex="0"
+                                    VerticalScrollBarOnLeftSide="False"
+                                    DisplayMode="CompactOverlay"
+                                    ItemsSource="{Binding MenuCollection}">
+
+                <Controls:HamburgerMenu.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel Height="48" LastChildFill="True">
+                            <Grid x:Name="IconPart"
+                                  Width="48"
+                                  DockPanel.Dock="Left">
+                                <Image Margin="12" 
+                                       Width="16" 
+                                       Height="16" 
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center" 
+                                       Source="{Binding Image}"
+                                       Stretch="UniformToFill" 
+                                       ToolTip="Test?"/>
+                            </Grid>
+                            <TextBlock x:Name="TextPart"
+                                       VerticalAlignment="Center"
+                                       FontSize="12"
+                                       Text="{Binding Title}" />
+                        </DockPanel>
+                    </DataTemplate>
+                </Controls:HamburgerMenu.ItemTemplate>
+
+                <Controls:HamburgerMenu.ContentTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="TheContentGrid">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="48" />
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Background="#FF444444">
+                                <TextBlock x:Name="Header"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="24"
+                                           Foreground="White"
+                                           Text="{Binding Title}" />
+                            </Border>
+                            <Controls:TransitioningContentControl Grid.Row="1" 
+                                                                  RestartTransitionOnContentChange="True"
+                                                                  Transition="Default" 
+                                                                  Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}"/>
+                        </Grid>
+                    </DataTemplate>
+                </Controls:HamburgerMenu.ContentTemplate>
+            </Controls:HamburgerMenu>
+        </Border>
+        <!--<Controls:TransitioningContentControl Transition="Down" Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}" Background="White"/>-->
+        <!--<Material:DialogHost>
             <Material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
                 <Material:DrawerHost.LeftDrawerContent>
                     <DockPanel MinWidth="200">
@@ -58,8 +136,8 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    <Material:TransitioningContent Grid.Row="1" Content="{Binding ElementName=VenomMainMenu, Path=SelectedItem.Content}" Background="White" OpeningEffect="{Material:TransitionEffect FadeIn, Duration=0:0:2.0}"/>
-                    <Material:ColorZone Grid.Row="0" Padding="4" Background="White" Material:ShadowAssist.ShadowDepth="Depth2">
+                    <Controls:TransitioningContentControl Grid.Row="1" Transition="Down" Content="{Binding ElementName=VenomMainMenu, Path=SelectedItem.Content}" Background="White"/>
+                    <Material:ColorZone Visibility="{Binding MenuBarVisible}" Grid.Row="0" Padding="4" Background="White" Material:ShadowAssist.ShadowDepth="Depth2">
                         <DockPanel>
                             <Material:PopupBox DockPanel.Dock="Right" PlacementMode="LeftAndAlignTopEdges">
                                 <ListBox>
@@ -80,6 +158,6 @@
                     </Material:ColorZone> 
                 </Grid>
             </Material:DrawerHost>
-        </Material:DialogHost>
+        </Material:DialogHost>-->
     </Grid>
-</Window>
+</Controls:MetroWindow>

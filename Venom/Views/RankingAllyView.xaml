@@ -3,35 +3,25 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:Properties="clr-namespace:Venom.Properties"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>-->
-
-        <!--<Material:Card Grid.Column="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
-            <StackPanel>
-                <Material:ColorZone Mode="Dark">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Margin="6">Suche</TextBlock>
-                    </StackPanel>
-                </Material:ColorZone>
-                <StackPanel Margin="10">
-                    <TextBox Material:HintAssist.Hint="{x:Static Properties:Resources.StringAlly}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding EditAllyname, Mode=TwoWay}"/>
-                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchAlly}"/>
-                </StackPanel>
-            </StackPanel>
-        </Material:Card>-->
         <ToolBarTray Grid.Row="0" IsLocked="True">
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                <TextBox Material:HintAssist.Hint="Rang / Name / Tag" Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
+            <ToolBar ClipToBounds="False">
+                <TextBox Width="200"                          
+                         HorizontalContentAlignment="Stretch"
+                         Controls:TextBoxHelper.ClearTextButton="True"
+                         Controls:TextBoxHelper.IsWaitingForData="True"
+                         Controls:TextBoxHelper.UseFloatingWatermark="True"
+                         Controls:TextBoxHelper.Watermark="Watermark"
+                         SpellCheck.IsEnabled="True"
+                         ToolTip="Default alignment" />
+                <!--<TextBox Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>-->
             </ToolBar>
         </ToolBarTray>
         <DataGrid Grid.Row="1" ItemsSource="{Binding AllyCollection}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectionMode="Extended">
@@ -48,29 +38,6 @@
             </DataGrid.Columns>
         </DataGrid>
         
-        <!--<ListView Name="Allylist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding AllyList}">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="#" Width="80" DisplayMemberBinding="{Binding Rank}" />
-                    <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
-                    <GridViewColumn Header="Tag" Width="100" DisplayMemberBinding="{Binding Tag}"/>
-                    <GridViewColumn Header="Mitglieder" Width="100" DisplayMemberBinding="{Binding Members}" />
-                    <GridViewColumn Header="Dörfer" Width="100" DisplayMemberBinding="{Binding Villages}" />
-                    <GridViewColumn Header="Punkte" Width="100" DisplayMemberBinding="{Binding Points, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Als Angreifer" Width="120" DisplayMemberBinding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Als Verteidiger" Width="120" DisplayMemberBinding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}" />
-                    <GridViewColumn Header="Gesamt" Width="100" DisplayMemberBinding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}" />
-                </GridView>
-            </ListView.View>
-        </ListView>-->
+      
     </Grid>
 </UserControl>

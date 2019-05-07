@@ -18,6 +18,8 @@ using System.Diagnostics;
 
 using Venom.Style;
 
+using Venom.Views.First;
+
 namespace Venom
 {
     /// <summary>
@@ -38,6 +40,7 @@ namespace Venom
             //=> Setup Windows
             _Container.Register( Castle.MicroKernel.Registration.Component.For<StartWindow>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<LoadingWindow>( ) );
 
             //=> Setup Domains
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ClipboardHandler>( ).LifestyleSingleton( ) );
@@ -49,6 +52,7 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<GroupHandler>( ).LifestyleSingleton( ) );
 
             //=> Setup Views
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<ServerSelection>( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<SelectServerView>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingPlayerView>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingAllyView>( ).LifestyleSingleton( ) );
@@ -80,9 +84,14 @@ namespace Venom
             Profile.Load( );
             Server.Load( );
 
-            WindowStart.Show( );
+            //WindowStart.Show( );
 
             ResourceManager.GetInstance.Initialize( );
+
+            _Container.Resolve<Profile>( ).Local = new ProfileData { Name = "Moralbasher", Server = "de161" };
+            _Container.Resolve<Server>( ).Load( "de161" );
+            _Container.Resolve<LoadingWindow>( ).Show( );
+            //Start( );
         }
 
         public async void Start()
@@ -90,42 +99,35 @@ namespace Venom
             var Watch = new Stopwatch( );
             Watch.Start( );
 
-            var resources = new IResource[]
-            {
-                ResourcePlayer,
-                ResourceAlly,
-                ResourceVillage,
-                ResourceConquer,
-            };
-
             var taskList = new List<Task>( );
-            foreach( var i in resources )
-            {
-                taskList.Add( i.InitializeAsync() );
-            }
+            taskList.Add( _Container.Resolve<ResourcePlayer>( ).InitializeAsync( ) );   //=> Loading Player Resources
+            taskList.Add( _Container.Resolve<ResourceAlly>( ).InitializeAsync( ) );     //=> Loading Ally Resources
+            taskList.Add( _Container.Resolve<ResourceVillage>( ).InitializeAsync( ) );  //=> Loading Village Resources
+            taskList.Add( _Container.Resolve<ResourceConquer>( ).InitializeAsync( ) );  //=> Loading Conquer Resources
+            taskList.Add( _Container.Resolve<ResourceBashpointAlly>( ).InitializeAsync( ) );    //=> Loading Bashpoint Ally Resources
+            taskList.Add( _Container.Resolve<ResourceBashpointPlayer>( ).InitializeAsync( ) );  //=> Loading Bashpoint Player Resources
+
+            taskList.Add( _Container.Resolve<ResourceTroup>( ).Load( ) ); //=> Loading Troup Saves
 
             await Task.WhenAll( taskList );
-
-            var bashpoints = new IResource[]
-            {
-                ResourceBashpointAlly,
-                ResourceBashpointPlayer,
-            };
-
-            var taskListBashpoints = new List<Task>( );
-            foreach( var i in bashpoints )
-            {
-                taskListBashpoints.Add( i.InitializeAsync() );
-            }
-
-            await Task.WhenAll( taskListBashpoints );
 
             Watch.Stop( );
 
             TrayIcon.ShowInfo( "Welcome to Venom!", "Loading finished in " + Watch.ElapsedMilliseconds + "ms" );
 
-            WindowStart.Close( );   //=> Loading finished, close main window
+            //WindowStart.Close( );   //=> Loading finished, close main window
             WindowMain.Show( );     //=> Show main window
+        }
+
+        public new async void Shutdown()
+        {
+            var taskList = new List<Task>( );
+
+            taskList.Add( _Container.Resolve<ResourceTroup>( ).Save( ) );
+
+            await Task.WhenAll( taskList );
+
+            Current.Shutdown( );
         }
 
         //=> Windows
@@ -168,19 +170,5 @@ namespace Venom
             _Container.Resolve<ViewModelRankingPlayer>( );
         public ViewModelRankingAlly ViewModelRankingAlly =>
             _Container.Resolve<ViewModelRankingAlly>( );
-
-        //=> Resources
-        public ResourcePlayer ResourcePlayer =>
-            _Container.Resolve<ResourcePlayer>( );
-        public ResourceAlly ResourceAlly =>
-            _Container.Resolve<ResourceAlly>( );
-        public ResourceBashpointAlly ResourceBashpointAlly =>
-            _Container.Resolve<ResourceBashpointAlly>( );
-        public ResourceBashpointPlayer ResourceBashpointPlayer =>
-            _Container.Resolve<ResourceBashpointPlayer>( );
-        public ResourceVillage ResourceVillage =>
-            _Container.Resolve<ResourceVillage>( );
-        public ResourceConquer ResourceConquer =>
-            _Container.Resolve<ResourceConquer>( );
     }
 }

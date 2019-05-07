@@ -37,8 +37,6 @@ namespace Venom.Game
             {
                 AddGroup( group, villageData );
             }
-
-            App.Instance.ViewModelTroupList.Update( );
         }
 
 

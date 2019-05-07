@@ -102,7 +102,6 @@ namespace Venom.ViewModels
                 {
                     try
                     {
-                        object test = "";
                         GetPropertyValue( obj, "Name" );
                         Console.WriteLine( $"Name --> {obj.ToString()}" );
                        
@@ -120,19 +119,3 @@ namespace Venom.ViewModels
     }
 }
 
-
-/*
- *         try
-        {
-            // Get Type object of MyClass.
-            Type myType=typeof(MyClass);       
-            // Get the PropertyInfo by passing the property name and specifying the BindingFlags.
-            PropertyInfo myPropInfo = myType.GetProperty("MyProperty", BindingFlags.Public | BindingFlags.Instance);
-            // Display Name propety to console.
-            Console.WriteLine("{0} is a property of MyClass.", myPropInfo.Name);
-        }
-        catch(NullReferenceException e)
-        {
-            Console.WriteLine("MyProperty does not exist in MyClass." +e.Message);
-        }
-*/

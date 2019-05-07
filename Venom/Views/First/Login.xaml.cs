@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Venom.Windows
+namespace Venom.Views.First
 {
     /// <summary>
-    /// Interaktionslogik für StartWindow.xaml
+    /// Interaktionslogik für Login.xaml
     /// </summary>
-    public partial class StartWindow 
+    public partial class Login : UserControl
     {
-        public StartWindow()
+        public Login( )
         {
-            InitializeComponent();
-
-            DataContext = App.Instance.ViewModelStart;
+            InitializeComponent( );
         }
     }
 }

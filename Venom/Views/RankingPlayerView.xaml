@@ -11,27 +11,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <!--<Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>-->
-
-        <!--<Material:Card Grid.Column="0" Margin="2" UniformCornerRadius="0" VerticalAlignment="Stretch">
-            <StackPanel>
-                <Material:ColorZone Mode="Dark">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <TextBlock Margin="6">Suche</TextBlock>
-                    </StackPanel>
-                </Material:ColorZone>
-                <StackPanel Margin="10">
-                    <TextBox Material:HintAssist.Hint="Spielername" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding EditUsername, Mode=TwoWay}" />
-                    <Button Margin="10" Content="Suchen" Command="{Binding CmdSearchPlayer}"/>
-                </StackPanel>
-            </StackPanel>
-        </Material:Card>-->
         <ToolBarTray Grid.Row="0" IsLocked="True">
-            <ToolBar Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
-                <TextBox Material:HintAssist.Hint="Name / Ally" Width="150" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
+            <ToolBar ClipToBounds="False">
+                <TextBox Material:HintAssist.Hint="Name / Ally" Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
@@ -42,7 +24,7 @@
                 <DataGridTextColumn Header="Ally" Width="100" Binding="{Binding Tag}" />
                 <DataGridTextColumn Header="Villages" Width="100" Binding="{Binding Villages}" />
                 <DataGridTextColumn Header="Points" Width="100" Binding="{Binding Points, StringFormat='{}{0:0,0}'}" />
-                <DataGridTextColumn Header="Points / Village" Width="120" Binding="{Binding PointsVillage, StringFormat='{}{0:0,0}'}" />
+                <DataGridTextColumn Header="Points / Village" Width="130" Binding="{Binding PointsVillage, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Attack" Width="100" Binding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Defensive" Width="100" Binding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}" />
                 <DataGridTextColumn Header="Support" Width="100" Binding="{Binding BashpointSup, StringFormat='{}{0:0,0}'}" />
@@ -50,31 +32,5 @@
                 <DataGridTextColumn Header="Barb Conquer" Width="120" Binding="{Binding Barbs}" />
             </DataGrid.Columns>
         </DataGrid>
-        
-        <!--<ListView Name="Playerlist" SelectionMode="Single" Grid.Column="1" ItemsSource="{Binding PlayerList}" SelectedItem="{Binding SelectedPlayer, Mode=TwoWay}">
-            <ListView.GroupStyle>
-                <GroupStyle>
-                    <GroupStyle.HeaderTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Name}"/>
-                        </DataTemplate>
-                    </GroupStyle.HeaderTemplate>
-                </GroupStyle>
-            </ListView.GroupStyle>
-                    <ListView.View>
-                        <GridView>
-                            <GridViewColumn Header="#" Width="80" DisplayMemberBinding="{Binding Rank}" />
-                            <GridViewColumn Header="Name" Width="200" DisplayMemberBinding="{Binding Name}" />
-                            <GridViewColumn Header="Ally" Width="100" DisplayMemberBinding="{Binding AllyString}"/>
-                            <GridViewColumn Header="Villages" Width="100" DisplayMemberBinding="{Binding Villages}" />
-                            <GridViewColumn Header="Points" Width="100" DisplayMemberBinding="{Binding Points, StringFormat='{}{0:0,0}'}" />
-                            <GridViewColumn Header="Points / Village" Width="100" DisplayMemberBinding="{Binding PointsVillage, StringFormat='{}{0:0,0}'}" />
-                            <GridViewColumn Header="Att" Width="100" DisplayMemberBinding="{Binding BashpointAtt, StringFormat='{}{0:0,0}'}" />
-                            <GridViewColumn Header="Def" Width="100" DisplayMemberBinding="{Binding BashpointDef, StringFormat='{}{0:0,0}'}" />
-                            <GridViewColumn Header="Sup" Width="100" DisplayMemberBinding="{Binding BashpointSup, StringFormat='{}{0:0,0}'}" />
-                            <GridViewColumn Header="All" Width="100" DisplayMemberBinding="{Binding BashpointAll, StringFormat='{}{0:0,0}'}" />
-                        </GridView>
-                    </ListView.View>
-                </ListView>-->
     </Grid>
 </UserControl>

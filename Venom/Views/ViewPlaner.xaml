@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Venom.ViewModels"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,29 +15,15 @@
             <ColumnDefinition Width="200"/>
         </Grid.ColumnDefinitions>
 
-        <Material:Card Grid.Row="0" Grid.Column="0" Margin="4" UniformCornerRadius="0">
             <StackPanel Margin="4">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
-                    <ComboBox Width="200" Material:HintAssist.Hint="Ziel" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                    <ComboBox Width="200">
                         <ComboBoxItem IsSelected="True">Apple</ComboBoxItem>
                         <ComboBoxItem>Banana</ComboBoxItem>
                         <ComboBoxItem>Pear</ComboBoxItem>
                         <ComboBoxItem>Orange</ComboBoxItem>
                     </ComboBox>
-                    <!--<Material:ColorZone Height="40" Mode="PrimaryMid" >
-                        <StackPanel Orientation="Horizontal" Margin="2" HorizontalAlignment="Center">
-                            <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="0" IsChecked="True" Content="Immer" FontSize="10"/>
-                            <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="0" IsChecked="False" Content="Täglich" FontSize="10"/>
-                            <RadioButton Style="{StaticResource MaterialDesignTabRadioButton}" Margin="0" IsChecked="False" Content="Zeitpunkt" FontSize="10"/>
-                        </StackPanel>
-                    </Material:ColorZone>
-                    <Slider Minimum="0" Maximum="60" Style="{StaticResource MaterialDesignDiscreteSlider}" ToolTip="MaterialDesignDiscreteSlider" Value="50" Width="280" />-->
-                    <!--<DatePicker Material:HintAssist.Hint="Datum" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" />
-                    <Material:TimePicker Material:HintAssist.Hint="Uhrzeit" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" Is24Hours="True" x:Name="WithSecondsTimePicker" WithSeconds="True" AllowDrop="True"/>
-                    <CheckBox Content="Test" HorizontalAlignment="Right"/>
-                    <Button Content="Testt"/>-->
                 </StackPanel>
             </StackPanel>
-        </Material:Card>
     </Grid>
 </UserControl>

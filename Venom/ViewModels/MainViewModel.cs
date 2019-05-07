@@ -15,6 +15,7 @@ using System.Windows.Input;
 using Venom.Domain;
 using Venom.Game;
 using Venom.Views;
+using Venom.Views.First;
 
 namespace Venom.ViewModels
 {
@@ -33,14 +34,15 @@ namespace Venom.ViewModels
             RankingPlayerView viewRankingPlayer,
             RankingAllyView viewRankingAlly,
             ConquerView viewConquer,
-            ViewPlaner viewPlaner )
+            ViewPlaner viewPlaner,
+            ServerSelection serverSelection )
         {
             _profile = profile;
             _server = server;
 
             var MenuItems = new[]
             {
-                new MainMenuItem()
+                new MainMenuItem() 
                 {
                     Group = "Start",
                     Title = "Start",
@@ -49,7 +51,21 @@ namespace Venom.ViewModels
                 },
                 new MainMenuItem()
                 {
-                    Group = "",
+                    Group = "Start",
+                    Title = "Server Auswahl",
+                    Image = "",
+                    Content = serverSelection
+                },
+                new MainMenuItem()
+                {
+                    Group = "Allgemein",
+                    Title = "Karte",
+                    Image = "/Venom;component/Assets/Images/map2.png",
+                    Content = null
+                },
+                new MainMenuItem()
+                {
+                    Group = "Allgemein",
                     Title = "Truppenliste",
                     Image = "",
                     Content = viewTroupList
@@ -79,7 +95,7 @@ namespace Venom.ViewModels
                 {
                     Group = "Planer",
                     Title = "Angriffsplaner",
-                    Image = "",
+                    Image = "/Venom;component/Assets/Images/unit_axe.png",
                     Content = viewPlaner
                 }
             }; 
@@ -92,6 +108,16 @@ namespace Venom.ViewModels
         {
             get => _menuCollection;
             set => SetProperty( ref _menuCollection, value );
+        }
+
+        public string LocalUsername
+        {
+            get => _profile.Local.Name;
+        }
+
+        public Visibility MenuBarVisible
+        {
+            get => Visibility.Visible;
         }
     }
 

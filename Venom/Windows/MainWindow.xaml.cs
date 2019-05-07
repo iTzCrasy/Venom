@@ -16,7 +16,6 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Interop;
 using System.Runtime.InteropServices;
-using Fluent;
 using Venom.Domain;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
@@ -26,7 +25,7 @@ namespace Venom.Windows
     /// <summary>
     /// Interaktionslogik für MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
         private IntPtr _hWnd;
         private HwndSource _hWndSource;
@@ -81,7 +80,36 @@ namespace Venom.Windows
 
         private void VenomMainMenu_SelectionChanged( object sender, SelectionChangedEventArgs e )
         {
-            MenuToggleButton.IsChecked = false;
+            //MenuToggleButton.IsChecked = false;
+        }
+
+        private void Window_Closing( object sender, CancelEventArgs e )
+        {
+            App.Instance.Shutdown( );
+        }
+
+        private void HamburgerMenuControl_ItemInvoked( object sender, MahApps.Metro.Controls.HamburgerMenuItemInvokedEventArgs e )
+        {
+            HamburgerMenuControl.Content = e.InvokedItem;
+            if( HamburgerMenuControl.IsPaneOpen )
+                HamburgerMenuControl.IsPaneOpen = false;
+        }
+    }
+
+    public class BindingProxy : Freezable
+    {
+        // Using a DependencyProperty as the backing store for Data. This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty DataProperty = DependencyProperty.Register( "Data", typeof( object ), typeof( BindingProxy ), new UIPropertyMetadata( null ) );
+
+        public object Data
+        {
+            get => GetValue( DataProperty );
+            set => SetValue( DataProperty, value );
+        }
+
+        protected override Freezable CreateInstanceCore( )
+        {
+            return new BindingProxy( );
         }
     }
 }

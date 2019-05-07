@@ -11,24 +11,29 @@ using Newtonsoft.Json;
 
 namespace Venom.Game.Resources
 {
-    public class ResourceTroup : IResource
+    public class ResourceTroup
     {
         private readonly Server _server;
         private readonly Profile _profile;
+        private readonly ResourceVillage _resourceVillage;
         private readonly string[] _unitType;
         private readonly string _parserMask;
         private readonly IEnumerable<TroupType> _troupType;
         private readonly IEnumerable<TroupTable> _troupTable;
 
         [JsonProperty( "TroupDataOwn" )]
-        private readonly Dictionary<Tuple<int, int, TroupType>, TroupData> _troupData = new Dictionary<Tuple<int, int, TroupType>, TroupData>( );
+        private readonly Dictionary<Tuple<int, TroupType>, TroupData> _troupData = new Dictionary<Tuple<int, TroupType>, TroupData>( );
+
+        private Dictionary<int, TroupDataVillage> _troupDataVillage = new Dictionary<int, TroupDataVillage>( );
 
         public ResourceTroup( 
             Server server,
-            Profile profile )
+            Profile profile,
+            ResourceVillage resourceVillage )
         {
             _server = server;
             _profile = profile;
+            _resourceVillage = resourceVillage;
 
             _unitType = new string[]
             {
@@ -48,11 +53,6 @@ namespace Venom.Game.Resources
                     .Except( new TroupTable[] { TroupTable.UNIT_ARCHER, TroupTable.UNIT_MARCHER } );
 
             _troupType = Enum.GetValues( typeof( TroupType ) ).Cast<TroupType>( );
-        }
-
-        public async Task InitializeAsync()
-        {
-            //=> TODO: Load Troups from File!
         }
 
         public void Parse( string data )
@@ -78,7 +78,8 @@ namespace Venom.Game.Resources
                 {
                     var troups = match.Value.Replace( _unitType[i], $"{_troupType.ElementAt(i)}" ).Split( ' ' );
                     var trouptable = troups.AsEnumerable( ).ToList().GetRange( 1, _troupTable.Count() );
-                    AddUnits( Convert.ToInt32( village[0] ), Convert.ToInt32( village[1] ), _troupType.ElementAt( i ),
+                    var villageId = _resourceVillage.GetVillageByCoord( Convert.ToInt32( village[0] ), Convert.ToInt32( village[1] ) ).Id;
+                    AddUnits( villageId, _troupType.ElementAt( i ),
                         new TroupData( )
                         {
                             Troup = trouptable.Select( x => Convert.ToInt32( x ) ).ToList( ),
@@ -86,8 +87,18 @@ namespace Venom.Game.Resources
                         } );
                 }
             }
+        }
 
-            App.Instance.ViewModelTroupList.Update( );
+        public async Task Load()
+        {
+            var filePath = _profile.Local.Server + "\\" + _profile.Local.Name + "\\Troup.json";
+            if( File.Exists( filePath ) )
+            {
+                using( var sr = File.OpenText( filePath ) )
+                {
+                    _troupDataVillage = JsonConvert.DeserializeObject<Dictionary<int, TroupDataVillage>>( sr.ReadToEnd( ) );
+                }
+            }
         }
 
         public async Task Save()
@@ -96,45 +107,71 @@ namespace Venom.Game.Resources
             using( var sw = File.CreateText( filePath ) )
             {
                 var js = new JsonSerializer( );
-                await Task.Run( ( ) => js.Serialize( sw, _troupData ) );
+                await Task.Run( ( ) => js.Serialize( sw, _troupDataVillage ) );
             }
         }
 
-        private void AddUnits( int x, int y, TroupType type, TroupData data )
+        private void AddUnits( int villageId, TroupType type, TroupData data )
         {
-            var villageTuple = new Tuple<int, int, TroupType>( Convert.ToInt32( x ), Convert.ToInt32( y ), type );
-            if( _troupData.TryGetValue( villageTuple, out var troupdata ) )
+            if( !_troupDataVillage.TryGetValue( villageId, out var troupDataVillage ) )
             {
-                _troupData[ villageTuple ] = data;
+                _troupDataVillage.Add( villageId, new TroupDataVillage { VillageId = villageId } );
             }
-            else
+
+            switch( type )
             {
-                _troupData.Add( villageTuple, data );
+                case TroupType.TROUP_OWN:
+                    _troupDataVillage[villageId].TroupOwn = data;
+                    break;
+                case TroupType.TROUP_VILLAGE:
+                    _troupDataVillage[villageId].TroupVillage = data;
+                    break;
+                case TroupType.TROUP_OUT:
+                    _troupDataVillage[villageId].TroupOut = data;
+                    break;
+                case TroupType.TROUP_AWAY:
+                    _troupDataVillage[villageId].TroupAway = data;
+                    break;
             }
         }
 
-        public TroupData GetTroupData( VillageData data, TroupType type ) =>
-            _troupData.TryGetValue( new Tuple<int, int, TroupType>( data.X, data.Y, type ), out var troup ) ? troup : new TroupData( );
+        public List<TroupDataVillage> GetTroupDataList() =>
+            _troupDataVillage.Values.ToList( );
 
         public int GetTroupPop( TroupData data )
         {
             var pop = 0;
-            pop += data.UnitSpear * _server.Local.ConfigUnits.GetConfig<int>( "spear", "pop" ); 
-            pop += data.UnitSword * _server.Local.ConfigUnits.GetConfig<int>( "sword", "pop" ); 
-            pop += data.UnitAxe * _server.Local.ConfigUnits.GetConfig<int>( "axe", "pop" ); 
-            pop += data.UnitSpy * _server.Local.ConfigUnits.GetConfig<int>( "spy", "pop" ); 
-            pop += data.UnitLight * _server.Local.ConfigUnits.GetConfig<int>( "light", "pop" ); 
-            pop += data.UnitHeavy * _server.Local.ConfigUnits.GetConfig<int>( "heavy", "pop" ); 
-            pop += data.UnitRam * _server.Local.ConfigUnits.GetConfig<int>( "ram", "pop" ); 
-            pop += data.UnitCatapult * _server.Local.ConfigUnits.GetConfig<int>( "catapult", "pop" ); 
-            pop += data.UnitKnight * _server.Local.ConfigUnits.GetConfig<int>( "knight", "pop" ); 
-            pop += data.UnitSnob * _server.Local.ConfigUnits.GetConfig<int>( "snob", "pop" ); 
+            pop += data.UnitSpear * _server.Local.ConfigUnits.GetConfig<int>( "spear", "pop" );
+            pop += data.UnitSword * _server.Local.ConfigUnits.GetConfig<int>( "sword", "pop" );
+            pop += data.UnitAxe * _server.Local.ConfigUnits.GetConfig<int>( "axe", "pop" );
+            pop += data.UnitSpy * _server.Local.ConfigUnits.GetConfig<int>( "spy", "pop" );
+            pop += data.UnitLight * _server.Local.ConfigUnits.GetConfig<int>( "light", "pop" );
+            pop += data.UnitHeavy * _server.Local.ConfigUnits.GetConfig<int>( "heavy", "pop" );
+            pop += data.UnitRam * _server.Local.ConfigUnits.GetConfig<int>( "ram", "pop" );
+            pop += data.UnitCatapult * _server.Local.ConfigUnits.GetConfig<int>( "catapult", "pop" );
+            pop += data.UnitKnight * _server.Local.ConfigUnits.GetConfig<int>( "knight", "pop" );
+            pop += data.UnitSnob * _server.Local.ConfigUnits.GetConfig<int>( "snob", "pop" );
             return pop;
         }
     }
 
+    public class TroupDataVillage
+    {
+        public int VillageId;
+        [JsonProperty( "Troup1" )]
+        public TroupData TroupOwn = new TroupData();
+        [JsonProperty( "Troup2" )]
+        public TroupData TroupVillage = new TroupData( );
+        [JsonProperty( "Troup3" )]
+        public TroupData TroupOut = new TroupData( );
+        [JsonProperty( "Troup4" )]
+        public TroupData TroupAway = new TroupData( );
+    }
+
     public class TroupData
     {
+        public TroupType Type;
+
         [JsonProperty( "Troup" )]
         public List<int> Troup = new List<int>( );
 

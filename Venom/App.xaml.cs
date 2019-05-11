@@ -15,25 +15,72 @@ using Venom.ViewModels;
 using Venom.Game;
 using Venom.Game.Resources;
 using System.Diagnostics;
-
 using Venom.Style;
-
 using Venom.Views.First;
-
 using MahApps.Metro.Controls.Dialogs;
+
+
 
 namespace Venom
 {
-    /// <summary>
-    /// Interaktionslogik für "App.xaml"
-    /// </summary>
     public partial class App : Application
     {
         //=> Global Instance
         public static App Instance => ( App )Current;
 
-        //=> Propertys
+        //=> Properties
         private readonly WindsorContainer _container = new WindsorContainer();
+
+
+        public Profile CurrentProfile => _container.Resolve<Profile>( );
+
+        public Server CurrentServer => _container.Resolve<Server>( );
+
+
+
+        //=> Windows
+        public StartWindow WindowStart =>
+            _container.Resolve<StartWindow>( );
+
+        public MainWindow WindowMain =>
+            _container.Resolve<MainWindow>( );
+
+        //=> Domains
+        public ClipboardHandler ClipboardHandler =>
+            _container.Resolve<ClipboardHandler>( );
+        public TrayIcon TrayIcon =>
+            _container.Resolve<TrayIcon>( );
+
+        //=> Game
+        public Profile Profile =>
+            _container.Resolve<Profile>( );
+        public Server Server =>
+            _container.Resolve<Server>( );
+
+        //=> Views
+        public SelectServerView ViewSelectServer =>
+            _container.Resolve<SelectServerView>( );
+        public ViewTroupList ViewTroupList =>
+            _container.Resolve<ViewTroupList>( );
+        public RankingPlayerView ViewRankingPlayer =>
+            _container.Resolve<RankingPlayerView>( );
+        public RankingAllyView ViewRankingAlly =>
+            _container.Resolve<RankingAllyView>( );
+
+        //=> ViewModels
+        public ViewModelStart ViewModelStart =>
+            _container.Resolve<ViewModelStart>( );
+
+        //public MainViewModel ViewModelMain =>
+        //    _container.Resolve<MainViewModel>( );
+
+        public ViewModelTroupList ViewModelTroupList =>
+            _container.Resolve<ViewModelTroupList>( );
+        public ViewModelRankingPlayer ViewModelRankingPlayer =>
+            _container.Resolve<ViewModelRankingPlayer>( );
+        public ViewModelRankingAlly ViewModelRankingAlly =>
+            _container.Resolve<ViewModelRankingAlly>( );
+
 
         private void AppStartup( object sender, StartupEventArgs e )
 		{
@@ -65,7 +112,11 @@ namespace Venom
 
             //=> Setup ViewModels
             _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelStart>( ).LifestyleSingleton( ) );
-            _container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ) );
+
+
+            // _container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ) );
+
+
             _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingPlayer>( ).LifestyleSingleton( ) );
             _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingAlly>( ).LifestyleSingleton( ) );
             _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelTroupList>( ).LifestyleSingleton( ) );
@@ -137,46 +188,5 @@ namespace Venom
 
             Current.Shutdown( );
         }
-
-        //=> Windows
-        public StartWindow WindowStart =>
-            _container.Resolve<StartWindow>( );
-
-        public MainWindow WindowMain =>
-            _container.Resolve<MainWindow>( );
-
-        //=> Domains
-        public ClipboardHandler ClipboardHandler =>
-            _container.Resolve<ClipboardHandler>( );
-        public TrayIcon TrayIcon =>
-            _container.Resolve<TrayIcon>( );
-
-        //=> Game
-        public Profile Profile =>
-            _container.Resolve<Profile>( );
-        public Server Server =>
-            _container.Resolve<Server>( );
-
-        //=> Views
-        public SelectServerView ViewSelectServer =>
-            _container.Resolve<SelectServerView>( );
-        public ViewTroupList ViewTroupList =>
-            _container.Resolve<ViewTroupList>( );
-        public RankingPlayerView ViewRankingPlayer =>
-            _container.Resolve<RankingPlayerView>( );
-        public RankingAllyView ViewRankingAlly =>
-            _container.Resolve<RankingAllyView>( );
-
-        //=> ViewModels
-        public ViewModelStart ViewModelStart =>
-            _container.Resolve<ViewModelStart>( );
-        public MainViewModel ViewModelMain =>
-            _container.Resolve<MainViewModel>( );
-        public ViewModelTroupList ViewModelTroupList =>
-            _container.Resolve<ViewModelTroupList>( );
-        public ViewModelRankingPlayer ViewModelRankingPlayer =>
-            _container.Resolve<ViewModelRankingPlayer>( );
-        public ViewModelRankingAlly ViewModelRankingAlly =>
-            _container.Resolve<ViewModelRankingAlly>( );
     }
 }

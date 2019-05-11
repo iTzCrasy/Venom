@@ -10,6 +10,7 @@ namespace Venom.Domain
     public class CommandExt : ICommand
     {
         private readonly Action<object> _execute;
+
         private readonly Func<object, bool> _canExecute;
 
 
@@ -23,6 +24,7 @@ namespace Venom.Domain
             _execute = Execute ?? throw new ArgumentNullException( nameof( Execute ) );
             _canExecute = CanExecute ?? ( x => true );
         }
+
 
         public event EventHandler CanExecuteChanged
         {

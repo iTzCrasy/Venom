@@ -9,11 +9,21 @@ using Newtonsoft.Json;
 
 namespace Venom.Game
 {
+    public class ProfileData
+    {
+        [JsonProperty( "Name" )]
+        public string Name { get; set; }
+
+        [JsonProperty( "Server" )]
+        public string Server { get; set; }
+    }
+
     public class Profile
     {
         private List<ProfileData> _profiles = new List<ProfileData>( );
 
-        private ProfileData _local = default;
+        public ProfileData Local { get; set; } = default;
+
 
         public Profile( )
         {
@@ -54,19 +64,5 @@ namespace Venom.Game
 
         public ProfileData Get( string name, string server ) => _profiles.FirstOrDefault( x => x.Name.Equals( name ) && x.Server.Equals( server ) );
         public IEnumerable<ProfileData> GetList() => _profiles;
-
-        public ProfileData Local
-        {
-            get => _local;
-            set => _local = value;
-        }
-    }
-
-    public class ProfileData
-    {
-        [JsonProperty( "Name" )]
-        public string Name { get; set; }
-        [JsonProperty( "Server" )]
-        public string Server { get; set; }
     }
 }

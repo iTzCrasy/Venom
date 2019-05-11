@@ -13,70 +13,144 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Interop;
-using System.Runtime.InteropServices;
-using Venom.Domain;
-using System.Windows.Controls.Primitives;
 using System.ComponentModel;
+using Venom.ViewModels;
+using Venom.Util;
+using Venom.Views;
+using Venom.Views.First;
 
 namespace Venom.Windows
 {
-    /// <summary>
-    /// Interaktionslogik für MainWindow.xaml
-    /// </summary>
     public partial class MainWindow
     {
         private IntPtr _hWnd;
-        private HwndSource _hWndSource;
+
+        private readonly HwndSource _hWndSource;
+
+
 
         public MainWindow()
         {
             InitializeComponent();
 
-            DataContext = App.Instance.ViewModelMain;
+            DataContext = CreateDataContext( );
 
-            //=> Place Hook
             var interopHelper = new WindowInteropHelper( this );
             _hWndSource = HwndSource.FromHwnd( interopHelper.EnsureHandle() );
             _hWndSource.AddHook( WndProc );
-            _hWnd = SetClipboardViewer( _hWndSource.Handle );
+            _hWnd = WinApi.SetClipboardViewer( _hWndSource.Handle );
         }
+
+
+        private object CreateDataContext( )
+        {
+            var menuItems = new[]
+            {
+                //new MainMenuItem()
+                //{
+                //    Group = "Start",
+                //    Title = "Start",
+                //    Image = "",
+                //    Content = new ViewStart(),
+                //},
+
+                new MainMenuItem()
+                {
+                    Group = "Start",
+                    Title = "Server Auswahl",
+                    Image = "",
+                    Content = new ServerSelection(),
+                },
+
+                new MainMenuItem()
+                {
+                    Group = "Allgemein",
+                    Title = "Karte",
+                    Image = "/Venom;component/Assets/Images/map2.png",
+                    Content = null
+                },
+
+                new MainMenuItem()
+                {
+                    Group = "Allgemein",
+                    Title = "Truppenliste",
+                    Image = "",
+                    Content = new ViewTroupList(),
+                },
+
+                new MainMenuItem()
+                {
+                    Group = "Ranglisten",
+                    Title = "Rangliste Spieler",
+                    Image = "",
+                    Content = new RankingPlayerView(),
+                },
+
+                new MainMenuItem()
+                {
+                    Group = "Ranglisten",
+                    Title = "Rangliste Stämme",
+                    Image = "",
+                    Content = new RankingAllyView(),
+                },
+
+                //new MainMenuItem()
+                //{
+                //    Group = "Ranglisten",
+                //    Title = "Eroberungen",
+                //    Image = "/Venom;component/Assets/Images/unit_snob.png",
+                //    Content = new ConquerView(),
+                //},
+
+                new MainMenuItem()
+                {
+                    Group = "Planer",
+                    Title = "Angriffsplaner",
+                    Image = "/Venom;component/Assets/Images/unit_axe.png",
+                    Content = new ViewPlaner(),
+                }
+            };
+
+            var menuCollection = CollectionViewSource.GetDefaultView( menuItems );
+            menuCollection.GroupDescriptions.Add( new PropertyGroupDescription( "Group" ) );
+
+
+
+            return new MainViewModel
+            {
+                LocalUsername = App.Instance.Profile.Local.Name,
+
+                MenuCollection = menuCollection,
+            };
+        }
+
 
         private IntPtr WndProc( IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled )
         {
             switch( msg )
             {
-                case WM_CHANGECBCHAIN:
+                case WindowMessage.WM_CHANGECBCHAIN:
                     if( wParam == _hWnd )
                     {
                         _hWnd = lParam;
                     }
                     else if( _hWnd != IntPtr.Zero )
                     {
-                        SendMessage( _hWnd, msg, wParam, lParam );
+                        WinApi.SendMessage( _hWnd, msg, wParam, lParam );
                     }
                     break;
 
-                case WM_DRAWCLIPBOARD:
+                case WindowMessage.WM_DRAWCLIPBOARD:
                     App.Instance.ClipboardHandler.Parse( );
-                    SendMessage( _hWnd, msg, wParam, lParam );
+
+                    WinApi.SendMessage( _hWnd, msg, wParam, lParam );
                     break;
             }
 
             return IntPtr.Zero;
         }
 
-        internal const int WM_DRAWCLIPBOARD = 0x0308;
-        internal const int WM_CHANGECBCHAIN = 0x030D;
-        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-        internal static extern IntPtr SetClipboardViewer( IntPtr hWndNewViewer );
-
-        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-        internal static extern bool ChangeClipboardChain( IntPtr hWndRemove, IntPtr hWndNewNext );
-
-        [DllImport( "user32.dll", CharSet = CharSet.Auto, SetLastError = true )]
-        internal static extern IntPtr SendMessage( IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam );
 
         private void VenomMainMenu_SelectionChanged( object sender, SelectionChangedEventArgs e )
         {
@@ -91,8 +165,13 @@ namespace Venom.Windows
         private void HamburgerMenuControl_ItemInvoked( object sender, MahApps.Metro.Controls.HamburgerMenuItemInvokedEventArgs e )
         {
             HamburgerMenuControl.Content = e.InvokedItem;
+
             if( HamburgerMenuControl.IsPaneOpen )
+            {
                 HamburgerMenuControl.IsPaneOpen = false;
+            }
         }
+
+
     }
 }

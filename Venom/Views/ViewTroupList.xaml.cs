@@ -17,18 +17,15 @@ using Venom.Game;
 
 namespace Venom.Views
 {
-    /// <summary>
-    /// Interaktionslogik für TroupList.xaml
-    /// </summary>
     public partial class ViewTroupList : UserControl
     {
-        public ViewTroupList( Server server )
+        public ViewTroupList( )
         {
             InitializeComponent( );
 
             DataContext = App.Instance.ViewModelTroupList;
 
-            if( server.Local.Config.Archer == false )
+            if( App.Instance.CurrentServer.Local.Config.Archer == false )
             {
                 ViewTroups.Columns.Remove( ColumnArcher );
                 ViewTroups.Columns.Remove( ColumnMArcher );

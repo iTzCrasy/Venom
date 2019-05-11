@@ -1,19 +1,21 @@
-﻿<Controls:MetroWindow x:Class="Venom.Windows.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-        Dialog:DialogParticipation.Register="{Binding}"
-        mc:Ignorable="d"
-        Title="Venom"  
-        Closing="Window_Closing"
-        BorderThickness="0" 
-        GlowBrush="Black"
-        ResizeMode="CanResizeWithGrip"
-        WindowTransitionsEnabled="False"
-        WindowStartupLocation="CenterScreen" TitleCharacterCasing="Normal">
+﻿<Controls:MetroWindow
+    x:Class="Venom.Windows.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Venom"
+    Dialog:DialogParticipation.Register="{Binding}"
+    BorderThickness="0"
+    Closing="Window_Closing"
+    GlowBrush="Black"
+    ResizeMode="CanResizeWithGrip"
+    TitleCharacterCasing="Normal"
+    WindowStartupLocation="CenterScreen"
+    WindowTransitionsEnabled="False"
+    mc:Ignorable="d">
 
     <Window.Resources>
         <ResourceDictionary>
@@ -23,16 +25,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <Style x:Key="HamburgerMenuCreatorsStyle"
-                   BasedOn="{StaticResource {x:Type Controls:HamburgerMenu}}"
-                   TargetType="{x:Type Controls:HamburgerMenu}">
+            <Style
+                x:Key="HamburgerMenuCreatorsStyle"
+                BasedOn="{StaticResource {x:Type Controls:HamburgerMenu}}"
+                TargetType="{x:Type Controls:HamburgerMenu}">
                 <Setter Property="PaneBackground" Value="{DynamicResource WhiteBrush}" />
                 <Setter Property="PaneForeground" Value="{DynamicResource TextBrush}" />
             </Style>
 
         </ResourceDictionary>
     </Window.Resources>
-    
+
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
             <Button Content="{Binding LocalUsername}" />
@@ -42,32 +45,36 @@
 
     <Grid>
         <Border BorderBrush="{DynamicResource GrayBrush7}">
-            <Controls:HamburgerMenu x:Name="HamburgerMenuControl"
-                                    ItemInvoked="HamburgerMenuControl_ItemInvoked"
-                                    SelectedIndex="0"
-                                    VerticalScrollBarOnLeftSide="False"
-                                    DisplayMode="CompactOverlay"
-                                    ItemsSource="{Binding MenuCollection}">
+            <Controls:HamburgerMenu
+                x:Name="HamburgerMenuControl"
+                DisplayMode="CompactOverlay"
+                ItemInvoked="HamburgerMenuControl_ItemInvoked"
+                ItemsSource="{Binding MenuCollection}"
+                SelectedIndex="0"
+                VerticalScrollBarOnLeftSide="False">
 
                 <Controls:HamburgerMenu.ItemTemplate>
                     <DataTemplate>
                         <DockPanel Height="48" LastChildFill="True">
-                            <Grid x:Name="IconPart"
-                                  Width="48"
-                                  DockPanel.Dock="Left">
-                                <Image Margin="12" 
-                                       Width="16" 
-                                       Height="16" 
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center" 
-                                       Source="{Binding Image}"
-                                       Stretch="UniformToFill" 
-                                       ToolTip="Test?"/>
+                            <Grid
+                                x:Name="IconPart"
+                                Width="48"
+                                DockPanel.Dock="Left">
+                                <Image
+                                    Width="16"
+                                    Height="16"
+                                    Margin="12"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Source="{Binding Image}"
+                                    Stretch="UniformToFill"
+                                    ToolTip="{Binding ToolTip}" />
                             </Grid>
-                            <TextBlock x:Name="TextPart"
-                                       VerticalAlignment="Center"
-                                       FontSize="12"
-                                       Text="{Binding Title}" />
+                            <TextBlock
+                                x:Name="TextPart"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="{Binding Title}" />
                         </DockPanel>
                     </DataTemplate>
                 </Controls:HamburgerMenu.ItemTemplate>
@@ -77,88 +84,26 @@
                         <Grid x:Name="TheContentGrid">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="48" />
-                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
                             <Border Grid.Row="0" Background="#FF444444">
-                                <TextBlock x:Name="Header"
-                                           HorizontalAlignment="Center"
-                                           VerticalAlignment="Center"
-                                           FontSize="24"
-                                           Foreground="White"
-                                           Text="{Binding Title}" />
+                                <TextBlock
+                                    x:Name="Header"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    FontSize="24"
+                                    Foreground="White"
+                                    Text="{Binding Title}" />
                             </Border>
-                            <Controls:TransitioningContentControl Grid.Row="1" 
-                                                                  RestartTransitionOnContentChange="True"
-                                                                  Transition="Default" 
-                                                                  Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}"/>
+                            <Controls:TransitioningContentControl
+                                Grid.Row="1"
+                                Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}"
+                                RestartTransitionOnContentChange="True"
+                                Transition="Default" />
                         </Grid>
                     </DataTemplate>
                 </Controls:HamburgerMenu.ContentTemplate>
             </Controls:HamburgerMenu>
         </Border>
-        <!--<Controls:TransitioningContentControl Transition="Down" Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}" Background="White"/>-->
-        <!--<Material:DialogHost>
-            <Material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
-                <Material:DrawerHost.LeftDrawerContent>
-                    <DockPanel MinWidth="200">
-                        <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
-                                    DockPanel.Dock="Top"
-                                    HorizontalAlignment="Right" Margin="16"
-                                    IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
-                        <ListBox ItemsSource="{Binding MenuCollection}" x:Name="VenomMainMenu" SelectedIndex="0" SelectionChanged="VenomMainMenu_SelectionChanged">
-                            <ListBox.GroupStyle>
-                                <GroupStyle HidesIfEmpty="True">
-                                    <GroupStyle.HeaderTemplate>
-                                        <DataTemplate>
-                                            <DockPanel>
-                                                <TextBlock Text="{Binding Name}" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
-                                                <Separator Margin="4,2,0,0" Foreground="Gray"/>
-                                            </DockPanel>
-                                        </DataTemplate>
-                                    </GroupStyle.HeaderTemplate>
-                                </GroupStyle>
-                            </ListBox.GroupStyle>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate DataType="MainMenu">
-                                    <Material:Badged Badge="" BadgePlacementMode="TopRight" BadgeBackground="Transparent">
-                                        <StackPanel Orientation="Horizontal">
-                                            <Image Source="{Binding Image}" Width="14" Height="14"/>
-                                            <TextBlock Text="{Binding Title}" Margin="6 0 0 0"/>
-                                        </StackPanel>
-                                    </Material:Badged>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </DockPanel>
-                </Material:DrawerHost.LeftDrawerContent>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-
-                    <Controls:TransitioningContentControl Grid.Row="1" Transition="Down" Content="{Binding ElementName=VenomMainMenu, Path=SelectedItem.Content}" Background="White"/>
-                    <Material:ColorZone Visibility="{Binding MenuBarVisible}" Grid.Row="0" Padding="4" Background="White" Material:ShadowAssist.ShadowDepth="Depth2">
-                        <DockPanel>
-                            <Material:PopupBox DockPanel.Dock="Right" PlacementMode="LeftAndAlignTopEdges">
-                                <ListBox>
-                                    <ListBoxItem>Test 1</ListBoxItem>
-                                    <ListBoxItem>Test 2</ListBoxItem>
-                                    <ListBoxItem>Test 3</ListBoxItem>
-                                    <Separator/>
-                                    <ListBoxItem>Test 4</ListBoxItem>
-                                </ListBox>
-                            </Material:PopupBox>
-                            <TextBlock Text="Moralbasher" FontSize="11" DockPanel.Dock="Right" VerticalAlignment="Center" />
-                            
-                            <StackPanel Orientation="Horizontal">
-                                <ToggleButton Style="{DynamicResource MaterialDesignHamburgerToggleButton}" x:Name="MenuToggleButton"/>
-                                <TextBlock Margin="16 0 0 0" VerticalAlignment="Center">Venom</TextBlock>
-                            </StackPanel>
-                        </DockPanel>
-                    </Material:ColorZone> 
-                </Grid>
-            </Material:DrawerHost>
-        </Material:DialogHost>-->
     </Grid>
 </Controls:MetroWindow>

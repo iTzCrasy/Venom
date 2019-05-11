@@ -20,6 +20,8 @@ using Venom.Style;
 
 using Venom.Views.First;
 
+using MahApps.Metro.Controls.Dialogs;
+
 namespace Venom
 {
     /// <summary>
@@ -39,7 +41,7 @@ namespace Venom
 
             //=> Setup Windows
             _Container.Register( Castle.MicroKernel.Registration.Component.For<StartWindow>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<LoadingWindow>( ) );
 
             //=> Setup Domains
@@ -63,7 +65,7 @@ namespace Venom
 
             //=> Setup ViewModels
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelStart>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ).LifestyleSingleton( ) );
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingPlayer>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingAlly>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelTroupList>( ).LifestyleSingleton( ) );
@@ -80,6 +82,8 @@ namespace Venom
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceConquer>( ).LifestyleSingleton( ) );
             _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceTroup>( ).LifestyleSingleton( ) );
 
+            _Container.Register( Castle.MicroKernel.Registration.Component.For<IDialogCoordinator>().ImplementedBy<DialogCoordinator>() );
+
             //=> Loading Server & Profiles
             Profile.Load( );
             Server.Load( );
@@ -90,8 +94,8 @@ namespace Venom
 
             _Container.Resolve<Profile>( ).Local = new ProfileData { Name = "Moralbasher", Server = "de161" };
             _Container.Resolve<Server>( ).Load( "de161" );
-            _Container.Resolve<LoadingWindow>( ).Show( );
-            //Start( );
+            //_Container.Resolve<LoadingWindow>( ).Show( );
+            Start( );
         }
 
         public async void Start()
@@ -117,6 +121,9 @@ namespace Venom
 
             //WindowStart.Close( );   //=> Loading finished, close main window
             WindowMain.Show( );     //=> Show main window
+
+
+            
         }
 
         public new async void Shutdown()

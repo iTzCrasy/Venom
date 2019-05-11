@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:Venom.ViewModels"
+             xmlns:Converter="clr-namespace:Venom.Converter"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,9 +17,20 @@
                 <Separator/>
             </ToolBar>
         </ToolBarTray>
-        <DataGrid Grid.Row="1" VirtualizingPanel.IsVirtualizingWhenGrouping="True" ItemsSource="{Binding PlayerCollection, IsAsync=True}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectionMode="Extended">
+        <DataGrid Grid.Row="1" 
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  VirtualizingPanel.VirtualizationMode="Standard"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  ItemsSource="{Binding PlayerCollection, IsAsync=True}" 
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  IsReadOnly="True" 
+                  AutoGenerateColumns="False" 
+                  ClipboardCopyMode="IncludeHeader" 
+                  SelectionMode="Extended">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Width="80" Binding="{Binding Rank}" CanUserSort="False" />
+                <DataGridTextColumn Header="#" Width="60" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={Converter:RowToIndex}}" CanUserSort="False"  />
                 <DataGridTextColumn Header="Name" Width="150" Binding="{Binding Name}" CanUserSort="False" />
                 <DataGridTextColumn Header="Ally" Width="100" Binding="{Binding Tag}" />
                 <DataGridTextColumn Header="Villages" Width="100" Binding="{Binding Villages}" />

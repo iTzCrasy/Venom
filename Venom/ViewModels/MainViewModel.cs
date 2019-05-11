@@ -17,6 +17,8 @@ using Venom.Game;
 using Venom.Views;
 using Venom.Views.First;
 
+using MahApps.Metro.Controls.Dialogs;
+
 namespace Venom.ViewModels
 {
     public class MainViewModel : NotifyPropertyChangedExt

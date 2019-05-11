@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:Properties="clr-namespace:Venom.Properties"
              xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+             xmlns:Converter="clr-namespace:Venom.Converter"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -17,16 +18,26 @@
                          HorizontalContentAlignment="Stretch"
                          Controls:TextBoxHelper.ClearTextButton="True"
                          Controls:TextBoxHelper.IsWaitingForData="True"
-                         Controls:TextBoxHelper.UseFloatingWatermark="True"
-                         Controls:TextBoxHelper.Watermark="Watermark"
+                         Controls:TextBoxHelper.Watermark="Name / Tag"
                          SpellCheck.IsEnabled="True"
                          ToolTip="Default alignment" />
                 <!--<TextBox Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>-->
             </ToolBar>
         </ToolBarTray>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding AllyCollection}" CanUserSortColumns="True" CanUserAddRows="False" IsReadOnly="True" AutoGenerateColumns="False" ClipboardCopyMode="IncludeHeader" SelectionMode="Extended">
+        <DataGrid Grid.Row="1" 
+                  EnableRowVirtualization="True"
+                  EnableColumnVirtualization="True"
+                  VirtualizingPanel.VirtualizationMode="Standard"
+                  VirtualizingPanel.IsVirtualizing="True"
+                  ItemsSource="{Binding AllyCollection, IsAsync=True}" 
+                  CanUserSortColumns="True"
+                  CanUserAddRows="False"
+                  IsReadOnly="True" 
+                  AutoGenerateColumns="False" 
+                  ClipboardCopyMode="IncludeHeader" 
+                  SelectionMode="Extended">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderRank}" Width="60" Binding="{Binding Rank}" CanUserSort="False"/>
+                <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderRank}" Width="60" Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={Converter:RowToIndex}}" CanUserSort="False"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderName}" Width="200" Binding="{Binding Name}" CanUserSort="False"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderTag}" Width="100" Binding="{Binding Tag}" CanUserSort="False"/>
                 <DataGridTextColumn Header="{x:Static Properties:Resources.RankingHeaderMember}" Width="100" Binding="{Binding Members}"/>

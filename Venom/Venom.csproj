@@ -127,6 +127,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\RowToIndex.cs" />
     <Compile Include="Core\CSVReader.cs" />
     <Compile Include="Core\Map.cs" />
     <Compile Include="Core\Network.cs" />
@@ -163,6 +164,7 @@
     <Compile Include="Game\Resources\ResourceVillage.cs" />
     <Compile Include="Game\Server.cs" />
     <Compile Include="Validations\NotEmpty.cs" />
+    <Compile Include="ViewModels\LoadingWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelConquer.cs" />
     <Compile Include="ViewModels\ViewModelPlaner.cs" />
     <Compile Include="ViewModels\ViewModelRankingAlly.cs" />

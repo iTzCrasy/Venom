@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,13 +22,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Gruppe" Width="100" Binding="{Binding Groups}" />
                 <DataGridTextColumn Header="Dorf" Width="150" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Koordinaten" Width="110" Binding="{Binding CoordString}" />
+                <DataGridTextColumn Header="Koordinaten" Width="120" Binding="{Binding CoordString}" />
                 <DataGridTemplateColumn Header="Bauernhof" Width="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel>
-                                <ProgressBar Width="60" Value="{Binding UnitPop, Mode=OneWay}" IsIndeterminate="False" HorizontalAlignment="Left" Maximum="24000"/>
-                                <TextBlock Text="{Binding UnitPopText, Mode=OneWay}" FontSize="10"/>
+                            <StackPanel HorizontalAlignment="Left">
+                                <Controls:MetroProgressBar Width="60" Value="{Binding UnitPop, Mode=OneWay}" IsIndeterminate="False" Maximum="24000"/>
+                                <TextBlock Text="{Binding UnitPopText, Mode=OneWay}" FontSize="10" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

@@ -8,6 +8,17 @@ using Venom.Game.Resources;
 
 namespace Venom.Game
 {
+    public class GroupData
+    {
+        public List<string> Names = new List<string>( );
+        public VillageData Village { get; set; }
+
+        public string Groups
+        {
+            get => Names.Count( ) > 0 ? Names.Aggregate( ( a, b ) => $"{a}; {b}" ) : "";
+        }
+    }
+
     public class GroupHandler
     {
         private readonly ResourceVillage _resourceVillage;
@@ -68,16 +79,5 @@ namespace Venom.Game
 
         public List<GroupData> GetGroupList( ) =>
             _groupDataCoord.Values.ToList( );
-    }
-
-    public class GroupData
-    {
-        public List<string> Names = new List<string>( );
-        public VillageData Village { get; set; }
-
-        public string Groups
-        {
-            get => Names.Count( ) > 0 ? Names.Aggregate( ( a, b ) => $"{a}; {b}" ) : "";
-        }
     }
 }

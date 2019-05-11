@@ -129,6 +129,7 @@
     </ApplicationDefinition>
     <Compile Include="Converter\RowToIndex.cs" />
     <Compile Include="Core\CSVReader.cs" />
+    <Compile Include="Core\DeserializePHP.cs" />
     <Compile Include="Core\Map.cs" />
     <Compile Include="Core\Network.cs" />
     <Compile Include="Core\ResourceManager.cs" />

@@ -13,66 +13,6 @@ using Venom.Core;
 
 namespace Venom.Game
 {
-    public class Server
-    {
-        private readonly List<ServerData> _ServerData = new List<ServerData>( );
-        private ServerData _Local = default;
-
-        public Server()
-        {
-
-        }
-
-        /// <summary>
-        /// Loading Server List
-        /// </summary>
-        public void Load()
-        {
-            using( var web = new WebClient( ) )
-            {
-                var stream = new StreamReader( web.OpenRead( new Uri( "http://www.die-staemme.de/backend/get_servers.php" ) ) ).ReadToEnd( );
-                var objlist = new DeserializePHP( stream ).Deserialize( );
-                if( objlist is IEnumerable data )
-                {
-                    foreach( DictionaryEntry item in data )
-                    {
-                        _ServerData.Add( new ServerData( ) { Id = item.Key.ToString( ), Url = item.Value.ToString( ) } );
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// Loading Server Config, Units, Buildings
-        /// </summary>
-        /// <param name="serverId"></param>
-        public void Load( string serverId )
-        {
-            _Local = _ServerData.FirstOrDefault( x => x.Id.Equals( serverId ) );
-
-            using( var web = new WebClient( ) )
-            {
-                var xml = new XmlDocument( );
-
-                //=> Config
-                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_config" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
-                _Local.Config = new ServerConfig( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
-
-                //=> Config Units
-                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _Local.Url + "/interface.php?func=get_unit_info" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
-                _Local.ConfigUnits = new ServerConfigUnits( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
-            }
-        }
-
-        public IEnumerable<ServerData> GetList( ) => _ServerData;
-
-        public ServerData Local
-        {
-            get => _Local;
-            set => _Local = value;
-        }
-    }
-
     public class ServerData
     {
         public string Id { get; set; }
@@ -96,12 +36,13 @@ namespace Venom.Game
         public JToken Moral => _jObject["config"]["moral"];
 
         //=> Game
-        public bool Archer => _jObject["config"]["game"]["archer"].ToObject<int>() >= 1 ? true : false;
+        public bool Archer => _jObject["config"]["game"]["archer"].ToObject<int>( ) >= 1 ? true : false;
     }
 
     public class ServerConfigUnits
     {
         private readonly JObject _jObject;
+
         public ServerConfigUnits( JObject jObject )
         {
             _jObject = jObject;
@@ -114,6 +55,67 @@ namespace Venom.Game
     {
         public double Build;
         public int Pop;
+    }
+
+
+    public class Server
+    {
+        private readonly List<ServerData> _serverData = new List<ServerData>( );
+        private ServerData _local = default;
+
+        public Server()
+        {
+
+        }
+
+        /// <summary>
+        /// Loading Server List
+        /// </summary>
+        public void Load()
+        {
+            using( var web = new WebClient( ) )
+            {
+                var stream = new StreamReader( web.OpenRead( new Uri( "http://www.die-staemme.de/backend/get_servers.php" ) ) ).ReadToEnd( );
+                var objlist = new DeserializePHP( stream ).Deserialize( );
+                if( objlist is IEnumerable data )
+                {
+                    foreach( DictionaryEntry item in data )
+                    {
+                        _serverData.Add( new ServerData( ) { Id = item.Key.ToString( ), Url = item.Value.ToString( ) } );
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Loading Server Config, Units, Buildings
+        /// </summary>
+        /// <param name="serverId"></param>
+        public void Load( string serverId )
+        {
+            _local = _serverData.FirstOrDefault( x => x.Id.Equals( serverId ) );
+
+            using( var web = new WebClient( ) )
+            {
+                var xml = new XmlDocument( );
+
+                //=> Config
+                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _local.Url + "/interface.php?func=get_config" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
+                _local.Config = new ServerConfig( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
+
+                //=> Config Units
+                xml.LoadXml( new StreamReader( web.OpenRead( new Uri( _local.Url + "/interface.php?func=get_unit_info" ) ) ).ReadToEnd( ).Replace( "\n", "" ) );
+                _local.ConfigUnits = new ServerConfigUnits( JObject.Parse( JsonConvert.SerializeXmlNode( xml ) ) );
+            }
+        }
+
+        public IEnumerable<ServerData> GetList( ) => _serverData;
+
+        public ServerData Local
+        {
+            get => _local;
+            set => _local = value;
+        }
     }
 }
 

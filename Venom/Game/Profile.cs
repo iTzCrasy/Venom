@@ -11,9 +11,9 @@ namespace Venom.Game
 {
     public class Profile
     {
-        private List<ProfileData> _Profiles = new List<ProfileData>( );
+        private List<ProfileData> _profiles = new List<ProfileData>( );
 
-        private ProfileData _Local = default;
+        private ProfileData _local = default;
 
         public Profile( )
         {
@@ -24,7 +24,7 @@ namespace Venom.Game
             using( var sw = File.CreateText( @".\Profiles.json" ) )
             {
                 var js = new JsonSerializer( );
-                js.Serialize( sw, _Profiles );
+                js.Serialize( sw, _profiles );
             }
         }
 
@@ -34,31 +34,31 @@ namespace Venom.Game
             {
                 using( var sr = File.OpenText( @".\Profiles.json" ) )
                 {
-                    _Profiles = JsonConvert.DeserializeObject<List<ProfileData>>( sr.ReadToEnd( ) );
+                    _profiles = JsonConvert.DeserializeObject<List<ProfileData>>( sr.ReadToEnd( ) );
                 }
             }
         }
 
         public bool Add( string name, string server )
         {
-            var exists = _Profiles.Any( x => x.Name.Equals( name ) && x.Server.Equals( server ) );
+            var exists = _profiles.Any( x => x.Name.Equals( name ) && x.Server.Equals( server ) );
             if( exists == false )
             {
-                _Profiles.Add( new ProfileData( ) { Name = name, Server = server } );
+                _profiles.Add( new ProfileData( ) { Name = name, Server = server } );
                 return true;
             }
             return false; //=> Profile already exists with same server!
         }
 
-        public void Remove( ProfileData profile ) => _Profiles.Remove( profile );
+        public void Remove( ProfileData profile ) => _profiles.Remove( profile );
 
-        public ProfileData Get( string name, string server ) => _Profiles.FirstOrDefault( x => x.Name.Equals( name ) && x.Server.Equals( server ) );
-        public IEnumerable<ProfileData> GetList() => _Profiles;
+        public ProfileData Get( string name, string server ) => _profiles.FirstOrDefault( x => x.Name.Equals( name ) && x.Server.Equals( server ) );
+        public IEnumerable<ProfileData> GetList() => _profiles;
 
         public ProfileData Local
         {
-            get => _Local;
-            set => _Local = value;
+            get => _local;
+            set => _local = value;
         }
     }
 

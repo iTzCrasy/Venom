@@ -59,7 +59,7 @@ namespace Venom.Windows
                     break;
 
                 case WM_DRAWCLIPBOARD:
-                    App.Instance.ClipboardHandler.Parse( ); //=> Parse Clipboard.
+                    App.Instance.ClipboardHandler.Parse( );
                     SendMessage( _hWnd, msg, wParam, lParam );
                     break;
             }

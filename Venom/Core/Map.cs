@@ -39,21 +39,21 @@ namespace Venom.Core
 
 	public struct DecorationImages
 	{
-		public int ID;
+		public int Id;
 		public BitmapImage ImageFile;
 	}
 
 
 	public class Map : Singleton<Map>
 	{
-		protected byte[] _Decoration = new byte[1000000];
-		protected List<VillageImages> _VillageImages = new List<VillageImages>( );
-		protected List<DecorationImages> _DecorationImages = new List<DecorationImages>( );
+		protected byte[] _decoration = new byte[1000000];
+		protected List<VillageImages> _villageImages = new List<VillageImages>( );
+		protected List<DecorationImages> _decorationImages = new List<DecorationImages>( );
 
 		/// <summary>
 		/// Get Images
 		/// </summary>
-		public VillageImages GetVillageImage( EVillageSize Size ) => _VillageImages.FirstOrDefault( p => p.Size.Equals( Size ) );
+		public VillageImages GetVillageImage( EVillageSize size ) => _villageImages.FirstOrDefault( p => p.Size.Equals( size ) );
 
 
 		public Map( )
@@ -88,7 +88,7 @@ namespace Venom.Core
 					var read = 0;
 					while( ( read = await stream.ReadAsync( buffer, 0, 4096 ) ) > 0 )
 					{
-						Array.Copy( buffer, 0, _Decoration, offset, read );
+						Array.Copy( buffer, 0, _decoration, offset, read );
 						offset += read;
 					}
 				}
@@ -100,7 +100,7 @@ namespace Venom.Core
 		/// </summary>
 		public Task LoadVillageImages( )
 		{
-			var Tasks = new List<Task>
+			var tasks = new List<Task>
 			{
 				LoadVillageImage( EVillageSize.S1, EVillageType.DEFAULT, "v1.png" ),
 				LoadVillageImage( EVillageSize.S2, EVillageType.DEFAULT, "v2.png" ),
@@ -110,13 +110,13 @@ namespace Venom.Core
 				LoadVillageImage( EVillageSize.S6, EVillageType.DEFAULT, "v6.png" )
 			};
 
-			return Task.WhenAll( Tasks );
+			return Task.WhenAll( tasks );
 		}
 
 		private async Task LoadVillageImage( EVillageSize villageSize, EVillageType villageType, string Filename )
 		{
 			var PathData = Path.GetFullPath( "Resources" ) + "//Images//Villages//Default//v2_";
-			_VillageImages.Add( new VillageImages
+			_villageImages.Add( new VillageImages
 			{
 				Size = villageSize,
 				Type = villageType,
@@ -129,7 +129,7 @@ namespace Venom.Core
 		/// </summary>
 		public Task LoadDecorationImages( )
 		{
-			var Tasks = new List<Task>
+			var tasks = new List<Task>
 			{
                 //=> Grass
                 LoadDecorationImage( 0, "gras1.png" ),
@@ -165,16 +165,16 @@ namespace Venom.Core
 				LoadDecorationImage( 31, "forest1111.png" )
 			};
 
-			return Task.WhenAll( Tasks );
+			return Task.WhenAll( tasks );
 		}
 
 		private async Task LoadDecorationImage( int decorationId, string Filename )
 		{
-			var PathData = Path.GetFullPath( "Resources" ) + "//Images//Map//Default//";
-			_DecorationImages.Add( new DecorationImages
+			var pathData = Path.GetFullPath( "Resources" ) + "//Images//Map//Default//";
+			_decorationImages.Add( new DecorationImages
 			{
-				ID = decorationId,
-				ImageFile = await Task.Run( ( ) => new BitmapImage( new Uri( PathData + Filename ) ) )
+				Id = decorationId,
+				ImageFile = await Task.Run( ( ) => new BitmapImage( new Uri( pathData + Filename ) ) )
 			} );
 		}
 

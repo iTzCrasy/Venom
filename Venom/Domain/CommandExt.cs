@@ -9,18 +9,20 @@ namespace Venom.Domain
 {
     public class CommandExt : ICommand
     {
-        public CommandExt( Action<object> Execute ) : this( Execute, null )
+        private readonly Action<object> _execute;
+        private readonly Func<object, bool> _canExecute;
+
+
+        public CommandExt( Action<object> execute ) 
+            : this( execute, null )
         {
         }
 
         public CommandExt( Action<object> Execute, Func<object, bool> CanExecute )
         {
-            _Execute = Execute ?? throw new ArgumentNullException( nameof( Execute ) );
-            _CanExecute = CanExecute ?? ( x => true );
+            _execute = Execute ?? throw new ArgumentNullException( nameof( Execute ) );
+            _canExecute = CanExecute ?? ( x => true );
         }
-
-        public bool CanExecute( object Parameter ) => _CanExecute( Parameter );
-        public void Execute( object Parameter ) => _Execute( Parameter );
 
         public event EventHandler CanExecuteChanged
         {
@@ -34,9 +36,12 @@ namespace Venom.Domain
             }
         }
 
+
+
         public void Refresh( ) => CommandManager.InvalidateRequerySuggested( );
 
-        private readonly Action<object> _Execute;
-        private readonly Func<object, bool> _CanExecute;
+        public bool CanExecute( object Parameter ) => _canExecute( Parameter );
+
+        public void Execute( object Parameter ) => _execute( Parameter );
     }
 }

@@ -20,7 +20,7 @@ namespace Venom.Dialogs
     /// </summary>
     public partial class ErrorDialog : UserControl
     {
-        public ErrorDialog( string Message )
+        public ErrorDialog( string message )
         {
             InitializeComponent( );
 

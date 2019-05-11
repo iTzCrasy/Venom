@@ -8,6 +8,41 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
+    public class ConquerData
+    {
+        private readonly ResourcePlayer _resourcePlayer;
+        private readonly ResourceVillage _resourceVillage;
+
+        //=> $village_id, $unix_timestamp, $new_owner, $old_owner
+        public int Id { get; set; }
+        public int Time { get; set; }
+        public int NewOwner { get; set; }
+        public int OldOwner { get; set; }
+
+
+        public ConquerData(
+            ResourcePlayer resourcePlayer,
+            ResourceVillage resourceVillage )
+        {
+            _resourcePlayer = resourcePlayer;
+            _resourceVillage = resourceVillage;
+        }
+
+
+        public string Name => _resourceVillage.GetVillageById( Id ).Name;
+
+        public int Points => _resourceVillage.GetVillageById( Id ).Points;
+
+        public string NewOwnerString => _resourcePlayer.GetPlayerById( NewOwner ).Name;
+
+        public string OldOwnerString => _resourcePlayer.GetPlayerById( OldOwner ).Name;
+
+        public string TimeString => new DateTime( 1970, 1, 1, 0, 0, 0, 0 )
+            .AddSeconds( Time )
+            .ToString( "G", CultureInfo.CreateSpecificCulture( "de-DE" ) );
+    }
+
+
     public class ResourceConquer : IResource
     {
         private readonly Server _server;
@@ -15,6 +50,7 @@ namespace Venom.Game.Resources
         private readonly ResourceVillage _resourceVillage;
 
         private readonly List<ConquerData> _conquerData = new List<ConquerData>( );
+
 
         public ResourceConquer( 
             Server server,
@@ -25,6 +61,7 @@ namespace Venom.Game.Resources
             _resourcePlayer = resourcePlayer;
             _resourceVillage = resourceVillage;
         }
+
 
         public async Task InitializeAsync()
         {
@@ -52,31 +89,6 @@ namespace Venom.Game.Resources
 
         public int GetCount( ) =>
             _conquerData.Count( );
-    }
-
-    public class ConquerData
-    {
-        private readonly ResourcePlayer _resourcePlayer;
-        private readonly ResourceVillage _resourceVillage;
-        public ConquerData( 
-            ResourcePlayer resourcePlayer,
-            ResourceVillage resourceVillage )
-        {
-            _resourcePlayer = resourcePlayer;
-            _resourceVillage = resourceVillage;
-        }
-
-        //=> $village_id, $unix_timestamp, $new_owner, $old_owner
-        public int Id { get; set; }
-        public int Time { get; set; }
-        public int NewOwner { get; set; }
-        public int OldOwner { get; set; }
-
-        public string Name => _resourceVillage.GetVillageById( Id ).Name;
-        public int Points => _resourceVillage.GetVillageById( Id ).Points;
-        public string NewOwnerString => _resourcePlayer.GetPlayerById( NewOwner ).Name;
-        public string OldOwnerString => _resourcePlayer.GetPlayerById( OldOwner ).Name;
-        public string TimeString => new DateTime( 1970, 1, 1, 0, 0, 0, 0 ).AddSeconds( Time ).ToString( "G", CultureInfo.CreateSpecificCulture( "de-DE" ) );
     }
 }
 

@@ -7,6 +7,14 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
+    public class BashpointAllyData
+    {
+        //=> $rank, $id, $kills
+        public int Id { get; set; }
+        public long Kills { get; set; }
+        public int Rank { get; set; }
+    }
+
     public class ResourceBashpointAlly : IResource
     {
         private readonly Server _server;
@@ -75,13 +83,5 @@ namespace Venom.Game.Resources
             _bashpointDefData.Values.ToList( );
         public List<BashpointAllyData> GetBashpointAllList( ) =>
             _bashpointAllData.Values.ToList();
-    }
-
-    public class BashpointAllyData
-    {
-        //=> $rank, $id, $kills
-        public int Id { get; set; }
-        public long Kills { get; set; }
-        public int Rank { get; set; }
     }
 }

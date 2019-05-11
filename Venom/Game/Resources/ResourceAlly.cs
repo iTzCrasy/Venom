@@ -8,6 +8,19 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
+    public class AllyData
+    {
+        //=> $id, $name, $tag, $members, $villages, $points, $all_points, $rank
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Tag { get; set; }
+        public int Members { get; set; }
+        public int Villages { get; set; }
+        public int Points { get; set; }
+        public int AllPoints { get; set; }
+        public int Rank { get; set; }
+    }
+
     public class ResourceAlly : IResource
     {
         private readonly Server _server;
@@ -64,18 +77,5 @@ namespace Venom.Game.Resources
 
         public int GetCount( ) =>
             _allyData.Count( );
-    }
-
-    public class AllyData
-    {
-        //=> $id, $name, $tag, $members, $villages, $points, $all_points, $rank
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Tag { get; set; }
-        public int Members { get; set; }
-        public int Villages { get; set; }
-        public int Points { get; set; }
-        public int AllPoints { get; set; }
-        public int Rank { get; set; }
     }
 }

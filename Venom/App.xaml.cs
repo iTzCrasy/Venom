@@ -33,56 +33,56 @@ namespace Venom
         public static App Instance => ( App )Current;
 
         //=> Propertys
-        private readonly WindsorContainer _Container = new WindsorContainer();
+        private readonly WindsorContainer _container = new WindsorContainer();
 
         private void AppStartup( object sender, StartupEventArgs e )
 		{
             Current.ShutdownMode = ShutdownMode.OnExplicitShutdown;
 
             //=> Setup Windows
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<StartWindow>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<LoadingWindow>( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<StartWindow>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<MainWindow>( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<LoadingWindow>( ) );
 
             //=> Setup Domains
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ClipboardHandler>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<TrayIcon>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ClipboardHandler>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<TrayIcon>( ).LifestyleSingleton( ) );
 
             //=> Setup Game
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<Profile>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<Server>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<GroupHandler>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<Profile>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<Server>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<GroupHandler>( ).LifestyleSingleton( ) );
 
             //=> Setup Views
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ServerSelection>( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<SelectServerView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingPlayerView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<RankingAllyView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewTroupList>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ConquerView>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewStart>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewPlaner>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ServerSelection>( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<SelectServerView>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<RankingPlayerView>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<RankingAllyView>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewTroupList>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ConquerView>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewStart>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewPlaner>( ).LifestyleSingleton( ) );
 
             //=> Setup ViewModels
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelStart>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingPlayer>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingAlly>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelTroupList>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelConquer>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelHome>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelStart>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<MainViewModel>( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingPlayer>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelRankingAlly>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelTroupList>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelConquer>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ViewModelHome>( ).LifestyleSingleton( ) );
 
             //=> Setup Resources
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceHandler>( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourcePlayer>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceAlly>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointAlly>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointPlayer>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceVillage>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceConquer>( ).LifestyleSingleton( ) );
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<ResourceTroup>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceHandler>( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourcePlayer>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceAlly>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointAlly>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceBashpointPlayer>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceVillage>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceConquer>( ).LifestyleSingleton( ) );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<ResourceTroup>( ).LifestyleSingleton( ) );
 
-            _Container.Register( Castle.MicroKernel.Registration.Component.For<IDialogCoordinator>().ImplementedBy<DialogCoordinator>() );
+            _container.Register( Castle.MicroKernel.Registration.Component.For<IDialogCoordinator>().ImplementedBy<DialogCoordinator>() );
 
             //=> Loading Server & Profiles
             Profile.Load( );
@@ -92,45 +92,46 @@ namespace Venom
 
             ResourceManager.GetInstance.Initialize( );
 
-            _Container.Resolve<Profile>( ).Local = new ProfileData { Name = "Moralbasher", Server = "de161" };
-            _Container.Resolve<Server>( ).Load( "de161" );
+            _container.Resolve<Profile>( ).Local = new ProfileData { Name = "Moralbasher", Server = "de161" };
+            _container.Resolve<Server>( ).Load( "de161" );
             //_Container.Resolve<LoadingWindow>( ).Show( );
             Start( );
         }
 
         public async void Start()
         {
-            var Watch = new Stopwatch( );
-            Watch.Start( );
+            var watch = new Stopwatch( );
+            watch.Start( );
 
-            var taskList = new List<Task>( );
-            taskList.Add( _Container.Resolve<ResourcePlayer>( ).InitializeAsync( ) );   //=> Loading Player Resources
-            taskList.Add( _Container.Resolve<ResourceAlly>( ).InitializeAsync( ) );     //=> Loading Ally Resources
-            taskList.Add( _Container.Resolve<ResourceVillage>( ).InitializeAsync( ) );  //=> Loading Village Resources
-            taskList.Add( _Container.Resolve<ResourceConquer>( ).InitializeAsync( ) );  //=> Loading Conquer Resources
-            taskList.Add( _Container.Resolve<ResourceBashpointAlly>( ).InitializeAsync( ) );    //=> Loading Bashpoint Ally Resources
-            taskList.Add( _Container.Resolve<ResourceBashpointPlayer>( ).InitializeAsync( ) );  //=> Loading Bashpoint Player Resources
+            var taskList = new List<Task>
+            {
+                _container.Resolve<ResourcePlayer>( ).InitializeAsync( ),   //=> Loading Player Resources
+                _container.Resolve<ResourceAlly>( ).InitializeAsync( ),     //=> Loading Ally Resources
+                _container.Resolve<ResourceVillage>( ).InitializeAsync( ),  //=> Loading Village Resources
+                _container.Resolve<ResourceConquer>( ).InitializeAsync( ),  //=> Loading Conquer Resources
+                _container.Resolve<ResourceBashpointAlly>( ).InitializeAsync( ),    //=> Loading Bashpoint Ally Resources
+                _container.Resolve<ResourceBashpointPlayer>( ).InitializeAsync( ),  //=> Loading Bashpoint Player Resources
 
-            taskList.Add( _Container.Resolve<ResourceTroup>( ).Load( ) ); //=> Loading Troup Saves
+                _container.Resolve<ResourceTroup>( ).Load( ) //=> Loading Troup Saves
+            };
 
             await Task.WhenAll( taskList );
 
-            Watch.Stop( );
+            watch.Stop( );
 
-            TrayIcon.ShowInfo( "Welcome to Venom!", "Loading finished in " + Watch.ElapsedMilliseconds + "ms" );
+            TrayIcon.ShowInfo( "Welcome to Venom!", "Loading finished in " + watch.ElapsedMilliseconds + "ms" );
 
             //WindowStart.Close( );   //=> Loading finished, close main window
             WindowMain.Show( );     //=> Show main window
-
-
-            
+   
         }
 
         public new async void Shutdown()
         {
-            var taskList = new List<Task>( );
-
-            taskList.Add( _Container.Resolve<ResourceTroup>( ).Save( ) );
+            var taskList = new List<Task>
+            {
+                _container.Resolve<ResourceTroup>( ).Save( )
+            };
 
             await Task.WhenAll( taskList );
 
@@ -139,43 +140,43 @@ namespace Venom
 
         //=> Windows
         public StartWindow WindowStart =>
-            _Container.Resolve<StartWindow>( );
+            _container.Resolve<StartWindow>( );
 
         public MainWindow WindowMain =>
-            _Container.Resolve<MainWindow>( );
+            _container.Resolve<MainWindow>( );
 
         //=> Domains
         public ClipboardHandler ClipboardHandler =>
-            _Container.Resolve<ClipboardHandler>( );
+            _container.Resolve<ClipboardHandler>( );
         public TrayIcon TrayIcon =>
-            _Container.Resolve<TrayIcon>( );
+            _container.Resolve<TrayIcon>( );
 
         //=> Game
         public Profile Profile =>
-            _Container.Resolve<Profile>( );
+            _container.Resolve<Profile>( );
         public Server Server =>
-            _Container.Resolve<Server>( );
+            _container.Resolve<Server>( );
 
         //=> Views
         public SelectServerView ViewSelectServer =>
-            _Container.Resolve<SelectServerView>( );
+            _container.Resolve<SelectServerView>( );
         public ViewTroupList ViewTroupList =>
-            _Container.Resolve<ViewTroupList>( );
+            _container.Resolve<ViewTroupList>( );
         public RankingPlayerView ViewRankingPlayer =>
-            _Container.Resolve<RankingPlayerView>( );
+            _container.Resolve<RankingPlayerView>( );
         public RankingAllyView ViewRankingAlly =>
-            _Container.Resolve<RankingAllyView>( );
+            _container.Resolve<RankingAllyView>( );
 
         //=> ViewModels
         public ViewModelStart ViewModelStart =>
-            _Container.Resolve<ViewModelStart>( );
+            _container.Resolve<ViewModelStart>( );
         public MainViewModel ViewModelMain =>
-            _Container.Resolve<MainViewModel>( );
+            _container.Resolve<MainViewModel>( );
         public ViewModelTroupList ViewModelTroupList =>
-            _Container.Resolve<ViewModelTroupList>( );
+            _container.Resolve<ViewModelTroupList>( );
         public ViewModelRankingPlayer ViewModelRankingPlayer =>
-            _Container.Resolve<ViewModelRankingPlayer>( );
+            _container.Resolve<ViewModelRankingPlayer>( );
         public ViewModelRankingAlly ViewModelRankingAlly =>
-            _Container.Resolve<ViewModelRankingAlly>( );
+            _container.Resolve<ViewModelRankingAlly>( );
     }
 }

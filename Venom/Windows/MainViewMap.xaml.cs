@@ -29,9 +29,9 @@ namespace Venom.Windows
 
             var Rand = new Random( );
 
-            for( int X = 0; X != 1000; X += 50 )
+            for( var X = 0; X != 1000; X += 50 )
             {
-                for( int Y = 0; Y != 1000; Y += 50 )
+                for( var Y = 0; Y != 1000; Y += 50 )
                 {
                     var Continent = new Canvas
                     {

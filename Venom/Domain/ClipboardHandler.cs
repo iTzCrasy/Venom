@@ -118,5 +118,3 @@ namespace Venom.Domain
         }
     }
 }
-
-//=> group_assign_table

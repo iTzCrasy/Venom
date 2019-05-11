@@ -7,6 +7,23 @@ using Venom.Core;
 
 namespace Venom.Game.Resources
 {
+    public class VillageData
+    {
+        //=> $id, $name, $x, $y, $player, $points, $bonus
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
+        public int Owner { get; set; }
+        public int Points { get; set; }
+        public int Bonus { get; set; }
+
+        public List<string> Groups { get; set; }
+
+        public string CoordString => X + " | " + Y;
+    }
+
+
     public class ResourceVillage : IResource
     {
         private readonly Server _server;
@@ -60,21 +77,5 @@ namespace Venom.Game.Resources
 
         public int GetCount() =>
             _villageData.Count();
-    }
-
-    public class VillageData
-    {
-        //=> $id, $name, $x, $y, $player, $points, $bonus
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public int X { get; set; }
-        public int Y { get; set; }
-        public int Owner { get; set; }
-        public int Points { get; set; }
-        public int Bonus { get; set; }
-
-        public List<string> Groups { get; set; }
-
-        public string CoordString => X + "|" + Y;
     }
 }

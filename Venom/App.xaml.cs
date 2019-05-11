@@ -18,8 +18,8 @@ using System.Diagnostics;
 using Venom.Style;
 using Venom.Views.First;
 using MahApps.Metro.Controls.Dialogs;
-
-
+using Venom.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Venom
 {
@@ -35,6 +35,9 @@ namespace Venom
         public Profile CurrentProfile => _container.Resolve<Profile>( );
 
         public Server CurrentServer => _container.Resolve<Server>( );
+
+
+        private readonly ServiceCollection _collection = new ServiceCollection( );
 
 
 
@@ -145,8 +148,14 @@ namespace Venom
 
             _container.Resolve<Profile>( ).Local = new ProfileData { Name = "Moralbasher", Server = "de161" };
             _container.Resolve<Server>( ).Load( "de161" );
-            //_Container.Resolve<LoadingWindow>( ).Show( );
+
             Start( );
+
+            var dlgServer = new SelectServer( );
+            dlgServer.ShowDialog( );
+
+
+
         }
 
         public async void Start()
@@ -173,7 +182,7 @@ namespace Venom
             TrayIcon.ShowInfo( "Welcome to Venom!", "Loading finished in " + watch.ElapsedMilliseconds + "ms" );
 
             //WindowStart.Close( );   //=> Loading finished, close main window
-            WindowMain.Show( );     //=> Show main window
+            // WindowMain.Show( );     //=> Show main window
    
         }
 

@@ -152,10 +152,13 @@ namespace Venom
             Start( );
 
             var dlgServer = new SelectServer( );
-            dlgServer.ShowDialog( );
+            if( dlgServer.ShowDialog( ) == true )
+            {
+                var item = dlgServer.SelectedItem;
+                _container.Resolve<Profile>( ).Local = new ProfileData { Name = item.AccountName, Server = item.ServerName };
 
-
-
+                WindowMain.Show( );
+            }           
         }
 
         public async void Start()

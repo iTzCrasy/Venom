@@ -13,6 +13,8 @@ namespace Venom.ViewModels.Dialog
         public string ServerName { get; set; }
 
         public DateTime LastUsed { get; set; }
+
+        public bool IsActive { get; set; }
     }
 
     public class SelectServerViewModel

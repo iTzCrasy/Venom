@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Venom.Dialogs
 {
     public partial class SelectServer
     {
+        public SelectServerItemViewModel SelectedItem { get; private set; }
 
 
         public SelectServer( )
@@ -65,9 +67,17 @@ namespace Venom.Dialogs
             };
         }
 
-        private void ListBoxItem_MouseDoubleClick( object sender, MouseButtonEventArgs e )
-        {
 
+        private void OnSelected( object sender, RoutedEventArgs e )
+        {
+            if( e.Source is ListBoxItem item )
+            {
+                Debug.Assert( item.DataContext is SelectServerItemViewModel );
+
+                SelectedItem = ( SelectServerItemViewModel )item.DataContext;
+                DialogResult = true;
+                Close( );
+            }
         }
     }
 }

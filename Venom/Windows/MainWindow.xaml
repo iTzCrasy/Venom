@@ -51,19 +51,19 @@
                 ItemInvoked="HamburgerMenuControl_ItemInvoked"
                 ItemsSource="{Binding MenuCollection}"
                 SelectedIndex="0"
-                VerticalScrollBarOnLeftSide="False">
+                VerticalScrollBarOnLeftSide="False"
+                Style="{StaticResource HamburgerMenuCreatorsStyle}"
+                CompactPaneLength="45">
 
                 <Controls:HamburgerMenu.ItemTemplate>
                     <DataTemplate>
-                        <DockPanel Height="48" LastChildFill="True">
+                        <DockPanel Height="45" >
                             <Grid
                                 x:Name="IconPart"
-                                Width="48"
-                                DockPanel.Dock="Left">
+                                Width="40">
                                 <Image
                                     Width="16"
                                     Height="16"
-                                    Margin="12"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Source="{Binding Image}"
@@ -86,7 +86,7 @@
                                 <RowDefinition Height="48" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <Border Grid.Row="0" Background="#FF444444">
+                            <Border Grid.Row="0" Background="{DynamicResource WhiteBrush}">
                                 <TextBlock
                                     x:Name="Header"
                                     HorizontalAlignment="Center"
@@ -97,9 +97,10 @@
                             </Border>
                             <Controls:TransitioningContentControl
                                 Grid.Row="1"
-                                Content="{Binding ElementName=HamburgerMenuControl, Path=SelectedItem.Content}"
+                                Content="{Binding Content}"
                                 RestartTransitionOnContentChange="True"
-                                Transition="Default" />
+                                Transition="Default"
+                                Background="{StaticResource Background}"/>
                         </Grid>
                     </DataTemplate>
                 </Controls:HamburgerMenu.ContentTemplate>

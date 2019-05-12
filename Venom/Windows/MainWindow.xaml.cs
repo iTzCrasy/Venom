@@ -151,12 +151,6 @@ namespace Venom.Windows
             return IntPtr.Zero;
         }
 
-
-        private void VenomMainMenu_SelectionChanged( object sender, SelectionChangedEventArgs e )
-        {
-            //MenuToggleButton.IsChecked = false;
-        }
-
         private void Window_Closing( object sender, CancelEventArgs e )
         {
             App.Instance.Shutdown( );

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
              xmlns:Converter="clr-namespace:Venom.Converter"
              mc:Ignorable="d">
     <Grid>
@@ -13,8 +13,14 @@
         </Grid.RowDefinitions>
         <ToolBarTray Grid.Row="0" IsLocked="True">
             <ToolBar ClipToBounds="False">
-                <TextBox Material:HintAssist.Hint="Name / Ally" Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
-                <Separator/>
+                <TextBox Width="200"                          
+                         HorizontalContentAlignment="Stretch"
+                         Controls:TextBoxHelper.ClearTextButton="True"
+                         Controls:TextBoxHelper.IsWaitingForData="True"
+                         Controls:TextBoxHelper.Watermark="Name / Ally"
+                         SpellCheck.IsEnabled="True"
+                         ToolTip="Default alignment" 
+                         Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
             </ToolBar>
         </ToolBarTray>
         <DataGrid Grid.Row="1" 

@@ -28,8 +28,6 @@ namespace Venom.Windows
 
         private readonly HwndSource _hWndSource;
 
-
-
         public MainWindow()
         {
             InitializeComponent();
@@ -165,7 +163,5 @@ namespace Venom.Windows
                 HamburgerMenuControl.IsPaneOpen = false;
             }
         }
-
-
     }
 }

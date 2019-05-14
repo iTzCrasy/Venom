@@ -25,6 +25,7 @@ namespace Venom.ViewModels
             _resourceHandler = resourceHandler;
 
             AllyCollection = CollectionViewSource.GetDefaultView( _resourceHandler.CreateAllyRanking() );
+            AllyCollection.Filter = new Predicate<object>( Filter );
         }
 
         public string FilterString
@@ -53,16 +54,11 @@ namespace Venom.ViewModels
 
         private bool Filter( object obj )
         {
-            var data = obj as AllyData;
-            if( data != null )
+            if( string.IsNullOrEmpty( _filterString ) || string.IsNullOrWhiteSpace( _filterString ) )
             {
-                if( !string.IsNullOrEmpty( _filterString ) )
-                {
-                    return data.Name.Contains( _filterString ) || data.Tag.Contains( _filterString );
-                }
                 return true;
             }
-            return false;
+            return obj.ToString( ).ToLower( ).Contains( _filterString.ToLower( ) );
         }
     }
 }

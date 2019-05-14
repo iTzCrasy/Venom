@@ -19,20 +19,12 @@
 
     <Window.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Themes/HamburgerMenuTemplate.xaml" />-->
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Colors.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/VS/Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style
-                x:Key="HamburgerMenuCreatorsStyle"
+            <Style x:Key="HamburgerMenuCreatorsStyle"
                 BasedOn="{StaticResource {x:Type Controls:HamburgerMenu}}"
                 TargetType="{x:Type Controls:HamburgerMenu}">
                 <Setter Property="PaneBackground" Value="{DynamicResource WhiteBrush}" />
                 <Setter Property="PaneForeground" Value="{DynamicResource TextBrush}" />
             </Style>
-
         </ResourceDictionary>
     </Window.Resources>
 
@@ -99,8 +91,7 @@
                                 Grid.Row="1"
                                 Content="{Binding Content}"
                                 RestartTransitionOnContentChange="True"
-                                Transition="Default"
-                                Background="{StaticResource Background}"/>
+                                Transition="Default"/>
                         </Grid>
                     </DataTemplate>
                 </Controls:HamburgerMenu.ContentTemplate>
@@ -108,3 +99,5 @@
         </Border>
     </Grid>
 </Controls:MetroWindow>
+
+<!--Background="{StaticResource Background}"-->

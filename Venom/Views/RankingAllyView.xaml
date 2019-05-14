@@ -20,8 +20,8 @@
                          Controls:TextBoxHelper.IsWaitingForData="True"
                          Controls:TextBoxHelper.Watermark="Name / Tag"
                          SpellCheck.IsEnabled="True"
-                         ToolTip="Default alignment" />
-                <!--<TextBox Width="150" Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>-->
+                         ToolTip="Default alignment" 
+                         Text="{Binding FilterString, UpdateSourceTrigger=PropertyChanged, Delay=500}"/>
             </ToolBar>
         </ToolBarTray>
         <DataGrid Grid.Row="1" 

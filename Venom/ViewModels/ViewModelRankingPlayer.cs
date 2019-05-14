@@ -59,62 +59,13 @@ namespace Venom.ViewModels
             }
         }
 
-        private bool FilterContains( string str, string substring )
-        {
-            if( str == null )
-                return false;
-
-            if( substring == null )
-                return false;
-
-            return str.ToLower().Contains( substring.ToLower() );
-        }
-
-        private static void GetPropertyValues( Object obj )
-        {
-            Type t = obj.GetType( );
-            Console.WriteLine( "Type is: {0}", t.Name );
-            PropertyInfo[] props = t.GetProperties( );
-            Console.WriteLine( "Properties (N = {0}):",
-                              props.Length );
-            //foreach( var prop in props )
-            //    if( prop.GetIndexParameters( ).Length == 0 )
-            //        Console.WriteLine( "   {0} ({1}): {2}", prop.Name,
-            //                          prop.PropertyType.Name,
-            //                          prop.GetValue( obj ) );
-            //    else
-            //        Console.WriteLine( "   {0} ({1}): <Indexed>", prop.Name,
-            //                          prop.PropertyType.Name );
-
-        }
-
-        private void GetPropertyValue( object obj, string prop )
-        {
-            obj.GetType( ).GetProperties( ).Single( p => p.Name.Equals( prop ) ).GetValue( obj );
-        }
-
         private bool Filter( object obj )
         {
-            var data = obj as PlayerData;
-            if( obj != null )
+            if( string.IsNullOrEmpty( _filterString ) || string.IsNullOrWhiteSpace( _filterString ) )
             {
-                if( !string.IsNullOrEmpty( _filterString ) )
-                {
-                    try
-                    {
-                        GetPropertyValue( obj, "Name" );
-                        Console.WriteLine( $"Name --> {obj.ToString()}" );
-                       
-                    }
-                    catch( NullReferenceException e )
-                    {
-                        Console.WriteLine( "MyProperty does not exist in MyClass." + e.Message );
-                    }
-                    //return FilterContains( GetPropertyValue( obj, "Name" ), _filterString ) || FilterContains( GetPropertyValue( obj, "AllyString" ).ToString(), _filterString );
-                }
                 return true;
             }
-            return false;
+            return obj.ToString( ).ToLower().Contains( _filterString.ToLower() );
         }
     }
 }

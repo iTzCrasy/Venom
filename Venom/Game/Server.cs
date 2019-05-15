@@ -63,7 +63,7 @@ namespace Venom.Game
         private readonly List<ServerData> _serverData = new List<ServerData>( );
         private ServerData _local = default;
 
-        public Server()
+        public Server( )
         {
 
         }
@@ -71,17 +71,24 @@ namespace Venom.Game
         /// <summary>
         /// Loading Server List
         /// </summary>
-        public void Load()
+        public void Load( )
         {
             using( var web = new WebClient( ) )
             {
                 var stream = new StreamReader( web.OpenRead( new Uri( "http://www.die-staemme.de/backend/get_servers.php" ) ) ).ReadToEnd( );
                 var objlist = new DeserializePHP( stream ).Deserialize( );
+
                 if( objlist is IEnumerable data )
                 {
                     foreach( DictionaryEntry item in data )
                     {
-                        _serverData.Add( new ServerData( ) { Id = item.Key.ToString( ), Url = item.Value.ToString( ) } );
+                        var serverData = new ServerData( )
+                        {
+                            Id = item.Key.ToString( ),
+                            Url = item.Value.ToString( )
+                        };
+
+                        _serverData.Add( serverData );
                     }
                 }
             }

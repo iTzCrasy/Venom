@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
+using MahApps.Metro.Controls.Dialogs;
 
-namespace Venom.Windows
+namespace Venom.Dialogs
 {
-    /// <summary>
-    /// Interaktionslogik für LoadingWindow.xaml
-    /// </summary>
-    public partial class LoadingWindow
+    public partial class SetupPlayer : BaseMetroDialog
     {
-        public LoadingWindow( )
+        public SetupPlayer( MetroWindow parentWindow )
+            : base( parentWindow, new MetroDialogSettings { AffirmativeButtonText = "Create" } )
         {
             InitializeComponent( );
         }

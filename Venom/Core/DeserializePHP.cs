@@ -11,32 +11,36 @@ namespace Venom.Core
     public class DeserializePHP
     {
         private readonly string _data = "";
-        private readonly Encoding _encoding = new UTF8Encoding( );
-        private readonly NumberFormatInfo _nfi = new NumberFormatInfo( );
 
-
-        private int _pos = 0;
-
-
+        [Obsolete]
         public DeserializePHP( string inputData )
         {
             _data = inputData;
-            _nfi.NumberGroupSeparator = "";
-            _nfi.NumberDecimalSeparator = ".";
         }
 
+        [Obsolete]
         public object Deserialize( )
         {
-            _pos = 0;
             return Deserialize( _data );
         }
 
-        private object Deserialize( string input )
+
+
+        public static object Deserialize( string input )
         {
-            if( input.Equals( null ) || input.Length <= _pos )
+            if( input == null || input.Length <= 0 )
             {
-                return new object( );
+                throw new Exception( "invalid input" );
             }
+
+            var _encoding = new UTF8Encoding( );
+
+            var _nfi = new NumberFormatInfo
+            {
+                NumberGroupSeparator = "",
+                NumberDecimalSeparator = "."
+            };
+
 
 
             string strString;
@@ -45,35 +49,40 @@ namespace Venom.Core
             int end;
             int length;
 
-            switch( input[_pos] )
+            var pos = 0;
+            switch( input[pos] )
             {
                 case 'N':
-                    _pos += 2;
+                    pos += 2;
                     return null;
                 case 'b':
                     char Bool;
-                    Bool = input[_pos + 2];
-                    _pos += 4;
+                    Bool = input[pos + 2];
+                    pos += 4;
                     return Bool == '1';
                 case 'i':
                     string strInt;
-                    start = input.IndexOf( ":", _pos ) + 1;
-                    end = input.IndexOf( ";", start );
+
+
+                    start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
+                    end = input.IndexOf( ";", start, StringComparison.CurrentCulture );
+
                     strInt = input.Substring( start, end - start );
-                    _pos += 3 + strInt.Length;
+                    pos += 3 + strInt.Length;
                     return int.Parse( strInt, _nfi );
                 case 'd':
                     string strDouble;
-                    start = input.IndexOf( ":", _pos ) + 1;
-                    end = input.IndexOf( ";", start );
+                    start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
+                    end = input.IndexOf( ";", start, StringComparison.CurrentCulture );
                     strDouble = input.Substring( start, end - start );
-                    _pos += 3 + strDouble.Length;
+                    pos += 3 + strDouble.Length;
                     return double.Parse( strDouble, _nfi );
                 case 's':
-                    start = input.IndexOf( ":", _pos ) + 1;
-                    end = input.IndexOf( ":", start );
+                    start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
+                    end = input.IndexOf( ":", start, StringComparison.CurrentCulture );
                     strString = input.Substring( start, end - start );
-                    var ByteLen = int.Parse( strString );
+
+                    var ByteLen = int.Parse( strString, CultureInfo.CurrentCulture );
                     length = ByteLen;
 
                     if( ( end + 2 + length ) >= input.Length )
@@ -88,17 +97,17 @@ namespace Venom.Core
                         strReturn = input.Substring( end + 2, length );
                     }
 
-                    _pos += 6 + strString.Length + length;
+                    pos += 6 + strString.Length + length;
                     return strReturn;
                 case 'a':
-                    start = input.IndexOf( ":", _pos ) + 1;
-                    end = input.IndexOf( ":", start );
+                    start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
+                    end = input.IndexOf( ":", start, StringComparison.CurrentCulture );
                     strString = input.Substring( start, end - start );
-                    length = int.Parse( strString );
+                    length = int.Parse( strString, CultureInfo.CurrentCulture );
 
                     var htRet = new Hashtable( length );
                     var alRet = new ArrayList( length );
-                    _pos += 4 + strString.Length;
+                    pos += 4 + strString.Length;
 
                     for( var i = 0; i < length; i++ )
                     {
@@ -119,11 +128,11 @@ namespace Venom.Core
                         htRet[oKey] = oVal;
                     }
 
-                    _pos++;
+                    pos++;
 
-                    if( _pos < input.Length && input[_pos] == ';' )
+                    if( pos < input.Length && input[pos] == ';' )
                     {
-                        _pos++;
+                        pos++;
                     }
 
                     if( alRet != null )

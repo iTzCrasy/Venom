@@ -24,7 +24,7 @@ namespace Venom.ViewModels
         private ProfileData _selectedProfile;
         private ServerData _selectedServer;
 
-        public ICommand CmdClickStart => new CommandExt( ClickStart );
+        public ICommand CmdClickStart => null;
         public ICommand CmdClickAdd => new CommandExt( ClickAdd );
         public ICommand CmdClickDel => new CommandExt( ClickDel );
 
@@ -34,7 +34,6 @@ namespace Venom.ViewModels
         {
             _profile = profile;
             _server = server;
-            _currentContent = App.Instance.ViewSelectServer;
         }
 
         public ObservableCollection<ProfileData> ProfileList
@@ -75,12 +74,11 @@ namespace Venom.ViewModels
         /// Clicking Start
         /// </summary>
         /// <param name="param"></param>
-        public void ClickStart( object param ) => DialogHost.Show( new Dialogs.ProgressDialog( ), OnClickStart );
         private void OnClickStart( object sender, DialogOpenedEventArgs eventArgs )
         {
             _profile.Local = SelectedProfile;
             _server.Load( SelectedProfile.Server );
-            App.Instance.Start( );
+           //  App.Instance.Start( );
         }
 
         /// <summary>

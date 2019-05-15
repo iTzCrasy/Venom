@@ -92,7 +92,7 @@ namespace Venom.Core
         /// <returns></returns>
         private int FindCursorEndPos()
         {
-            for (int i = ( _safeLength - 1 ); i >= 0; i--)
+            for (var i = ( _safeLength - 1 ); i >= 0; i--)
             {
                 if (_buffer [ i ] == '\n')
                 {
@@ -204,16 +204,14 @@ namespace Venom.Core
             var cursorPos = _cursorPos;
 
             // determinate string length
-            int count = 0;
+            var count = 0;
             while (IsValidToken())
             {
                 ReadToken();
                 count++;
             }
 
-
-            string text = "";
-
+            string text;
             if (cursorPos >= 0)
             {
                 text = Encoding.ASCII.GetString( _buffer, cursorPos, count );
@@ -241,7 +239,7 @@ namespace Venom.Core
 
     public class CSVReader
     {
-        private const int _bufferSize = 1024;
+        private const int BufferSize = 1024;
 
         public delegate T TCreateEntry<T>(CSVBuffer buffer);
 
@@ -281,10 +279,10 @@ namespace Venom.Core
 
             for (; ; )
             {
-                var dataBuffer = new byte [ _bufferSize ];
+                var dataBuffer = new byte [ BufferSize ];
 
                 // read data from source
-                int len = await stream.ReadAsync( dataBuffer, 0, _bufferSize );
+                int len = await stream.ReadAsync( dataBuffer, 0, BufferSize );
 
                 // break if we got no more data
                 if (len == 0)

@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
+using Venom.Core.Utility;
 
 namespace Venom.Core
 {
@@ -38,6 +39,15 @@ namespace Venom.Core
 				Debug.Assert( _mapImages.Count > 0 || _villageImages.Count > 0 );
 			} );
 		}
+
+
+
+        public async Task LoadResources( Action<string> updateMessage )
+        {
+        }
+
+
+
 
 		public void OpenArchive( Action<ZipArchive> action )
 		{

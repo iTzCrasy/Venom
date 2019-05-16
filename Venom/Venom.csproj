@@ -189,7 +189,7 @@
     <Compile Include="Core\Map.cs" />
     <Compile Include="Core\Network.cs" />
     <Compile Include="Core\ResourceManager.cs" />
-    <Compile Include="Core\Resources\GameServer.cs" />
+    <Compile Include="Core\Resources\API\GameServer.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Core\Utility\Profiler.cs" />
     <Compile Include="Dialogs\AddPlanerTarget.xaml.cs">
@@ -405,9 +405,7 @@
   <ItemGroup>
     <Resource Include="Assets\Images\map2.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Core\Resources\Server\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.2\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.2\analyzers\dotnet\cs\Humanizer.dll" />

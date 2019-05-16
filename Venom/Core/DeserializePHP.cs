@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Venom.Core
 {
+
+
     public class DeserializePHP
     {
         private readonly string _data = "";
@@ -33,23 +35,27 @@ namespace Venom.Core
                 throw new Exception( "invalid input" );
             }
 
-            var _encoding = new UTF8Encoding( );
+            var encoding = new UTF8Encoding( );
 
-            var _nfi = new NumberFormatInfo
+            var nfi = new NumberFormatInfo
             {
                 NumberGroupSeparator = "",
                 NumberDecimalSeparator = "."
             };
 
+            var pos = 0;
+            return Deserialize( input, ref pos, nfi, encoding );
+        }
 
 
+        private static object Deserialize( string input, ref int pos, NumberFormatInfo nfi, UTF8Encoding encoding )
+        {
             string strString;
             string strReturn;
             int start;
             int end;
             int length;
 
-            var pos = 0;
             switch( input[pos] )
             {
                 case 'N':
@@ -69,20 +75,20 @@ namespace Venom.Core
 
                     strInt = input.Substring( start, end - start );
                     pos += 3 + strInt.Length;
-                    return int.Parse( strInt, _nfi );
+                    return int.Parse( strInt, nfi );
                 case 'd':
                     string strDouble;
                     start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
                     end = input.IndexOf( ";", start, StringComparison.CurrentCulture );
                     strDouble = input.Substring( start, end - start );
                     pos += 3 + strDouble.Length;
-                    return double.Parse( strDouble, _nfi );
+                    return double.Parse( strDouble, nfi );
                 case 's':
                     start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
                     end = input.IndexOf( ":", start, StringComparison.CurrentCulture );
                     strString = input.Substring( start, end - start );
 
-                    var ByteLen = int.Parse( strString, CultureInfo.CurrentCulture );
+                    var ByteLen = int.Parse( strString, nfi );
                     length = ByteLen;
 
                     if( ( end + 2 + length ) >= input.Length )
@@ -91,7 +97,7 @@ namespace Venom.Core
                     }
 
                     strReturn = input.Substring( end + 2, length );
-                    while( _encoding.GetByteCount( strReturn ) > ByteLen )
+                    while( encoding.GetByteCount( strReturn ) > ByteLen )
                     {
                         length--;
                         strReturn = input.Substring( end + 2, length );
@@ -103,7 +109,7 @@ namespace Venom.Core
                     start = input.IndexOf( ":", pos, StringComparison.CurrentCulture ) + 1;
                     end = input.IndexOf( ":", start, StringComparison.CurrentCulture );
                     strString = input.Substring( start, end - start );
-                    length = int.Parse( strString, CultureInfo.CurrentCulture );
+                    length = int.Parse( strString, nfi );
 
                     var htRet = new Hashtable( length );
                     var alRet = new ArrayList( length );
@@ -111,8 +117,8 @@ namespace Venom.Core
 
                     for( var i = 0; i < length; i++ )
                     {
-                        var oKey = Deserialize( input );
-                        var oVal = Deserialize( input );
+                        var oKey = Deserialize( input, ref pos, nfi, encoding );
+                        var oVal = Deserialize( input, ref pos, nfi, encoding );
 
                         if( alRet != null )
                         {
@@ -147,6 +153,5 @@ namespace Venom.Core
                     return "";
             }
         }
-
     }
 }

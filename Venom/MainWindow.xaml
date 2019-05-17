@@ -5,7 +5,6 @@
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:mainViews="clr-namespace:Venom.MainViews"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Title="Venom"
     Dialog:DialogParticipation.Register="{Binding}"
@@ -56,9 +55,7 @@
 
         <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
             <TabItem Header="Map" />
-            <TabItem Header="Troup List">
-                <mainViews:TroupList DataContext="{Binding TroupList}" />
-            </TabItem>
+            <TabItem Header="Troupe List" />
             <TabItem Header="Player Ranking" />
             <TabItem Header="Tribe Ranking" />
             <TabItem Header="Conquest" />

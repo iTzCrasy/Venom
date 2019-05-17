@@ -117,43 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RankingHeaderAll" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="RankingHeaderAlly" xml:space="preserve">
-    <value>Ally</value>
-  </data>
-  <data name="RankingHeaderAtt" xml:space="preserve">
-    <value>Attack</value>
-  </data>
-  <data name="RankingHeaderDef" xml:space="preserve">
-    <value>Defensive</value>
-  </data>
-  <data name="RankingHeaderMember" xml:space="preserve">
-    <value>Members</value>
-  </data>
-  <data name="RankingHeaderName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="RankingHeaderPoints" xml:space="preserve">
-    <value>Points</value>
-  </data>
-  <data name="RankingHeaderPointsV" xml:space="preserve">
-    <value>Points / Village</value>
-  </data>
-  <data name="RankingHeaderRank" xml:space="preserve">
-    <value>#</value>
-  </data>
-  <data name="RankingHeaderSup" xml:space="preserve">
-    <value>Support</value>
-  </data>
-  <data name="RankingHeaderTag" xml:space="preserve">
-    <value>Tag</value>
-  </data>
-  <data name="RankingHeaderVillages" xml:space="preserve">
-    <value>Villages</value>
-  </data>
-  <data name="StringAlly" xml:space="preserve">
-    <value>Ally</value>
-  </data>
 </root>

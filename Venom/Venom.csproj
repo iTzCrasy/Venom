@@ -189,7 +189,7 @@
     <Compile Include="Core\Map.cs" />
     <Compile Include="Core\Network.cs" />
     <Compile Include="Core\ResourceManager.cs" />
-    <Compile Include="Core\Resources\API\GameServer.cs" />
+    <Compile Include="Core\Resources\ServerApi.cs" />
     <Compile Include="Core\Singleton.cs" />
     <Compile Include="Core\Utility\Profiler.cs" />
     <Compile Include="Dialogs\AddPlanerTarget.xaml.cs">
@@ -213,7 +213,6 @@
     <Compile Include="Game\Resources\ResourceBashpointAlly.cs" />
     <Compile Include="Game\Resources\ResourceBashpointPlayer.cs" />
     <Compile Include="Game\Resources\ResourceConquer.cs" />
-    <Compile Include="Game\Resources\ResourcePlaner.cs" />
     <Compile Include="Game\Resources\ResourcePlayer.cs" />
     <Compile Include="Game\Resources\IResource.cs" />
     <Compile Include="Game\Resources\ResourceTroup.cs" />
@@ -398,9 +397,6 @@
     <Resource Include="Assets\Images\unit_spear.png" />
     <Resource Include="Assets\Images\unit_spy.png" />
     <Resource Include="Assets\Images\unit_sword.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Images\Venom-Logo_300x300.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Images\map2.png" />

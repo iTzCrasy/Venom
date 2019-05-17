@@ -9,6 +9,7 @@ namespace Venom
 {
     public partial class MainWindow : MetroWindow
     {
+
         public MainWindow( )
         {
             InitializeComponent( );
@@ -21,8 +22,6 @@ namespace Venom
             return new MainViewModel
             {
                 LocalUsername = "asdasdsad",
-
-                TroupList = new TroupListViewModel( ),
             };
         }
 
@@ -30,17 +29,7 @@ namespace Venom
 
         private void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
-            //ResourceManager.GetInstance.LoadResources( ( status ) =>
-            //{
-
-            //} )
-            //.ContinueWith( ( task ) =>
-            //{
-            //    Dispatcher.BeginInvoke( new Action( ( ) =>
-            //    {
-            //        lblBackgroundTasks.Text = "done in...";
-            //    } ) );
-            //} );
+            ShowSetupPlayerDialog( );
         }
 
 
@@ -54,9 +43,17 @@ namespace Venom
 
         public void ShowSetupPlayerDialog( )
         {
-            var dialog = new SetupPlayer( this );
+            var dialog = new SetupPlayer( this, new SetupPlayerDialogSettings( ) );
 
             DialogManager.ShowMetroDialogAsync( this, dialog, null );
         }
+
+        private void UserNameButton_Click( object sender, RoutedEventArgs e )
+        {
+            settingsFlyout.IsOpen = !settingsFlyout.IsOpen;
+        }
+
+
+        
     }
 }

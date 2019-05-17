@@ -162,6 +162,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Resources\CacheManager.cs" />
+    <Compile Include="Resources\UserSettings.cs" />
+    <Compile Include="Resources\ResourceManager.cs" />
     <Compile Include="Utility\Converter\RowToIndex.cs" />
     <Compile Include="Utility\CSVReader.cs" />
     <Compile Include="Utility\DeserializePHP.cs" />
@@ -171,7 +174,6 @@
       <DependentUpon>SetupPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility\Validations\NotEmpty.cs" />
-    <Compile Include="ViewModels\TroupListViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Page Include="Dialogs\SetupPlayer.xaml">
@@ -250,7 +252,10 @@
   <ItemGroup>
     <Resource Include="Assets\Images\map2.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Flyouts\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.VersionCheckAnalyzer.2.9.2\analyzers\dotnet\Microsoft.CodeAnalysis.VersionCheckAnalyzer.dll" />
     <Analyzer Include="..\packages\Microsoft.CodeQuality.Analyzers.2.9.2\analyzers\dotnet\cs\Humanizer.dll" />

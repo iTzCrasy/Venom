@@ -6,8 +6,6 @@ namespace Venom.ViewModels
     {
         public string LocalUsername { get; set; }
 
-        public TroupListViewModel TroupList { get; set; }
-
         public string CurrentStatusText { get; set; }
     }
 }

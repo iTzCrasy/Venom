@@ -17,10 +17,18 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace Venom.Dialogs
 {
+    public class SetupPlayerDialogSettings : MetroDialogSettings
+    {
+        public SetupPlayerDialogSettings( )
+        {
+            AffirmativeButtonText = "Create";
+        }
+    }
+
     public partial class SetupPlayer : BaseMetroDialog
     {
-        public SetupPlayer( MetroWindow parentWindow )
-            : base( parentWindow, new MetroDialogSettings { AffirmativeButtonText = "Create" } )
+        public SetupPlayer( MetroWindow parentWindow, SetupPlayerDialogSettings settings )
+            : base( parentWindow, settings )
         {
             InitializeComponent( );
         }

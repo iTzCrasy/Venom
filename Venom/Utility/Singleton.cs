@@ -11,7 +11,7 @@ namespace Venom.Utility
         /// Static instance. Needs to use lambda expression
         /// to construct an instance (since constructor is private).
         /// </summary>
-        private static readonly Lazy<T> L = new Lazy<T>( () => CreateInstance() );
+        private static readonly Lazy<T> L = new Lazy<T>( CreateInstance );
 
 #pragma warning disable CA1000
         /// <summary>

@@ -7,23 +7,14 @@ using Venom.ViewModels;
 
 namespace Venom
 {
-    public partial class MainWindow : MetroWindow
+    public partial class MainWindow
     {
-
+		
         public MainWindow( )
         {
             InitializeComponent( );
-
-            DataContext = CreateDataContext( );
         }
 
-        private object CreateDataContext( )
-        {
-            return new MainViewModel
-            {
-                LocalUsername = "asdasdsad",
-            };
-        }
 
 
 
@@ -54,6 +45,6 @@ namespace Venom
         }
 
 
-        
+
     }
 }

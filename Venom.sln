@@ -19,6 +19,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venom.Test", "Venom.Test\Ve
 		{2C3AA31E-183B-4685-A40D-1249787E20A7} = {2C3AA31E-183B-4685-A40D-1249787E20A7}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venom.Data", "Venom.Data\Venom.Data.csproj", "{B719D8CB-F14C-4A09-BB52-69E2B3370E9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{99E775A8-765C-498C-A158-D669E61428ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99E775A8-765C-498C-A158-D669E61428ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99E775A8-765C-498C-A158-D669E61428ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B719D8CB-F14C-4A09-BB52-69E2B3370E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B719D8CB-F14C-4A09-BB52-69E2B3370E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B719D8CB-F14C-4A09-BB52-69E2B3370E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B719D8CB-F14C-4A09-BB52-69E2B3370E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -10,6 +10,7 @@
     Dialog:DialogParticipation.Register="{Binding}"
     BorderThickness="0"
     Closing="MainWindow_Closing"
+    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     GlowBrush="Black"
     Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
@@ -18,21 +19,10 @@
     WindowTransitionsEnabled="False"
     mc:Ignorable="d">
 
-    <Window.Resources>
-        <ResourceDictionary>
-            <Style
-                x:Key="HamburgerMenuCreatorsStyle"
-                BasedOn="{StaticResource {x:Type Controls:HamburgerMenu}}"
-                TargetType="{x:Type Controls:HamburgerMenu}">
-                <Setter Property="PaneBackground" Value="{DynamicResource WhiteBrush}" />
-                <Setter Property="PaneForeground" Value="{DynamicResource TextBrush}" />
-            </Style>
-        </ResourceDictionary>
-    </Window.Resources>
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <Button Click="UserNameButton_Click" Content="{Binding LocalUsername}" />
+            <!--<Button Click="UserNameButton_Click" Content="{Binding LocalUsername}" />-->
             <Button Content="Settings" />
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>

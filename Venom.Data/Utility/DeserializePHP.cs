@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Venom.Utility
+namespace Venom.Data.Utility
 {
-    public static class DeserializePHP
+    internal static class DeserializePhp
     {
         public static object Deserialize( string input )
         {

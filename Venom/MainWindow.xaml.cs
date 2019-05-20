@@ -2,7 +2,7 @@ using System.ComponentModel;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using Venom.Dialogs;
+using Venom.Components.Dialogs;
 using Venom.ViewModels;
 
 namespace Venom
@@ -34,9 +34,8 @@ namespace Venom
 
         public void ShowSetupPlayerDialog( )
         {
-            var dialog = new SetupPlayer( this, new SetupPlayerDialogSettings( ) );
-
-            DialogManager.ShowMetroDialogAsync( this, dialog, null );
+            var dialog = new AddEditAccount( this );
+            DialogManager.ShowMetroDialogAsync( this, dialog ).GetAwaiter( ).GetResult( );
         }
 
         private void UserNameButton_Click( object sender, RoutedEventArgs e )

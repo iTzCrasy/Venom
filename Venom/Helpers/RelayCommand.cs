@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace Venom.Utility
+namespace Venom.Helpers
 {
     public class RelayCommand<T> : ICommand
     {

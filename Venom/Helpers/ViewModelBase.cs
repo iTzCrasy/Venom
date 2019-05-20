@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using JetBrains.Annotations;
 
-namespace Venom.ViewModels
+namespace Venom.Helpers
 {
     public class ViewModelBase : INotifyPropertyChanged
     {

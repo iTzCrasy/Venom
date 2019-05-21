@@ -93,7 +93,11 @@
             <MenuItem Header="Theme" />
         </Menu>
 
-        <Controls:MetroAnimatedSingleRowTabControl x:Name="MainTabControl" Grid.Row="1">
+        <Controls:MetroAnimatedSingleRowTabControl
+            x:Name="MainTabControl"
+            Grid.Row="1"
+            Controls:TabControlHelper.Underlined="TabItems"
+            TabStripPlacement="Top">
             <TabItem Header="Map" />
             <TabItem Header="Troupe List" />
             <TabItem Header="Player Ranking" />

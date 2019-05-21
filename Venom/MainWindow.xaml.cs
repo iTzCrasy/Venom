@@ -35,7 +35,7 @@ namespace Venom
         public void ShowSetupPlayerDialog( )
         {
             var dialog = new AddEditAccount( this );
-            DialogManager.ShowMetroDialogAsync( this, dialog ).GetAwaiter( ).GetResult( );
+            DialogManager.ShowMetroDialogAsync( this, dialog );
         }
 
         private void UserNameButton_Click( object sender, RoutedEventArgs e )

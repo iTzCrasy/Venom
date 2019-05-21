@@ -1,4 +1,5 @@
 using System.Windows;
+using Venom.Utility;
 
 namespace Venom
 {
@@ -6,6 +7,7 @@ namespace Venom
     {
         public App( )
         {
+            ContainerHelper.PrepareContainer( );
         }
     }
 }

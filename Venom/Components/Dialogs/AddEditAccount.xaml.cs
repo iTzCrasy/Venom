@@ -25,16 +25,17 @@ namespace Venom.Components.Dialogs
         public AddEditAccount( MetroWindow parentWindow )
             : base( parentWindow )
         {
-            if( DesignerProperties.GetIsInDesignMode( new DependencyObject( ) ) )
+            if( DesignerProperties.GetIsInDesignMode( this ) )
             {
                 return;
             }
 
+            DataContext = ContainerHelper.Provider
+                .GetRequiredService<AddEditAccountViewModel>( );
 
-            DataContext = ContainerHelper.Provider.GetRequiredService<AddEditAccountViewModel>( );
-
-            
-           // InitializeComponent( );
+            InitializeComponent( );
         }
+
+     
     }
 }

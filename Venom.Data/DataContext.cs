@@ -3,27 +3,53 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Venom.Data.Cache;
 using Venom.Data.Models;
+using Venom.Data.Rest;
 
 namespace Venom.Data
 {
     public class DataContext
     {
         private readonly ILogger _logger;
+        private readonly CacheManager _cache;
+
 
         public DataContext(
-            ILogger<DataContext> logger
+            ILogger<DataContext> logger,
+            ILoggerFactory loggerFactory
             )
         {
             _logger = logger;
+
+            _cache = new CacheManager(
+                loggerFactory.CreateLogger<CacheManager>( )
+                );
         }
 
 
-        public Task<List<GameServer>> GetGameServers( )
+        public async Task<List<GameServer>> GetGameServers( )
         {
-            // todo implement caching layer
+            const string cacheKey = "GameServers";
 
-            return ServerApi.FetchGameServers( );
+            return await _cache.Get( cacheKey, async ( ) =>
+            {
+                await Task.Delay( 5000 );
+
+                return await ServerApi.FetchGameServers( );
+            } );
+        }
+
+        public async Task<IReadOnlyList<Player>> GetPlayers( GameServer server )
+        {
+            var cacheKey = $"Players_{server.Id}";
+
+            return await _cache.Get( cacheKey, async ( ) =>
+            {
+                await Task.Delay( 5000 );
+
+                return await ServerApi.FetchPlayers( server );
+            } );
         }
 
     }

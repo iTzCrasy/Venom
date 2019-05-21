@@ -1,0 +1,18 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Threading;
+
+namespace Venom.Helpers
+{
+    public static class UtilityHelper
+    {
+        public static bool IsUIThread( )
+        {
+            return Dispatcher.FromThread( Thread.CurrentThread ) != null;
+        }
+    }
+}

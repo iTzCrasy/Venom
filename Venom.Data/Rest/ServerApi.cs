@@ -12,7 +12,7 @@ using Venom.Data.Models.Configuration;
 using Venom.Data.Models.Statistic;
 using Venom.Data.Utility;
 
-namespace Venom.Data
+namespace Venom.Data.Rest
 {
     public static class ServerApi
     {

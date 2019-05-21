@@ -29,7 +29,7 @@ namespace Venom.Helpers
         /// support CallerMemberName.</param>
         /// <returns>True if the value was changed, false if the existing value matched the
         /// desired value.</returns>
-        protected bool Set<T>( ref T field, T newValue = default, [CallerMemberName] string propertyName = null )
+        protected bool SetProperty<T>( ref T field, T newValue = default, [CallerMemberName] string propertyName = null )
         {
             if( EqualityComparer<T>.Default.Equals( field, newValue ) )
             {

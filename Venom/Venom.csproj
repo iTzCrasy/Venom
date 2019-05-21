@@ -231,6 +231,8 @@
     </Compile>
     <Compile Include="Components\Dialogs\AddEditAccountViewModel.cs" />
     <Compile Include="Helpers\MvvmBehaviors.cs" />
+    <Compile Include="Repositories\IPlayerRepository.cs" />
+    <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\GameServerRepository.cs" />
     <Compile Include="Repositories\IGameServerRepository.cs" />
     <Compile Include="Utility\ContainerHelper.cs" />
@@ -238,6 +240,7 @@
     <Compile Include="Utility\NotifyTaskCompletion.cs" />
     <Compile Include="Helpers\RelayCommand.cs" />
     <Compile Include="Utility\Singleton.cs" />
+    <Compile Include="Helpers\UtilityHelper.cs" />
     <Compile Include="Utility\Validations\NotEmpty.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />

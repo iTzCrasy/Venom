@@ -15,16 +15,10 @@ namespace Venom.Utility
     {
         private static readonly ServiceCollection _container = new ServiceCollection( );
 
-        private static readonly IServiceProvider _provider;
+        public static IServiceProvider Provider { get; private set; }
 
 
-        public static IServiceProvider Provider
-            => _provider;
-
-
-#pragma warning disable CA1810 // Initialize reference type static fields inline
-        static ContainerHelper( )
-#pragma warning restore CA1810 // Initialize reference type static fields inline
+        public static void PrepareContainer( )
         {
             _container.AddLogging( ( builder ) =>
             {
@@ -32,11 +26,12 @@ namespace Venom.Utility
             } );
 
 
-
             _container.AddSingleton<DataContext>( );
 
 
+
             _container.AddScoped<IGameServerRepository, GameServerRepository>( );
+            _container.AddScoped<IPlayerRepository, PlayerRepository>( );
 
 
             // view models
@@ -46,7 +41,7 @@ namespace Venom.Utility
 
 
 
-            _provider = _container.BuildServiceProvider( );
+            Provider = _container.BuildServiceProvider( );
         }
     }
 }

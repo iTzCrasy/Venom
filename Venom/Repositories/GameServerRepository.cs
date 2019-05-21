@@ -16,7 +16,7 @@ namespace Venom.Repositories
 
 	    public GameServerRepository(
 		    DataContext context,
-			Logger<GameServerRepository> logger
+			ILogger<GameServerRepository> logger
 		    )
 	    {
             _context = context;

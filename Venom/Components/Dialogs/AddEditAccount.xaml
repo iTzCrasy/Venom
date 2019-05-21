@@ -1,7 +1,8 @@
-﻿<Dialogs:BaseMetroDialog
-    x:Class="Venom.Components.Dialogs.AddAccount"
+﻿<Dialogs:CustomDialog
+    x:Class="Venom.Components.Dialogs.AddEditAccount"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:Dialogs="http://metro.mahapps.com/winfx/xaml/controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helper="clr-namespace:Venom.Helpers"
@@ -11,22 +12,54 @@
     d:DesignWidth="800"
     helper:MvvmBehaviors.LoadedMethodName="LoadGameServers"
     mc:Ignorable="d">
+    <Dialogs:CustomDialog.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Dialogs:CustomDialog.Resources>
+
     <Grid Margin="0,10,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" MinHeight="20" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" MinHeight="20" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Text="Select Server" />
-        <ComboBox
-            Grid.Row="1"
-            ItemsSource="{Binding GameServers}"
-            SelectedItem="{Binding SelectedServer}" />
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <ComboBox ItemsSource="{Binding GameServers}" SelectedItem="{Binding SelectedServer}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Id}" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <Dialogs:MetroProgressBar
+                Grid.Row="1"
+                IsIndeterminate="True"
+                Visibility="{Binding IsActiveServer, Converter={StaticResource BooleanToVisibilityConverter}}" />
+        </Grid>
 
         <TextBlock Grid.Row="2" Text="Enter Character Name:" />
-        <TextBox Grid.Row="3" />
+        <ComboBox Grid.Row="3" ItemsSource="{Binding PlayerNames}" />
+        <Dialogs:MetroProgressBar
+            Grid.Row="4"
+            IsIndeterminate="True"
+            Visibility="{Binding IsActivePlayer, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
 
     </Grid>
-</Dialogs:BaseMetroDialog>
+</Dialogs:CustomDialog>

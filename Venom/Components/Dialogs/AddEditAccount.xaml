@@ -27,21 +27,21 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Text="Select Server" />
+        <TextBlock Grid.Row="0" Text="Select Server" Width="200" />
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox ItemsSource="{Binding GameServers}" SelectedItem="{Binding SelectedServer}">
+            <ComboBox ItemsSource="{Binding GameServers}" SelectedItem="{Binding SelectedServer}" Width="200">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <Grid>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="auto" />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding Id}" />
+                            <TextBlock Text="{Binding Id}" />
                         </Grid>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
@@ -53,8 +53,8 @@
                 Visibility="{Binding IsActiveServer, Converter={StaticResource BooleanToVisibilityConverter}}" />
         </Grid>
 
-        <TextBlock Grid.Row="2" Text="Enter Character Name:" />
-        <ComboBox Grid.Row="3" ItemsSource="{Binding PlayerNames}" />
+        <TextBlock Grid.Row="2" Text="Enter Character Name:" Width="200"/>
+        <ComboBox Grid.Row="3" ItemsSource="{Binding PlayerNames}" Width="200"/>
         <Dialogs:MetroProgressBar
             Grid.Row="4"
             IsIndeterminate="True"

@@ -22,7 +22,7 @@ namespace Venom.Utility
         {
             _container.AddLogging( ( builder ) =>
             {
-                builder.AddFile( "Logs/myapp-{Date}.txt", isJson: true );
+                builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
             } );
 
 

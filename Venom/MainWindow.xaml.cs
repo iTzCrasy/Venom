@@ -20,7 +20,7 @@ namespace Venom
 
         private void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
-            ShowSetupPlayerDialog( );
+            //ShowSetupPlayerDialog( );
         }
 
 
@@ -38,12 +38,18 @@ namespace Venom
             DialogManager.ShowMetroDialogAsync( this, dialog );
         }
 
-        private void UserNameButton_Click( object sender, RoutedEventArgs e )
+        private void ToggleFlyout( int index )
         {
-            settingsFlyout.IsOpen = !settingsFlyout.IsOpen;
+            if( !( Flyouts.Items[index] is Flyout flyout ) )
+            {
+                return;
+            }
+            flyout.IsOpen = !flyout.IsOpen;
         }
 
-
-
+        private void SettingsButton_Click( object sender, RoutedEventArgs e )
+        {
+            ToggleFlyout( 0 );
+        }
     }
 }

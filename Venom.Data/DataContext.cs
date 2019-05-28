@@ -34,8 +34,6 @@ namespace Venom.Data
 
             return await _cache.Get( cacheKey, async ( ) =>
             {
-                await Task.Delay( 5000 );
-
                 return await ServerApi.FetchGameServers( );
             } );
         }
@@ -46,8 +44,6 @@ namespace Venom.Data
 
             return await _cache.Get( cacheKey, async ( ) =>
             {
-                await Task.Delay( 5000 );
-
                 return await ServerApi.FetchPlayers( server );
             } );
         }

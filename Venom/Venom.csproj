@@ -230,6 +230,9 @@
       <DependentUpon>AddEditAccount.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\Dialogs\AddEditAccountViewModel.cs" />
+    <Compile Include="Components\Flyouts\FlyoutSettings.xaml.cs">
+      <DependentUpon>FlyoutSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\MvvmBehaviors.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
@@ -244,7 +247,15 @@
     <Compile Include="Utility\Validations\NotEmpty.cs" />
     <Compile Include="Helpers\ViewModelBase.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Page Include="Assets\Styles\VenomTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\Dialogs\AddEditAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Flyouts\FlyoutSettings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -322,6 +333,7 @@
     <Resource Include="Assets\Images\map2.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Components\Views\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>

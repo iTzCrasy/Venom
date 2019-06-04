@@ -1,0 +1,103 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                  
+                    xmlns:local="clr-namespace:Venom.Assets.Styles"
+                    xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                    xmlns:Behaviours="http://metro.mahapps.com/winfx/xaml/shared">
+
+    <SolidColorBrush x:Key="VenomMenuForeground" Color="{DynamicResource Gray4}" />
+    <SolidColorBrush x:Key="VenomMenuBackground" Color="{DynamicResource Gray8}"/>
+    <SolidColorBrush x:Key="VenomMenuSelectorBrush" Color="{DynamicResource AccentColor}"/>
+    <SolidColorBrush x:Key="VenomMenuSelectorBrushHover" Color="{DynamicResource WhiteColor}"/>
+
+    <!-- Sub Menu Item Style -->
+    <ControlTemplate x:Key="VsMenuSub" TargetType="MenuItem">
+        <DockPanel TextBlock.FontSize="15px" x:Name="panel">
+            <!-- label, icons, etc. -->
+            <Image Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" Width="20" Margin="5,0" />
+            <Label Content="{TemplateBinding Header}" Foreground="Black" Margin="0,5,5,5" />
+
+            <!-- draw the right arrow only if this menu item has sub items -->
+            <!--<Image Source="icon_right.png" Visibility="{Binding HasItems, Converter={StaticResource btv}, RelativeSource={RelativeSource TemplatedParent}}" />-->
+
+            <!-- sub items -->
+            <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" Placement="Right" >
+                <Border BorderThickness="1" Background="White" BorderBrush="#E0E0E0">
+                    <StackPanel IsItemsHost="True" />
+                </Border>
+            </Popup>
+        </DockPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" TargetName="panel" Value="#EFF6FC" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    
+    <!--<Style x:Key="VenomSubMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                --><!--<ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Label Content="Header"/>
+
+                    <Popup IsOpen="{TemplateBinding IsSubmenuOpen}">
+                        <Border BorderThickness="1" Background="White" BorderBrush="#E0E0E0">
+                            <StackPanel IsItemsHost="True" />
+                        </Border>
+                    </Popup>
+                </ControlTemplate>--><!--
+            </Setter.Value>
+        </Setter>
+    </Style>-->
+    
+    <!-- Menu Item Style -->
+    <Style x:Key="VenomMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="10" />
+        <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Grid x:Name="PartItemSelected">
+                        <ContentPresenter x:Name="PartHeaderContent"
+                                          Margin="{TemplateBinding Padding}"
+                                          ContentSource="Header"
+                                          HorizontalAlignment="Center"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        <Rectangle x:Name="PartHeaderBrush"
+                                   VerticalAlignment="Bottom"
+                                   Height="4"
+                                   Visibility="Collapsed"
+                                   Fill="{StaticResource VenomMenuSelectorBrush}"/>
+                        <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" >
+                            <Border BorderThickness="1" Background="{StaticResource VenomMenuBackground}" BorderBrush="Transparent">
+                                <StackPanel IsItemsHost="True" />
+                            </Border>
+                        </Popup>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <!--<Trigger Property="IsSelected" Value="True">
+                            <Trigger.Setters>
+                                <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>
+                            </Trigger.Setters>
+                        </Trigger>-->
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.Setters>
+                                <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>
+                                <Setter Property="Foreground" Value="{StaticResource VenomMenuSelectorBrush}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="VenomMenuStyle" TargetType="{x:Type Menu}">
+        <Setter Property="Background" Value="{StaticResource VenomMenuBackground}"/>
+        <Setter Property="Foreground" Value="{StaticResource VenomMenuForeground}"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource VenomMenuItemStyle}"/>
+    </Style>
+    
+</ResourceDictionary>

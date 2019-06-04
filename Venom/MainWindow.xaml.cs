@@ -1,8 +1,11 @@
+using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Venom.Components.Dialogs;
+using Venom.Utility;
 using Venom.ViewModels;
 
 namespace Venom
@@ -18,9 +21,28 @@ namespace Venom
 
 
 
-        private void MainWindow_Loaded( object sender, RoutedEventArgs e )
+        private async void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
             //ShowSetupPlayerDialog( );
+
+            var dialog = new DialogLoadVenom( this );
+            await this.ShowMetroDialogAsync( dialog ).ConfigureAwait( false );
+
+            void onDialogClosed( object o, DialogStateChangedEventArgs args )
+            {
+                DialogManager.DialogClosed -= onDialogClosed;
+                //=> TODO: Handle Args
+            }
+            DialogManager.DialogClosed += onDialogClosed;
+
+            //=> TODO: Loading Venom here!
+
+            await Task.Delay( 1000 ).ConfigureAwait( false );
+
+            Application.Current.Dispatcher.Invoke( new Action( ( ) =>
+            {
+                this.HideMetroDialogAsync( dialog );
+            } ) );
         }
 
 
@@ -50,6 +72,15 @@ namespace Venom
         private void SettingsButton_Click( object sender, RoutedEventArgs e )
         {
             ToggleFlyout( 0 );
+        }
+
+        private async void UserNameButton_Click( object sender, RoutedEventArgs e )
+        {
+            var mySettings = new MetroDialogSettings( )
+            {
+            };
+
+
         }
     }
 }

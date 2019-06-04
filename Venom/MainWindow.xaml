@@ -24,13 +24,14 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Assets/Styles/VenomTabControl.xaml" />
+                <ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands>
-            <!--<Button Click="UserNameButton_Click" Content="{Binding LocalUsername}" />-->
+            <Button Content="{Binding LocalUsername, UpdateSourceTrigger=PropertyChanged}" Click="UserNameButton_Click" />
             <Button Content="Settings" Click="SettingsButton_Click"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
@@ -48,8 +49,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Menu FontSize="14" Style="{StaticResource VenomMenuStyle}">
+            <MenuItem Header="Test"/>
+            <MenuItem Header="Ranglisten">
+                <MenuItem Header="Spieler"/>
+                <MenuItem Header="Stämme"/>
+            </MenuItem>
+            <MenuItem Header="Test"/>
+            <MenuItem Header="Test"/>
+        </Menu>
         
-        <TabControl
+        <!--<TabControl
             x:Name="MainTabControl"
             Grid.Row="1"
             TabStripPlacement="Top"
@@ -96,7 +107,7 @@
             <TabItem Header="Item" />
             <TabItem Header="Item" />
             <TabItem Header="Item" />
-        </TabControl>
+        </TabControl>-->
 
 
 

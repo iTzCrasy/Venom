@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Venom.Components.Dialogs;
 using Venom.Data;
 using Venom.Repositories;
+using Venom.ViewModels;
 
 namespace Venom.Utility
 {
@@ -22,11 +23,12 @@ namespace Venom.Utility
         {
             _container.AddLogging( ( builder ) =>
             {
-                builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
+               builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
             } );
 
 
             _container.AddSingleton<DataContext>( );
+            _container.AddSingleton<Config>( );
 
 
 
@@ -36,9 +38,8 @@ namespace Venom.Utility
 
             // view models
             _container.AddTransient<AddEditAccountViewModel>( );
-
-
-
+            _container.AddTransient<DialogLoadVenomViewModel>( );
+           
 
 
             Provider = _container.BuildServiceProvider( );

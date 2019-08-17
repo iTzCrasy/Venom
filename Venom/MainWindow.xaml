@@ -11,7 +11,6 @@
     Dialog:DialogParticipation.Register="{Binding}"
     BorderThickness="0"
     Closing="MainWindow_Closing"
-    DataContext="{Binding RelativeSource={RelativeSource Self}}"
     GlowBrush="Black"
     Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
@@ -50,11 +49,11 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu FontSize="14" Style="{StaticResource VenomMenuStyle}">
-            <MenuItem Header="Test"/>
+        <Menu FontSize="14" Style="{StaticResource VenomMenuStyle}" Name="MainMenu">
+            <MenuItem Header="Start"/>
             <MenuItem Header="Ranglisten">
-                <MenuItem Header="Spieler"/>
-                <MenuItem Header="Stämme"/>
+                <MenuItem Header="Spieler" Command="{Binding OnClickRankingPlayer}"/>
+                <MenuItem Header="Stämme" Command="{Binding OnClickRankingAlly}" CommandParameter="Test?"/>
             </MenuItem>
             <MenuItem Header="Test"/>
             <MenuItem Header="Test"/>

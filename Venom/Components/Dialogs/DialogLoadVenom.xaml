@@ -7,8 +7,6 @@
                        xmlns:helper="clr-namespace:Venom.Helpers"
                        xmlns:local="clr-namespace:Venom.Components.Dialogs"
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                       d:DesignHeight="450"
-                       d:DesignWidth="800"
                        helper:MvvmBehaviors.LoadedMethodName="LoadVenom"
                        mc:Ignorable="d"
                        Cursor="Wait" Title="????????????????????????">

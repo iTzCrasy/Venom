@@ -48,5 +48,14 @@ namespace Venom.Data
             } );
         }
 
+        public async Task<IReadOnlyList<Ally>> GetAllys( GameServer server )
+        {
+            var cacheKey = $"Allys_{server.Id}";
+
+            return await _cache.Get( cacheKey, async ( ) =>
+            {
+                return await ServerApi.FetchAllies( server );
+            } );
+        }
     }
 }

@@ -229,6 +229,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Dialogs\AddAccount.xaml.cs">
+      <DependentUpon>AddAccount.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Dialogs\AddAccountViewModel.cs" />
     <Compile Include="Components\Dialogs\AddEditAccount.xaml.cs">
       <DependentUpon>AddEditAccount.xaml</DependentUpon>
     </Compile>
@@ -239,6 +243,9 @@
     <Compile Include="Components\Dialogs\DialogLoadVenomViewModel.cs" />
     <Compile Include="Components\Flyouts\FlyoutSettings.xaml.cs">
       <DependentUpon>FlyoutSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Views\RankingPlayer.xaml.cs">
+      <DependentUpon>RankingPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\MvvmBehaviors.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
@@ -263,6 +270,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\Dialogs\AddAccount.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\Dialogs\AddEditAccount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -272,6 +283,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Flyouts\FlyoutSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Views\RankingPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -349,7 +364,6 @@
     <Resource Include="Assets\Images\map2.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\Views\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
@@ -367,6 +381,9 @@
       <Project>{b719d8cb-f14c-4a09-bb52-69e2b3370e9a}</Project>
       <Name>Venom.Data</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Venom-Logo_300x300.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

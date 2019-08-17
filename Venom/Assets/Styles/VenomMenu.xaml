@@ -11,7 +11,7 @@
 
     <!-- Sub Menu Item Style -->
     <ControlTemplate x:Key="VsMenuSub" TargetType="MenuItem">
-        <DockPanel TextBlock.FontSize="15px" x:Name="panel">
+        <DockPanel TextBlock.FontSize="15px">
             <!-- label, icons, etc. -->
             <Image Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" Width="20" Margin="5,0" />
             <Label Content="{TemplateBinding Header}" Foreground="Black" Margin="0,5,5,5" />
@@ -26,11 +26,6 @@
                 </Border>
             </Popup>
         </DockPanel>
-        <ControlTemplate.Triggers>
-            <Trigger Property="IsHighlighted" Value="True">
-                <Setter Property="Background" TargetName="panel" Value="#EFF6FC" />
-            </Trigger>
-        </ControlTemplate.Triggers>
     </ControlTemplate>
     
     <!--<Style x:Key="VenomSubMenuItemStyle" TargetType="{x:Type MenuItem}">
@@ -56,6 +51,7 @@
         <Setter Property="Margin" Value="0" />
         <Setter Property="Padding" Value="10" />
         <Setter Property="MinWidth" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource VenomMenuForeground}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type MenuItem}">
@@ -83,6 +79,12 @@
                             </Trigger.Setters>
                         </Trigger>-->
                         <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.Setters>
+                                <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>
+                                <Setter Property="Foreground" Value="{StaticResource VenomMenuSelectorBrush}"/>
+                            </Trigger.Setters>
+                        </Trigger>
+                        <Trigger Property="IsSubmenuOpen" Value="True">
                             <Trigger.Setters>
                                 <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>
                                 <Setter Property="Foreground" Value="{StaticResource VenomMenuSelectorBrush}"/>

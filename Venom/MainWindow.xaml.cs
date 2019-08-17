@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 using Venom.Components.Dialogs;
 using Venom.Utility;
 using Venom.ViewModels;
@@ -15,34 +16,39 @@ namespace Venom
 		
         public MainWindow( )
         {
+            if( DesignerProperties.GetIsInDesignMode( this ) )
+            {
+                return;
+            }
+
+            DataContext = ContainerHelper.Provider.GetRequiredService<MainViewModel>( );
+
             InitializeComponent( );
         }
-
-
-
 
         private async void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
             //ShowSetupPlayerDialog( );
-
-            var dialog = new DialogLoadVenom( this );
+            var dialog = new AddAccount( this );
             await this.ShowMetroDialogAsync( dialog ).ConfigureAwait( false );
 
             void onDialogClosed( object o, DialogStateChangedEventArgs args )
             {
                 DialogManager.DialogClosed -= onDialogClosed;
-                //=> TODO: Handle Args
+                //=> TODO: Handle
             }
             DialogManager.DialogClosed += onDialogClosed;
+
+
 
             //=> TODO: Loading Venom here!
 
             await Task.Delay( 1000 ).ConfigureAwait( false );
 
-            Application.Current.Dispatcher.Invoke( new Action( ( ) =>
-            {
-                this.HideMetroDialogAsync( dialog );
-            } ) );
+            //Application.Current.Dispatcher.Invoke( new Action( ( ) =>
+            //{
+            //    this.HideMetroDialogAsync( dialog );
+            //} ) );
         }
 
 

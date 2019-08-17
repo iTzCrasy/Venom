@@ -1,0 +1,90 @@
+﻿<Controls:CustomDialog x:Class="Venom.Components.Dialogs.AddAccount"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                       xmlns:Dialogs="http://metro.mahapps.com/winfx/xaml/controls"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:helper="clr-namespace:Venom.Helpers"
+                       xmlns:local="clr-namespace:Venom.Components.Dialogs"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       helper:MvvmBehaviors.LoadedMethodName="LoadGameServers"
+                       mc:Ignorable="d">
+    <Dialogs:CustomDialog.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        </ResourceDictionary>
+    </Dialogs:CustomDialog.Resources>
+
+    <Dialogs:BaseMetroDialog.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Image Grid.Row="0" Height="100" VerticalAlignment="Top" Width="200" Source="/Venom;component/Assets/Venom-Logo_300x300.png"/>
+            <StackPanel Grid.Row="1">
+                <StackPanel.Resources>
+                    <ResourceDictionary>
+                        <ResourceDictionary.MergedDictionaries>
+                            <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                        </ResourceDictionary.MergedDictionaries>
+                    </ResourceDictionary>
+                </StackPanel.Resources>
+                <ComboBox Width="200"
+                          Margin="0 10 0 0"             
+                          Controls:TextBoxHelper.Watermark="Wähle einen Server."
+                          ItemsSource="{Binding GameServers}" 
+                          SelectedItem="{Binding SelectedServer}">
+                    <ComboBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Test" />
+                        </ContextMenu>
+                    </ComboBox.ContextMenu>
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Id}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                
+                <ComboBox Width="200"
+                          Margin="0 10 0 0"             
+                          Controls:TextBoxHelper.Watermark="Wählen einen Spieler."
+                          ItemsSource="{Binding PlayerNames}"
+                          SelectedItem="{Binding SelectedPlayer}"
+                          IsEnabled="{Binding IsPlayerSelectionEnabled, UpdateSourceTrigger=PropertyChanged}">
+                    <ComboBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Test" />
+                        </ContextMenu>
+                    </ComboBox.ContextMenu>
+                    <!--<ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Id}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>-->
+                </ComboBox>
+
+                <Button Content="Register" Margin="10" Width="150" Height="30" Click="Button_Click"/>
+            </StackPanel>
+        </Grid>
+    </Dialogs:BaseMetroDialog.Content>
+    <!--<Dialogs:BaseMetroDialog.DialogBottom>
+        <Controls:MetroProgressBar x:Name="LoadingProgress"
+                                   HorizontalAlignment="Stretch"
+                                   VerticalAlignment="Bottom"
+                                   Panel.ZIndex="5"
+                                   Maximum="1.0"
+                                   Minimum="0.0" IsIndeterminate="True" Visibility="{Binding IsProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </Dialogs:BaseMetroDialog.DialogBottom>-->
+</Controls:CustomDialog>

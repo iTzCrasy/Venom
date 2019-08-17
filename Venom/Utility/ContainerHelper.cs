@@ -37,6 +37,8 @@ namespace Venom.Utility
 
 
             // view models
+            _container.AddTransient<MainViewModel>( );
+            _container.AddTransient<AddAccountViewModel>( );
             _container.AddTransient<AddEditAccountViewModel>( );
             _container.AddTransient<DialogLoadVenomViewModel>( );
            

@@ -6,9 +6,40 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using System;
+using System.Windows.Media;
+using MahApps.Metro;
 
 namespace Venom.ViewModels
 {
+    public class AccentColorMenuData
+    {
+        public string Name { get; set; }
+
+        public Brush BorderColorBrush { get; set; }
+
+        public Brush ColorBrush { get; set; }
+
+        public AccentColorMenuData( )
+        {
+            this.ChangeAccentCommand = new RelayCommand<object>( DoChangeTheme, o => true );
+        }
+
+        public ICommand ChangeAccentCommand { get; }
+
+        protected virtual void DoChangeTheme( object sender )
+        {
+            ThemeManager.ChangeThemeColorScheme( Application.Current, this.Name );
+        }
+    }
+
+    public class AppThemeMenuData : AccentColorMenuData
+    {
+        protected override void DoChangeTheme( object sender )
+        {
+            ThemeManager.ChangeThemeBaseColor( Application.Current, this.Name );
+        }
+    }
+
     public class MainViewModel : ViewModelBase
     {
         private string _localUsername = "";

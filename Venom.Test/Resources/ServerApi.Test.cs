@@ -2,7 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Venom.Resources;
+using Venom.Data.Rest;
+using Venom.Data.Models.Configuration;
 using Xunit;
 
 namespace Venom.Test.Resources
@@ -12,7 +13,7 @@ namespace Venom.Test.Resources
         [Fact]
         public async Task FetchServers( )
         {
-            var serverList = await ServerApi.FetchServers( );
+            var serverList = await ServerApi.FetchGameServers( );
 
             Assert.True( serverList.Count > 0 );
         }
@@ -20,13 +21,13 @@ namespace Venom.Test.Resources
         [Fact]
         public async Task FetchServerConfig( )
         {
-            var serverList = await ServerApi.FetchServers( );
+            var serverList = await ServerApi.FetchGameServers( );
 
-            var taskList = new List<Task<ServerConfig>>( );
+            var taskList = new List<Task<ServerConfiguration>>( );
 
             foreach( var i in serverList )
             {
-                taskList.Add( ServerApi.FetchServerConfig( i ) );
+                taskList.Add( ServerApi.FetchServerConfiguration( i ) );
             }
 
             var result = await Task.WhenAll( taskList );
@@ -41,13 +42,13 @@ namespace Venom.Test.Resources
         [Fact]
         public async Task FetchServerUnitInfo( )
         {
-            var serverList = await ServerApi.FetchServers( );
+            var serverList = await ServerApi.FetchGameServers( );
 
-            var taskList = new List<Task<ServerUnitConfig>>( );
+            var taskList = new List<Task<UnitConfiguration>>( );
 
             foreach( var i in serverList )
             {
-                taskList.Add( ServerApi.FetchServerUnitInfo( i ) );
+                taskList.Add( ServerApi.FetchUnitConfiguration( i ) );
             }
 
             var result = await Task.WhenAll( taskList );

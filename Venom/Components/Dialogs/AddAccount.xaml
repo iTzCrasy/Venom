@@ -7,12 +7,20 @@
                        xmlns:helper="clr-namespace:Venom.Helpers"
                        xmlns:local="clr-namespace:Venom.Components.Dialogs"
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                        helper:MvvmBehaviors.LoadedMethodName="LoadGameServers"
                        mc:Ignorable="d">
     <Dialogs:CustomDialog.Resources>
-        <ResourceDictionary>
-            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        </ResourceDictionary>
+        <CollectionViewSource x:Key="ModuleViewServers" Source="{Binding GameServers}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Id"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="ModuleViewPlayers" Source="{Binding PlayerNames}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
     </Dialogs:CustomDialog.Resources>
 
     <Dialogs:BaseMetroDialog.Content>
@@ -30,16 +38,13 @@
                         </ResourceDictionary.MergedDictionaries>
                     </ResourceDictionary>
                 </StackPanel.Resources>
-                <ComboBox Width="200"
+                <ComboBox Name="ComboSelectServer"
+                          Width="200"
                           Margin="0 10 0 0"             
-                          Controls:TextBoxHelper.Watermark="Wähle einen Server."
-                          ItemsSource="{Binding GameServers}" 
-                          SelectedItem="{Binding SelectedServer}">
-                    <ComboBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Test" />
-                        </ContextMenu>
-                    </ComboBox.ContextMenu>
+                          Controls:TextBoxHelper.Watermark="Select Server.."
+                          ItemsSource="{Binding Source={StaticResource ModuleViewServers}}" 
+                          SelectedItem="{Binding SelectedServer}"
+                          IsSynchronizedWithCurrentItem="False">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -51,31 +56,27 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                
-                <ComboBox Width="200"
-                          Margin="0 10 0 0"             
-                          Controls:TextBoxHelper.Watermark="Wählen einen Spieler."
-                          ItemsSource="{Binding PlayerNames}"
-                          SelectedItem="{Binding SelectedPlayer}"
-                          IsEnabled="{Binding IsPlayerSelectionEnabled, UpdateSourceTrigger=PropertyChanged}">
-                    <ComboBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Test" />
-                        </ContextMenu>
-                    </ComboBox.ContextMenu>
-                    <!--<ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="auto" />
-                                </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Id}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>-->
-                </ComboBox>
 
-                <Button Content="Register" Margin="10" Width="150" Height="30" Click="Button_Click"/>
+                <ComboBox Name="ComboSelectPlayer"
+                          Width="200"
+                          Margin="0 10 0 0"             
+                          Controls:TextBoxHelper.Watermark="Select Player.."
+                          ItemsSource="{Binding Source={StaticResource ModuleViewPlayers}}"
+                          SelectedItem="{Binding SelectedPlayer}"
+                          IsEnabled="{Binding IsPlayerSelectionEnabled, UpdateSourceTrigger=PropertyChanged}"
+                          IsSynchronizedWithCurrentItem="False">
+                </ComboBox>
+                <CheckBox Name="CheckboxSave"
+                          Content="Set Default" 
+                          Margin="10" 
+                          Width="200" 
+                          IsChecked="{Binding IsDefaultChecked, UpdateSourceTrigger=PropertyChanged}"/>
+                <Button Content="Start" 
+                        Margin="0 0 0 10" 
+                        Width="150" 
+                        Height="30" 
+                        Command="{Binding OnClickStart}"
+                        IsEnabled="{Binding IsLoginButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
             </StackPanel>
         </Grid>
     </Dialogs:BaseMetroDialog.Content>

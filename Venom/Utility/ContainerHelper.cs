@@ -34,6 +34,7 @@ namespace Venom.Utility
 
             _container.AddScoped<IGameServerRepository, GameServerRepository>( );
             _container.AddScoped<IPlayerRepository, PlayerRepository>( );
+            _container.AddScoped<IAllyRepository, AllyRepository>( );
 
 
             // view models

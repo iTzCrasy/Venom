@@ -51,18 +51,5 @@ namespace Venom.Components.Dialogs
 
             
         }
-
-
-        //public async Task LoadPlayerNames( /*const*/ GameServer gameServer )
-        //{
-        //    var names = await _playerRepo.GetPlayerNamesAsync( gameServer )
-        //        .ConfigureAwait( false );
-
-        //    Application.Current.Dispatcher.Invoke( new Action( ( ) =>
-        //    {
-        //        PlayerNames = names;
-        //        IsActivePlayer = false;
-        //    } ) );
-        //}
     }
 }

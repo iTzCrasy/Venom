@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using MahApps.Metro.Controls.Dialogs;
 using Venom.Data.Models;
 using Venom.Helpers;
@@ -21,12 +22,14 @@ namespace Venom.Components.Dialogs
 
         private ObservableCollection<GameServer> _gameServers;
 
-        private GameServer _selectedServer;
+        private GameServer _selectedServer = null;
         private List<string> _playerNames;
-        private string _selectedPlayer;
+        private string _selectedPlayer = null;
 
         private bool _isPlayerSelectionEnabled = false;
         private bool _isProgressVisible = false;
+        private bool _isLoginButtonEnabled = false;
+        private bool _isDefaultChecked = false;
 
 
         #region Properties
@@ -41,6 +44,7 @@ namespace Venom.Components.Dialogs
             get => _selectedServer;
             set
             {
+                IsLoginButtonEnabled = false; //=> Reset Login Button
                 IsPlayerSelectionEnabled = false;
                 LoadPlayerNames( value );
 
@@ -57,11 +61,18 @@ namespace Venom.Components.Dialogs
         public string SelectedPlayer
         {
             get => _selectedPlayer;
-            set => SetProperty( ref _selectedPlayer, value );
+            set
+            {
+                IsLoginButtonEnabled = true; //=> Enable Login Button
+
+                SetProperty( ref _selectedPlayer, value );
+            }
         }
 
         public bool IsPlayerSelectionEnabled { get => _isPlayerSelectionEnabled; set => SetProperty( ref _isPlayerSelectionEnabled, value ); }
         public bool IsProgressVisible { get => _isProgressVisible; set => SetProperty( ref _isProgressVisible, value ); }
+        public bool IsLoginButtonEnabled { get => _isLoginButtonEnabled; set => SetProperty( ref _isLoginButtonEnabled, value ); }
+        public bool IsDefaultChecked { get => _isDefaultChecked; set => SetProperty( ref _isDefaultChecked, value ); }
         #endregion
 
 
@@ -109,6 +120,27 @@ namespace Venom.Components.Dialogs
             } ) );
 
             IsProgressVisible = false;
+        }
+
+
+
+        public ICommand OnClickStart => new RelayCommand<object>( CmdClickStart );
+        private void CmdClickStart( object param )
+        {
+            Properties.Settings.Default.DefaultSave = IsDefaultChecked; //=> Save datas?
+
+            if( IsDefaultChecked )
+            {
+                Properties.Settings.Default.DefaultAccount = SelectedPlayer;
+                Properties.Settings.Default.DefaultServer = SelectedServer.Id;
+            }
+            else
+            {
+                Properties.Settings.Default.DefaultAccount = "";
+                Properties.Settings.Default.DefaultServer = "";
+            }
+
+            Properties.Settings.Default.Save( );
         }
     }
 }

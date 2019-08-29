@@ -25,6 +25,8 @@ namespace Venom.Components.Dialogs
     /// </summary>
     public partial class AddAccount : CustomDialog
     {
+        private MetroWindow _parentWindow = null;
+
         public AddAccount( MetroWindow parentWindow )
           : base( parentWindow )
         {
@@ -36,12 +38,14 @@ namespace Venom.Components.Dialogs
             DataContext = ContainerHelper.Provider
                 .GetRequiredService<AddAccountViewModel>( );
 
+            _parentWindow = parentWindow;
+
             InitializeComponent( );
         }
 
         private void Button_Click( object sender, RoutedEventArgs e )
         {
-            //=> TODO: Loading Cycle here! Startup!
+            DialogManager.HideMetroDialogAsync( _parentWindow, this );
         }
     }
 }

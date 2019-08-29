@@ -26,11 +26,6 @@ namespace Venom.Repositories
             return _context.GetPlayers( server );
         }
 
-        public Task<IReadOnlyList<Ally>> GetAllysAsync( GameServer server )
-        {
-            return _context.GetAllys( server );
-        }
-
         public async Task<List<string>> GetPlayerNamesAsync( GameServer server )
         {
             var players = await GetPlayersAsync( server )

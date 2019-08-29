@@ -27,7 +27,6 @@ namespace Venom.Data
                 );
         }
 
-
         public async Task<List<GameServer>> GetGameServers( )
         {
             const string cacheKey = "GameServers";

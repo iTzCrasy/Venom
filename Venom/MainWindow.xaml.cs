@@ -8,6 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Venom.Components.Dialogs;
 using Venom.Utility;
 using Venom.ViewModels;
+using Venom.Helpers;
+using Venom.Repositories;
+using Venom.Data.Models;
+using System.Configuration;
 
 namespace Venom
 {
@@ -28,20 +32,18 @@ namespace Venom
 
         private async void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
-            //ShowSetupPlayerDialog( );
             var dialog = new AddAccount( this );
+
             await this.ShowMetroDialogAsync( dialog ).ConfigureAwait( false );
 
             void onDialogClosed( object o, DialogStateChangedEventArgs args )
             {
                 DialogManager.DialogClosed -= onDialogClosed;
-                //=> TODO: Handle
+               
+
+                //=> TODO: Loading Venom!
             }
             DialogManager.DialogClosed += onDialogClosed;
-
-
-
-            //=> TODO: Loading Venom here!
 
             await Task.Delay( 1000 ).ConfigureAwait( false );
 

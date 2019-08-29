@@ -49,7 +49,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Menu FontSize="14" Style="{StaticResource VenomMenuStyle}" Name="MainMenu">
+        <!--<Menu FontSize="14" Style="{StaticResource VenomMenuStyle}" Name="MainMenu">
             <MenuItem Header="Start"/>
             <MenuItem Header="Ranglisten">
                 <MenuItem Header="Spieler" Command="{Binding OnClickRankingPlayer}"/>
@@ -57,7 +57,7 @@
             </MenuItem>
             <MenuItem Header="Test"/>
             <MenuItem Header="Test"/>
-        </Menu>
+        </Menu>-->
         
         <!--<TabControl
             x:Name="MainTabControl"
@@ -114,7 +114,7 @@
 
         <StatusBar Grid.Row="2">
             <StatusBarItem>
-                <TextBlock Name="lblBackgroundTasks" Text="Test1234" />
+                <TextBlock Name="lblBackgroundTasks" Text="Version 1020 Dev" />
             </StatusBarItem>
         </StatusBar>
     </Grid>

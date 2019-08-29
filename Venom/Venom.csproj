@@ -247,7 +247,12 @@
     <Compile Include="Components\Views\RankingPlayer.xaml.cs">
       <DependentUpon>RankingPlayer.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\Windows\WindowCheckUpdates.xaml.cs">
+      <DependentUpon>WindowCheckUpdates.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\MvvmBehaviors.cs" />
+    <Compile Include="Repositories\AllyRepository.cs" />
+    <Compile Include="Repositories\IAllyRepository.cs" />
     <Compile Include="Repositories\IPlayerRepository.cs" />
     <Compile Include="Repositories\PlayerRepository.cs" />
     <Compile Include="Repositories\GameServerRepository.cs" />
@@ -290,6 +295,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Components\Windows\WindowCheckUpdates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -326,7 +335,7 @@
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <None Include="resources.zip">

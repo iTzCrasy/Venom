@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Venom.Components.Dialogs;
+using Venom.Components.Windows;
 using Venom.Data;
 using Venom.Repositories;
 using Venom.ViewModels;
@@ -28,7 +29,7 @@ namespace Venom.Utility
 
 
             _container.AddSingleton<DataContext>( );
-            _container.AddSingleton<Config>( );
+            _container.AddSingleton<LocalStorage>( );
 
 
 
@@ -37,8 +38,9 @@ namespace Venom.Utility
             _container.AddScoped<IAllyRepository, AllyRepository>( );
 
 
-            // view models
+            //=> ViewModels
             _container.AddTransient<MainViewModel>( );
+            _container.AddTransient<StartWindowViewModel>( );
             _container.AddTransient<AddAccountViewModel>( );
             _container.AddTransient<AddEditAccountViewModel>( );
             _container.AddTransient<DialogLoadVenomViewModel>( );

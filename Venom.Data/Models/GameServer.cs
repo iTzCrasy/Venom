@@ -5,7 +5,8 @@ using System.Text;
 
 namespace Venom.Data.Models
 {
-	[DebuggerDisplay( "{Id} : {Url}" )]
+    [Serializable]
+    [DebuggerDisplay( "{Id} : {Url}" )]
     public class GameServer
     {
         public string Id { get; set; }

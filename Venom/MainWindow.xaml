@@ -26,6 +26,7 @@
                 <ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
+
     </Controls:MetroWindow.Resources>
 
     <Controls:MetroWindow.RightWindowCommands>
@@ -49,16 +50,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!--<Menu FontSize="14" Style="{StaticResource VenomMenuStyle}" Name="MainMenu">
-            <MenuItem Header="Start"/>
-            <MenuItem Header="Ranglisten">
-                <MenuItem Header="Spieler" Command="{Binding OnClickRankingPlayer}"/>
-                <MenuItem Header="Stämme" Command="{Binding OnClickRankingAlly}" CommandParameter="Test?"/>
-            </MenuItem>
-            <MenuItem Header="Test"/>
-            <MenuItem Header="Test"/>
-        </Menu>-->
-        
+        <!--<Ellipse Grid.Row="1" Width="240" Height="240" Stroke="Black" StrokeThickness="2" Fill="#3FF90909"  />-->
+
         <!--<TabControl
             x:Name="MainTabControl"
             Grid.Row="1"
@@ -66,7 +59,7 @@
             Style="{StaticResource VenomTabControl}">
             <TabItem Header="Item">
                 <ToolBarTray>
-                    <ToolBar Band="-4">
+                    <ToolBar>
                         <TextBox 
                             Width="200"
                             Controls:TextBoxHelper.ButtonCommand="{Binding TextBoxButtonCmd, Mode=OneWay}"
@@ -89,15 +82,13 @@
                             </TextBox.Style>
                         </TextBox>
                         <Separator/>
-                    </ToolBar>
-                    
-                    <ToolBar>
                         <Button Content="Cut" />
                         <Button Content="Copy" />
                         <Separator/>
                         <Button Content="Paste" />
                         <Separator/>
                     </ToolBar>
+             
                 </ToolBarTray>
             </TabItem>
             <TabItem Header="Item" />
@@ -112,10 +103,10 @@
 
 
 
-        <StatusBar Grid.Row="2">
+        <!--<StatusBar Grid.Row="2">
             <StatusBarItem>
-                <TextBlock Name="lblBackgroundTasks" Text="Version 1020 Dev" />
+                <TextBlock Name="lblBackgroundTasks" Text="Development 0.3.1" />
             </StatusBarItem>
-        </StatusBar>
+        </StatusBar>-->
     </Grid>
 </Controls:MetroWindow>

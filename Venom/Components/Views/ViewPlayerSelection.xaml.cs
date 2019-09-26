@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,16 +10,17 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Venom.Components.Windows
+namespace Venom.Components.Views
 {
     /// <summary>
-    /// Interaction logic for WindowCheckUpdates.xaml
+    /// Interaction logic for ViewPlayerSelection.xaml
     /// </summary>
-    public partial class WindowCheckUpdates 
+    public partial class ViewPlayerSelection : UserControl
     {
-        public WindowCheckUpdates( )
+        public ViewPlayerSelection( )
         {
             InitializeComponent( );
         }

@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Xml.Serialization;
 using MahApps.Metro.Controls.Dialogs;
 using Venom.Data.Models;
 using Venom.Helpers;
@@ -102,11 +106,21 @@ namespace Venom.Components.Dialogs
 
                 GameServers = new ObservableCollection<GameServer>( servers );
             }
+
+            IsDefaultChecked = Properties.Settings.Default.DefaultSave;
+
+            if( IsDefaultChecked && Properties.Settings.Default.DefaultServer != null )
+            {
+                SelectedServer = DeserializeObject<GameServer>( Properties.Settings.Default.DefaultServer );
+                SelectedPlayer = DeserializeObject<string>( Properties.Settings.Default.DefaultAccount );
+            }
+
             IsProgressVisible = false;
         }
 
 
-        public async Task LoadPlayerNames( /*const*/ GameServer gameServer )
+        public async Task LoadPlayerNames( /*const*/
+            GameServer gameServer )
         {
             IsProgressVisible = true;
 
@@ -131,16 +145,53 @@ namespace Venom.Components.Dialogs
 
             if( IsDefaultChecked )
             {
-                Properties.Settings.Default.DefaultAccount = SelectedPlayer;
-                Properties.Settings.Default.DefaultServer = SelectedServer.Id;
+                Properties.Settings.Default.DefaultAccount = SerializeObject<string>( SelectedPlayer );
+                Properties.Settings.Default.DefaultServer = SerializeObject<GameServer>( SelectedServer );
             }
             else
             {
-                Properties.Settings.Default.DefaultAccount = "";
-                Properties.Settings.Default.DefaultServer = "";
+                Properties.Settings.Default.DefaultAccount = null;
+                Properties.Settings.Default.DefaultServer = null;
             }
 
             Properties.Settings.Default.Save( );
+            Properties.Settings.Default.Upgrade( );
+        }
+
+        public string SerializeObject<T>( T objectToSerialize )
+        {
+            BinaryFormatter bf = new BinaryFormatter( );
+            MemoryStream memStr = new MemoryStream( );
+
+            try
+            {
+                bf.Serialize( memStr, objectToSerialize );
+                memStr.Position = 0;
+
+                return Convert.ToBase64String( memStr.ToArray( ) );
+            }
+            finally
+            {
+                memStr.Close( );
+            }
+        }
+
+        public T DeserializeObject<T>( string input )
+        {
+            BinaryFormatter bf = new BinaryFormatter( );
+            MemoryStream memStr = new MemoryStream( );
+
+            try
+            {
+                var data = Convert.FromBase64String( input );
+                memStr.Write( data, 0, data.Length );
+                memStr.Position = 0;
+                return (T)bf.Deserialize( memStr );
+            }
+            finally
+            {
+                memStr.Close( );
+            }
         }
     }
 }

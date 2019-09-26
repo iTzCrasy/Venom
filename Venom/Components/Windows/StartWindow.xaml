@@ -1,0 +1,40 @@
+﻿<Controls:MetroWindow x:Class="Venom.Components.Windows.StartWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:Flyouts="clr-namespace:Venom.Components.Flyouts"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      BorderThickness="0"
+                      GlowBrush="Black"
+                      WindowStartupLocation="CenterScreen"
+                      WindowTransitionsEnabled="False"
+                      mc:Ignorable="d"
+                      Width="350"
+                      Height="400"
+                      ShowTitleBar="False"
+                      ShowMinButton="False"
+                      ShowMaxRestoreButton="False" 
+                      ResizeMode="NoResize" 
+                      ShowInTaskbar="False"
+                      helper:MvvmBehaviors.LoadedMethodName="WindowLoaded"
+                      xmlns:helper="clr-namespace:Venom.Helpers">
+
+    <Grid>
+        <Controls:TransitioningContentControl Content="{Binding ContentView, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" HorizontalAlignment="Center" Transition="Down"/>
+        <TextBlock Margin="2" Text="Development 0.3.1" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray"/>
+        <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Controls:ProgressRing Margin="50"/>
+            <TextBlock Margin="50" Text="Searching for updates.." FontStyle="Italic"/>
+            --><!--<StackPanel Orientation="Horizontal">
+                <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
+                <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
+                <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
+                <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
+            </StackPanel>--><!--
+        </StackPanel>
+        <TextBlock Margin="2" Text="Development 0.3.1" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray"/>-->
+    </Grid>
+</Controls:MetroWindow>
+
+    

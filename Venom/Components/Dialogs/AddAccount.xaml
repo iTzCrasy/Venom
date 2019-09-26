@@ -43,7 +43,7 @@
                           Margin="0 10 0 0"             
                           Controls:TextBoxHelper.Watermark="Select Server.."
                           ItemsSource="{Binding Source={StaticResource ModuleViewServers}}" 
-                          SelectedItem="{Binding SelectedServer}"
+                          SelectedItem="{Binding SelectedServer, UpdateSourceTrigger=PropertyChanged}"
                           IsSynchronizedWithCurrentItem="False">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -62,7 +62,7 @@
                           Margin="0 10 0 0"             
                           Controls:TextBoxHelper.Watermark="Select Player.."
                           ItemsSource="{Binding Source={StaticResource ModuleViewPlayers}}"
-                          SelectedItem="{Binding SelectedPlayer}"
+                          SelectedItem="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
                           IsEnabled="{Binding IsPlayerSelectionEnabled, UpdateSourceTrigger=PropertyChanged}"
                           IsSynchronizedWithCurrentItem="False">
                 </ComboBox>

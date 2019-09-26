@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="Venom.Components.Views.ViewPlayerSelection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Venom.Components.Views"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:helper="clr-namespace:Venom.Helpers"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="ModuleViewServers" Source="{Binding GameServers}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Id"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+        <CollectionViewSource x:Key="ModuleViewPlayers" Source="{Binding PlayerNames}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Image Grid.Row="0" Height="100" VerticalAlignment="Top" Width="200" Source="/Venom;component/Assets/Venom-Logo_300x300.png"/>
+        <StackPanel Grid.Row="1">
+            <StackPanel.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.MergedDictionaries>
+                        <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/FlatButton.xaml" />
+                    </ResourceDictionary.MergedDictionaries>
+                </ResourceDictionary>
+            </StackPanel.Resources>
+            <ComboBox Name="ComboSelectServer"
+                          Width="200"
+                          Margin="0 10 0 0"             
+                          Controls:TextBoxHelper.Watermark="Select Server.."
+                          ItemsSource="{Binding Source={StaticResource ModuleViewServers}}" 
+                          SelectedItem="{Binding SelectedServer, UpdateSourceTrigger=PropertyChanged}"
+                          IsSynchronizedWithCurrentItem="False">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="{Binding Id}" />
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <ComboBox Name="ComboSelectPlayer"
+                          Width="200"
+                          Margin="0 10 0 0"             
+                          Controls:TextBoxHelper.Watermark="Select Player.."
+                          ItemsSource="{Binding Source={StaticResource ModuleViewPlayers}}"
+                          SelectedItem="{Binding SelectedPlayer, UpdateSourceTrigger=PropertyChanged}"
+                          IsEnabled="{Binding IsPlayerSelectionEnabled, UpdateSourceTrigger=PropertyChanged}"
+                          IsSynchronizedWithCurrentItem="False">
+            </ComboBox>
+            <CheckBox Name="CheckboxSave"
+                          Content="Set Default" 
+                          Margin="10" 
+                          Width="200" 
+                          IsChecked="{Binding IsDefaultChecked, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Start" 
+                        Margin="0 0 0 10" 
+                        Width="150" 
+                        Height="30" 
+                        Command="{Binding OnClickStart}"
+                        IsEnabled="{Binding IsLoginButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

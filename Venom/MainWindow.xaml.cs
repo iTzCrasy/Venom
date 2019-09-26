@@ -25,6 +25,8 @@ namespace Venom
                 return;
             }
 
+  
+
             DataContext = ContainerHelper.Provider.GetRequiredService<MainViewModel>( );
 
             InitializeComponent( );
@@ -32,20 +34,20 @@ namespace Venom
 
         private async void MainWindow_Loaded( object sender, RoutedEventArgs e )
         {
-            var dialog = new AddAccount( this );
+            //var dialog = new AddAccount( this );
 
-            await this.ShowMetroDialogAsync( dialog ).ConfigureAwait( false );
+            //await this.ShowMetroDialogAsync( dialog ).ConfigureAwait( true );
 
-            void onDialogClosed( object o, DialogStateChangedEventArgs args )
-            {
-                DialogManager.DialogClosed -= onDialogClosed;
-               
+            //void onDialogClosed( object o, DialogStateChangedEventArgs args )
+            //{
+            //    DialogManager.DialogClosed -= onDialogClosed;
 
-                //=> TODO: Loading Venom!
-            }
-            DialogManager.DialogClosed += onDialogClosed;
 
-            await Task.Delay( 1000 ).ConfigureAwait( false );
+            //    //=> TODO: Loading Venom!
+            //}
+            //DialogManager.DialogClosed += onDialogClosed;
+
+            //await Task.Delay( 1000 ).ConfigureAwait( false );
 
             //Application.Current.Dispatcher.Invoke( new Action( ( ) =>
             //{

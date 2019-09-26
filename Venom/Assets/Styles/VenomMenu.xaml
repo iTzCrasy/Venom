@@ -73,11 +73,11 @@
                         </Popup>
                     </Grid>
                     <ControlTemplate.Triggers>
-                        <!--<Trigger Property="IsSelected" Value="True">
+                        <Trigger Property="IsChecked" Value="True">
                             <Trigger.Setters>
                                 <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>
                             </Trigger.Setters>
-                        </Trigger>-->
+                        </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Trigger.Setters>
                                 <Setter TargetName="PartHeaderBrush" Property="Visibility" Value="Visible"/>

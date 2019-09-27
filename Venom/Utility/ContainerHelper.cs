@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace Venom.Utility
         {
             _container.AddLogging( ( builder ) =>
             {
-               builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
+                builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
             } );
 
 

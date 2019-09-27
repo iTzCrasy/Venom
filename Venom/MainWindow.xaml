@@ -1,5 +1,4 @@
 ﻿<Controls:MetroWindow
-    x:Class="Venom.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
@@ -7,6 +6,8 @@
     xmlns:Flyouts="clr-namespace:Venom.Components.Flyouts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:Views="clr-namespace:Venom.Components.Views"
+    x:Class="Venom.MainWindow"
     Title="Venom"
     Dialog:DialogParticipation.Register="{Binding}"
     BorderThickness="0"
@@ -17,7 +18,10 @@
     TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"
     WindowTransitionsEnabled="False"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Width="1280"
+    Height="720"
+    WindowState="Maximized" TitleBarHeight="30">
 
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -44,6 +48,10 @@
     </Controls:MetroWindow.Flyouts>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="61*"/>
+            <ColumnDefinition Width="67*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

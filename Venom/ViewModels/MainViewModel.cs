@@ -44,6 +44,14 @@ namespace Venom.ViewModels
     {
         private string _localUsername = "";
 
+        public MainViewModel(
+            IGameServerRepository serverRepo,
+            IPlayerRepository playerRepo
+        )
+        {
+            serverRepo.GetGameServersAsync( );
+        }
+
         #region Properties
         public string LocalUsername
         {

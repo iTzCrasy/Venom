@@ -18,11 +18,17 @@ namespace Venom.Data.Models.Configuration
         [XmlElement( "axe" )]
         public UnitTypeConfiguration Axe { get; set; }
 
+        [XmlElement( "archer" )]
+        public UnitTypeConfiguration Archer { get; set; }
+
         [XmlElement( "spy" )]
         public UnitTypeConfiguration Spy { get; set; }
 
         [XmlElement( "light" )]
         public UnitTypeConfiguration Light { get; set; }
+
+        [XmlElement( "marcher" )]
+        public UnitTypeConfiguration Marcher { get; set; }
 
         [XmlElement( "heavy" )]
         public UnitTypeConfiguration Heavy { get; set; }

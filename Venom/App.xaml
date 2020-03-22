@@ -2,13 +2,19 @@
     x:Class="Venom.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Startup="OnStartup">
+    Startup="OnStartup"
+    ShutdownMode="OnExplicitShutdown">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/themes/mahapps.xaml" />
+
+                <ResourceDictionary Source="Assets/Styles/Font.xaml" />
+                <ResourceDictionary Source="Assets/Styles/VenomWindow.xaml" /> <!-- Venom Window -->
+
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="DescriptionHeaderStyle" TargetType="Label">

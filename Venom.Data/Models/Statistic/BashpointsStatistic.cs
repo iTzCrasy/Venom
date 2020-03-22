@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Venom.Data.Models.Statistic
 {
-    public class TribeStatistic
+    public class BashpointsStatistic
     {
         public int Id { get; set; }
 

@@ -21,9 +21,9 @@ namespace Venom.Repositories
         }
 
 
-        public Task<IReadOnlyList<Ally>> GetAllysAsync( GameServer server )
+        public Task<IReadOnlyList<Ally>> GetAllysAsync()
         {
-            return _context.GetAllys( server );
+            return _context.GetAllys();
         }
     }
 }

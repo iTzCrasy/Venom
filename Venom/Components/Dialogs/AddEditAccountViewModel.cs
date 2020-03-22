@@ -96,7 +96,7 @@ namespace Venom.Components.Dialogs
 
         public async Task LoadPlayerNames( /*const*/ GameServer gameServer )
         {
-            var names = await _playerRepo.GetPlayerNamesAsync( gameServer )
+            var names = await _playerRepo.GetPlayerNamesAsync()
                 .ConfigureAwait( false );
 
             Application.Current.Dispatcher.Invoke( new Action( ( ) =>

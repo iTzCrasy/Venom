@@ -24,5 +24,8 @@ namespace Venom.Data.Models.Configuration
         [XmlElement( "coord" )]
         public CoordinateConfiguration Coord { get; set; }
 
+        [XmlElement( "snob" )]
+        public SnobConfiguration Snob { get; set; }
+
     }
 }

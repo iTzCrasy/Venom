@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Controls:ProgressRing Margin="50"/>
-            <TextBlock Margin="50" Text="Searching for updates.." FontStyle="Italic" Foreground="White"/>
+            <TextBlock Margin="50" Text="Searching for updates.." FontStyle="Italic"/>
             <!--<StackPanel Orientation="Horizontal">
                 <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
                 <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>

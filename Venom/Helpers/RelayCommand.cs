@@ -31,10 +31,7 @@ namespace Venom.Helpers
         }
 
 
-        public void RaiseCanExecuteChanged( )
-        {
-	        CanExecuteChanged?.Invoke( this, EventArgs.Empty );
-        }
+        public void RaiseCanExecuteChanged( ) => CanExecuteChanged?.Invoke( this, EventArgs.Empty );
 
         public bool CanExecute( object parameter )
         {

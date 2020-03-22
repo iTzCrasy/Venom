@@ -12,8 +12,8 @@ namespace Venom.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.3.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.4.0.0")]
+    public sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
         
@@ -25,61 +25,37 @@ namespace Venom.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Dark")]
-        public global::MahApps.Metro.Controls.Theme Theme {
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SaveUsername {
             get {
-                return ((global::MahApps.Metro.Controls.Theme)(this["Theme"]));
+                return ((string)(this["SaveUsername"]));
             }
             set {
-                this["Theme"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Blue")]
-        public string Color {
-            get {
-                return ((string)(this["Color"]));
-            }
-            set {
-                this["Color"] = value;
+                this["SaveUsername"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DefaultServer {
+        public string SavePassword {
             get {
-                return ((string)(this["DefaultServer"]));
+                return ((string)(this["SavePassword"]));
             }
             set {
-                this["DefaultServer"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string DefaultAccount {
-            get {
-                return ((string)(this["DefaultAccount"]));
-            }
-            set {
-                this["DefaultAccount"] = value;
+                this["SavePassword"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool DefaultSave {
+        public bool SaveCheck {
             get {
-                return ((bool)(this["DefaultSave"]));
+                return ((bool)(this["SaveCheck"]));
             }
             set {
-                this["DefaultSave"] = value;
+                this["SaveCheck"] = value;
             }
         }
     }

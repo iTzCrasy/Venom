@@ -10,6 +10,6 @@ namespace Venom.Repositories
 {
     public interface IAllyRepository
     {
-        Task<IReadOnlyList<Ally>> GetAllysAsync( GameServer server );
+        Task<IReadOnlyList<Ally>> GetAllysAsync();
     }
 }

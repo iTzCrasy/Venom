@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Venom.Components.Dialogs;
+using Venom.Components.Views;
 using Venom.Components.Windows;
 using Venom.Data;
 using Venom.Repositories;
@@ -37,15 +38,23 @@ namespace Venom.Utility
             _container.AddScoped<IGameServerRepository, GameServerRepository>( );
             _container.AddScoped<IPlayerRepository, PlayerRepository>( );
             _container.AddScoped<IAllyRepository, AllyRepository>( );
+            _container.AddScoped<IVillageRepository, VillageRepository>( );
 
 
             //=> ViewModels
             _container.AddTransient<MainViewModel>( );
-            _container.AddTransient<StartWindowViewModel>( );
             _container.AddTransient<AddAccountViewModel>( );
             _container.AddTransient<AddEditAccountViewModel>( );
             _container.AddTransient<DialogLoadVenomViewModel>( );
-           
+            _container.AddTransient<ViewPlayerSelectionViewModel>( );
+
+            //=> Start Window
+            _container.AddTransient<Venom.Components.Windows.StartWindow>( );
+            _container.AddTransient<Venom.Components.Windows.StartWindowViewModel>( );
+            _container.AddTransient<Venom.Components.Windows.Start.StartViewModel>( );
+            _container.AddTransient<Venom.Components.Windows.Start.Views.ViewLoading>( );
+            _container.AddTransient<Venom.Components.Windows.Start.Views.ViewLogin>( );
+            _container.AddTransient<Venom.Components.Windows.Start.Models.ViewModelLogin>( );
 
 
             Provider = _container.BuildServiceProvider( );

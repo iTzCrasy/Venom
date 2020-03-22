@@ -8,6 +8,15 @@ using System.Windows.Input;
 using System;
 using System.Windows.Media;
 using MahApps.Metro;
+using MahApps.Metro.Controls.Dialogs;
+using Venom.Components.Dialogs;
+using Venom.Data.Models.Configuration;
+using System.Collections.ObjectModel;
+using System.Windows.Data;
+using System.Diagnostics;
+using System.Collections.Generic;
+using System.Windows.Threading;
+using System.Linq;
 
 namespace Venom.ViewModels
 {
@@ -28,7 +37,7 @@ namespace Venom.ViewModels
 
         protected virtual void DoChangeTheme( object sender )
         {
-            ThemeManager.ChangeThemeColorScheme( Application.Current, this.Name );
+            ThemeManager.ChangeThemeColorScheme( Application.Current, Name );
         }
     }
 
@@ -36,20 +45,50 @@ namespace Venom.ViewModels
     {
         protected override void DoChangeTheme( object sender )
         {
-            ThemeManager.ChangeThemeBaseColor( Application.Current, this.Name );
+            ThemeManager.ChangeThemeBaseColor( Application.Current, Name );
         }
     }
 
     public class MainViewModel : ViewModelBase
     {
+        private readonly IGameServerRepository _serverRepo;
+        private readonly IPlayerRepository _playerRepo;
+        private readonly IVillageRepository _villageRepo;
+
+        public List<AccentColorMenuData> AccentColors { get; set; }
+        public List<AppThemeMenuData> AppThemes { get; set; }
+
+        public AppThemeMenuData _selectedTheme;
+
         private string _localUsername = "";
+        private string _serverTime = "";
+        private string _serverPing = "";
 
         public MainViewModel(
             IGameServerRepository serverRepo,
-            IPlayerRepository playerRepo
+            IPlayerRepository playerRepo,
+            IVillageRepository villageRepo
         )
         {
-            serverRepo.GetGameServersAsync( );
+            _serverRepo = serverRepo;
+            _playerRepo = playerRepo;
+            _villageRepo = villageRepo;
+
+            AccentColors = ThemeManager.ColorSchemes
+                .Select( a => new AccentColorMenuData { Name = a.Name, ColorBrush = a.ShowcaseBrush } )
+                .ToList( );
+
+            AppThemes = ThemeManager.Themes
+                .GroupBy( x => x.BaseColorScheme )
+                .Select( x => x.First( ) )
+                .Select( a => new AppThemeMenuData( ) { Name = a.BaseColorScheme, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush } )
+                .ToList( );
+
+            //_selectedTheme = AppThemes.Select( x => x.Name.Equals( ThemeManager.DetectTheme( ).ColorScheme ) );
+
+            var villages = _villageRepo.GetVillagesAsync( );
+
+            var test = ThemeManager.DetectTheme( );
         }
 
         #region Properties
@@ -57,6 +96,18 @@ namespace Venom.ViewModels
         {
             get => _localUsername;
             set => SetProperty( ref _localUsername, value );
+        }
+        
+        public string ServerTime
+        {
+            get => _serverTime;
+            set => SetProperty( ref _serverTime, value );
+        }
+
+        public string ServerPing
+        {
+            get => _serverPing;
+            set => SetProperty( ref _serverPing, value );
         }
         #endregion
 
@@ -73,5 +124,34 @@ namespace Venom.ViewModels
             Console.WriteLine( param );
         }
         #endregion
+
+        public ICommand OnExecuteMenu => new RelayCommand<object>( ExecuteMenu );
+        private void ExecuteMenu( object param )
+        {
+            Console.WriteLine( "ExecuteMenu" );
+            var dialog = new AddAccount( null );
+
+            DialogCoordinator.Instance.ShowMetroDialogAsync( this, dialog );
+        }
+
+
+        public async Task LoadWindow()
+        {
+            if( DesignerProperties.GetIsInDesignMode( new DependencyObject() ) )
+            {
+                return;
+            }
+
+
+            //List<double> test = new List<double>( );
+            //test.Add( 90 );
+
+            //double value = 90;
+            //for( int i = 0; i != 29; i++ )
+            //{
+            //    test.Add( test[i] * 1.26 );
+            //}
+
+        }
     }
 }

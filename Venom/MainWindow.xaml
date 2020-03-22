@@ -6,7 +6,10 @@
     xmlns:Flyouts="clr-namespace:Venom.Components.Flyouts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helper="clr-namespace:Venom.Helpers"
     xmlns:Views="clr-namespace:Venom.Components.Views"
+    xmlns:XamlHost="clr-namespace:Microsoft.Toolkit.Wpf.UI.XamlHost;assembly=Microsoft.Toolkit.Wpf.UI.XamlHost"
+    xmlns:Configuration="clr-namespace:Venom.Data.Models.Configuration;assembly=Venom.Data"
     x:Class="Venom.MainWindow"
     Title="Venom"
     Dialog:DialogParticipation.Register="{Binding}"
@@ -15,13 +18,13 @@
     GlowBrush="Black"
     Loaded="MainWindow_Loaded"
     ResizeMode="CanResizeWithGrip"
-    TitleCharacterCasing="Normal"
     WindowStartupLocation="CenterScreen"
     WindowTransitionsEnabled="False"
     mc:Ignorable="d"
     Width="1280"
     Height="720"
-    WindowState="Maximized" TitleBarHeight="30">
+    WindowState="Maximized"
+    helper:MvvmBehaviors.LoadedMethodName="LoadWindow">
 
     <Controls:MetroWindow.Resources>
         <ResourceDictionary>
@@ -29,34 +32,103 @@
                 <ResourceDictionary Source="Assets/Styles/VenomTabControl.xaml" />
                 <ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
 
+            <Style x:Key="SmallTileStyle" TargetType="Controls:Tile">
+                <Setter Property="Height" Value="85" />
+                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
+                <Setter Property="TitleFontSize" Value="10" />
+                <Setter Property="Width" Value="107" />
+            </Style>
+
+        </ResourceDictionary>
     </Controls:MetroWindow.Resources>
 
+    <Controls:MetroWindow.Style>
+        <StaticResource ResourceKey="VenomCleanWindow"/>
+    </Controls:MetroWindow.Style>
+
+    <!--<Controls:MetroWindow.InputBindings>
+        <KeyBinding Modifiers=""
+                    Key="S"
+                    Command="{Binding OnExecuteMenu}" />
+    </Controls:MetroWindow.InputBindings>-->
+
     <Controls:MetroWindow.RightWindowCommands>
-        <Controls:WindowCommands>
-            <Button Content="{Binding LocalUsername, UpdateSourceTrigger=PropertyChanged}" Click="UserNameButton_Click" />
+        <Controls:WindowCommands Style="{StaticResource VenomCleanWindowCommands}">
+            <!--{Binding LocalUsername, UpdateSourceTrigger=PropertyChanged}-->
+            <Button Content="Username" Click="UserNameButton_Click" Foreground="Red" />
             <Button Content="Settings" Click="SettingsButton_Click"/>
+            <Button Content="Help"/>
         </Controls:WindowCommands>
     </Controls:MetroWindow.RightWindowCommands>
 
     <!--  AccountSelection flyout  -->
     <Controls:MetroWindow.Flyouts>
         <Controls:FlyoutsControl x:Name="flyoutsControl">
-            <Flyouts:FlyoutSettings />
+            <Flyouts:FlyoutSettings Margin="0 30 0 0" />
         </Controls:FlyoutsControl>
     </Controls:MetroWindow.Flyouts>
 
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo ProgressState="None" ProgressValue="1.0" Description="222255256205" />
+    </Window.TaskbarItemInfo>
+
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="61*"/>
-            <ColumnDefinition Width="67*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Style="{StaticResource VenomMenuStyle}">
+            <MenuItem Header="Test1" IsChecked="True"/>
+            <MenuItem Header="Test1" IsChecked="True"/>
+            <MenuItem Header="Test1"/>
+            <MenuItem Header="Test1"/>
+            <MenuItem Header="Test1"/>
+            <MenuItem Header="Test1" IsChecked="True"/>
+        </Menu>
+
+        <Canvas x:Name="paintCanvas" Grid.Row="1">
+            <!--<Rectangle Width="32" Height="32" Fill="Black" Opacity="1" Margin="0 0 0 0"/>
+            <Rectangle Width="32" Height="32" Fill="Red" Opacity="1" Margin="32 32 32 32"/>-->
+            <!--<Canvas.RenderTransform>
+                <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
+            </Canvas.RenderTransform>-->
+
+            <!--<Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1" />
+                    <TranslateTransform Y="100" />
+                    <TranslateTransform X="-500" />
+                </TransformGroup>
+            </Canvas.RenderTransform>-->
+            
+            <!--<Image Source="v2_b6_left.png" Margin="0 0 0 0"/>
+            <Rectangle Width="53" Height="38" Fill="Red" Margin="0 38 0 53"/>
+            <Image Source="v2_b4.png" Margin="0 38 0 53"/>
+            <Image Source="v2_b6_left.png" Margin="53 0 0 0"/>
+            <Image Source="v2_b5.png" Margin="53 38 0 0"/>-->
+            
+        </Canvas>
+
+        <!--<Views:ViewWorld Grid.Row="1"/>-->
+
+        <!--<Canvas Height="200" Width="200" Background="DarkRed">
+            <Canvas.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="-1" />
+                    <TranslateTransform Y="400" />
+                </TransformGroup>
+            </Canvas.RenderTransform>
+            <Line X1="100" 
+                  Y1="0"
+                  X2="100" 
+                  Y2="100" 
+                  Stroke="Black" 
+                  StrokeThickness="2" />
+        </Canvas>-->
 
         <!--<Ellipse Grid.Row="1" Width="240" Height="240" Stroke="Black" StrokeThickness="2" Fill="#3FF90909"  />-->
 
@@ -107,14 +179,16 @@
             <TabItem Header="Item" />
         </TabControl>-->
 
-
-
-
-
-        <!--<StatusBar Grid.Row="2">
+        <StatusBar Grid.Row="2">
             <StatusBarItem>
-                <TextBlock Name="lblBackgroundTasks" Text="Development 0.3.1" />
+                <TextBlock x:Name="lblBackgroundTasks" Text="Development 0.3.1" />
             </StatusBarItem>
-        </StatusBar>-->
+            <StatusBarItem>
+                <TextBlock x:Name="TextServerTime" Text="{Binding ServerTime}" />
+            </StatusBarItem>
+            <StatusBarItem>
+                <TextBlock x:Name="TextServerPing" Text="{Binding ServerPing}" />
+            </StatusBarItem>
+        </StatusBar>
     </Grid>
 </Controls:MetroWindow>

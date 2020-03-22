@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Venom.Components.Views"
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:helper="clr-namespace:Venom.Helpers"
              xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
-             mc:Ignorable="d">
+             mc:Ignorable="d"
+             x:Name="ViewPlayerSelectionName">
 
     <UserControl.Resources>
         <CollectionViewSource x:Key="ModuleViewServers" Source="{Binding GameServers}">
@@ -22,12 +22,11 @@
         </CollectionViewSource>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Margin="20 0 0 20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Image Grid.Row="0" Height="100" VerticalAlignment="Top" Width="200" Source="/Venom;component/Assets/Venom-Logo_300x300.png"/>
         <StackPanel Grid.Row="1">
             <StackPanel.Resources>
                 <ResourceDictionary>
@@ -74,6 +73,7 @@
                         Width="150" 
                         Height="30" 
                         Command="{Binding OnClickStart}"
+                    CommandParameter="{Binding ElementName=ViewPlayerSelectionName}"
                         IsEnabled="{Binding IsLoginButtonEnabled, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>
     </Grid>

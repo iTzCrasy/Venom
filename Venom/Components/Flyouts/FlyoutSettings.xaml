@@ -6,19 +6,64 @@
                  xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                  mc:Ignorable="d" 
                  x:Name="settingsFlyout"
-                 Width="300"
+                 Width="250"
                  Header="Einstellungen"
-                 Position="Right">
+                 Position="Right" Theme="Adapt"
+                 IsModal="false">
+    <Controls:Flyout.Resources>
+        <ResourceDictionary>
+            <Ellipse x:Key="AppThemeMenuIcon"
+                     Width="16"
+                     Height="16"
+                     x:Shared="False"
+                     Fill="{Binding ColorBrush, Mode=OneWay}"
+                     Stroke="{Binding BorderColorBrush, Mode=OneWay}"
+                     StrokeThickness="1" />
+            <Ellipse x:Key="AccentMenuIcon"
+                     Width="16"
+                     Height="16"
+                     x:Shared="False"
+                     Fill="{Binding ColorBrush, Mode=OneWay}" />
+        </ResourceDictionary>
+    </Controls:Flyout.Resources>
+    
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Something above the ScrollPanel" />
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <StackPanel Orientation="Vertical">
-                <TextBox Controls:TextBoxHelper.Watermark="TextBox 01" />
+                <DockPanel Margin="0,5,0,0">
+                    <TextBlock Text="Theme:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <ComboBox ItemsSource="{Binding AppThemes, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding ColorBrush}" Width="16" Height="16" Margin="0,2,5,2" Stroke="{Binding BorderColorBrush, Mode=OneWay}" />
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </DockPanel>
+                
+                <DockPanel Margin="0,5,0,0">
+                    <TextBlock Text="Accent:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
+                    <ComboBox ItemsSource="{Binding AccentColors, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Rectangle Fill="{Binding ColorBrush}" Width="16" Height="16" Margin="0,2,5,2" />
+                                    <TextBlock Text="{Binding Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </DockPanel>
+
+                <!--<TextBox Controls:TextBoxHelper.Watermark="TextBox 01" />
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 02" />
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 03" />
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 04" />
@@ -27,7 +72,7 @@
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 07" />
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 08" />
                 <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 09" />
-                <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 10" />
+                <TextBox Margin="0,5,0,0" Controls:TextBoxHelper.Watermark="TextBox 10" />-->
             </StackPanel>
         </ScrollViewer>
     </Grid>

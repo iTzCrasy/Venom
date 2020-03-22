@@ -5,7 +5,7 @@
                     xmlns:Behaviours="http://metro.mahapps.com/winfx/xaml/shared">
 
     <SolidColorBrush x:Key="VenomMenuForeground" Color="{DynamicResource Gray4}" />
-    <SolidColorBrush x:Key="VenomMenuBackground" Color="{DynamicResource Gray8}"/>
+    <SolidColorBrush x:Key="VenomMenuBackground" Color="Transparent" />
     <SolidColorBrush x:Key="VenomMenuSelectorBrush" Color="{DynamicResource AccentColor}"/>
     <SolidColorBrush x:Key="VenomMenuSelectorBrushHover" Color="{DynamicResource WhiteColor}"/>
 

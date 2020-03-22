@@ -22,15 +22,15 @@ namespace Venom.Components.Windows
     /// </summary>
     public partial class StartWindow 
     {
-        public StartWindow( )
+        public StartWindow( Start.StartViewModel model )
         {
             if( DesignerProperties.GetIsInDesignMode( this ) )
             {
                 return;
             }
 
-            DataContext = ContainerHelper.Provider.GetRequiredService<StartWindowViewModel>( );
-
+            //DataContext = ContainerHelper.Provider.GetRequiredService<StartWindowViewModel>( );
+            DataContext = model;
             InitializeComponent( );
         }
     }

@@ -9,8 +9,10 @@ namespace Venom.Repositories
 {
     public interface IPlayerRepository
     {
-        Task<IReadOnlyList<Player>> GetPlayersAsync( GameServer server );
+        Task<IReadOnlyList<Player>> GetPlayersAsync();
 
-        Task<List<string>> GetPlayerNamesAsync( GameServer server );
+        Task<List<string>> GetPlayerNamesAsync();
+
+        Task<IReadOnlyList<Player>> GetPlayersByAllyAsync( int ally );
     }
 }

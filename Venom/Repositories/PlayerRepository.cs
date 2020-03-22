@@ -21,14 +21,14 @@ namespace Venom.Repositories
         }
 
 
-        public Task<IReadOnlyList<Player>> GetPlayersAsync( GameServer server )
+        public Task<IReadOnlyList<Player>> GetPlayersAsync()
         {
-            return _context.GetPlayers( server );
+            return _context.GetPlayers();
         }
 
-        public async Task<List<string>> GetPlayerNamesAsync( GameServer server )
+        public async Task<List<string>> GetPlayerNamesAsync( )
         {
-            var players = await GetPlayersAsync( server )
+            var players = await GetPlayersAsync()
                 .ConfigureAwait( false );
 
 
@@ -37,7 +37,20 @@ namespace Venom.Repositories
             {
                 list.Add( i.Name );
             }
+            return list;
+        }
 
+        public async Task<IReadOnlyList<Player>> GetPlayersByAllyAsync( int ally )
+        {
+            var players = await GetPlayersAsync( )
+                .ConfigureAwait( false );
+
+            var list = new List<Player>( );
+            foreach( var i in players )
+            {
+                if( i.Ally.Equals( ally ) )
+                    list.Add( i );
+            }
             return list;
         }
     }

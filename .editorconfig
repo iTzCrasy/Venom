@@ -135,3 +135,5 @@ csharp_space_between_method_call_name_and_opening_parenthesis = false
 csharp_preserve_single_line_statements = true
 csharp_preserve_single_line_blocks = true
  
+# CA1307: Specify StringComparison
+dotnet_diagnostic.CA1307.severity = error

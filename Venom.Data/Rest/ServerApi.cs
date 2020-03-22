@@ -42,6 +42,9 @@ namespace Venom.Data.Rest
                             Url = new Uri( i.Value.ToString( ) ),
                         };
 
+                        if( Directory.Exists( i.Key.ToString() ) == false )
+                            Directory.CreateDirectory( i.Key.ToString( ) );
+
                         result.Add( data );
                     }
                 }
@@ -85,6 +88,24 @@ namespace Venom.Data.Rest
                 }
             } );
 
+        }
+
+        public static Task<BuildingConfiguration> FetchBuildingConfiguration( GameServer server )
+        {
+            return Task.Run( ( ) =>
+            {
+                var settings = new XmlReaderSettings( )
+                {
+                    IgnoreWhitespace = true,
+                };
+
+                using( var reader = XmlReader.Create( $"{server.Url}/interface.php?func=get_building_info", settings ) )
+                {
+                    var serializer = new XmlSerializer( typeof( BuildingConfiguration ) );
+
+                    return serializer.Deserialize( reader ) as BuildingConfiguration;
+                }
+            } );
         }
         #endregion
 
@@ -153,27 +174,42 @@ namespace Venom.Data.Rest
 
 
 		#region Statistics
-		public static Task<IReadOnlyList<TribeStatistic>> FetchTribeAttack( GameServer server )
+		public static Task<IReadOnlyList<BashpointsStatistic>> FetchTribeAttack( GameServer server )
         {
-            return FetchTribe( server, "/map/kill_att_tribe.txt" );
+            return FetchBashpoints( server, "/map/kill_att_tribe.txt" );
 
         }
 
-        public static Task<IReadOnlyList<TribeStatistic>> FetchTribeDefense( GameServer server )
+        public static Task<IReadOnlyList<BashpointsStatistic>> FetchTribeDefense( GameServer server )
         {
-            return FetchTribe( server, "/map/kill_def_tribe.txt" );
+            return FetchBashpoints( server, "/map/kill_def_tribe.txt" );
 
         }
 
-        public static Task<IReadOnlyList<TribeStatistic>> FetchTribeAll( GameServer server )
+        public static Task<IReadOnlyList<BashpointsStatistic>> FetchTribeAll( GameServer server )
         {
-            return FetchTribe( server, "/map/kill_all_tribe.txt" );
+            return FetchBashpoints( server, "/map/kill_all_tribe.txt" );
         }
 
-        private static Task<IReadOnlyList<TribeStatistic>> FetchTribe( GameServer server, string filePath )
+        public static Task<IReadOnlyList<BashpointsStatistic>> FetchPlayerBashAttack( GameServer server )
+        {
+            return FetchBashpoints( server, "/map/kill_att.txt" );
+        }
+
+        public static Task<IReadOnlyList<BashpointsStatistic>> FetchPlayerBashDefense( GameServer server )
+        {
+            return FetchBashpoints( server, "/map/kill_def.txt" );
+        }
+
+        public static Task<IReadOnlyList<BashpointsStatistic>> FetchPlayerBashAll( GameServer server )
+        {
+            return FetchBashpoints( server, "/map/kill_all.txt" );
+        }
+
+        private static Task<IReadOnlyList<BashpointsStatistic>> FetchBashpoints( GameServer server, string filePath )
         {
             return CsvReader.DownloadFileAsync( new Uri( server.Url + filePath ),
-                ( buffer ) => new TribeStatistic
+                ( buffer ) => new BashpointsStatistic
                 {
                     Rank = buffer.ReadInt( ),
                     Id = buffer.ReadInt( ),

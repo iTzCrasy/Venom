@@ -12,5 +12,13 @@ namespace Venom.Data.Models
         public string Id { get; set; }
 
         public Uri Url { get; set; }
+
+        public int PlayerCount { get; set; }
+
+        public int AllyCount { get; set; }
+
+        public int VillageCount { get; set; }
+
+        public int VillageBarbCount { get; set; }
     }
 }

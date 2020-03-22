@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Venom.Data;
 using Venom.Data.Models;
+using Venom.Data.Models.Configuration;
 
 namespace Venom.Repositories
 {
@@ -28,5 +29,10 @@ namespace Venom.Repositories
 	    {
             return _context.GetGameServers( );
 	    }
+
+        public Task<BuildingConfiguration> GetBuildingConfigurationAsync()
+        {
+            return _context.GetBuildingConfiguration();
+        }
     }
 }

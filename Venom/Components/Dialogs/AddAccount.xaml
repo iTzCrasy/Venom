@@ -9,7 +9,8 @@
                        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
                        helper:MvvmBehaviors.LoadedMethodName="LoadGameServers"
-                       mc:Ignorable="d">
+                       mc:Ignorable="d"
+                       Background="Transparent" SnapsToDevicePixels="True">
     <Dialogs:CustomDialog.Resources>
         <CollectionViewSource x:Key="ModuleViewServers" Source="{Binding GameServers}">
             <CollectionViewSource.SortDescriptions>
@@ -80,12 +81,12 @@
             </StackPanel>
         </Grid>
     </Dialogs:BaseMetroDialog.Content>
-    <!--<Dialogs:BaseMetroDialog.DialogBottom>
+    <Dialogs:BaseMetroDialog.DialogBottom>
         <Controls:MetroProgressBar x:Name="LoadingProgress"
                                    HorizontalAlignment="Stretch"
                                    VerticalAlignment="Bottom"
                                    Panel.ZIndex="5"
                                    Maximum="1.0"
                                    Minimum="0.0" IsIndeterminate="True" Visibility="{Binding IsProgressVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
-    </Dialogs:BaseMetroDialog.DialogBottom>-->
+    </Dialogs:BaseMetroDialog.DialogBottom>
 </Controls:CustomDialog>

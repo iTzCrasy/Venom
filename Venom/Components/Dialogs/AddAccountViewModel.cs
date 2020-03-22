@@ -12,6 +12,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Xml.Serialization;
 using MahApps.Metro.Controls.Dialogs;
+using Venom.Data;
 using Venom.Data.Models;
 using Venom.Helpers;
 using Venom.Repositories;
@@ -22,7 +23,6 @@ namespace Venom.Components.Dialogs
     {
         private readonly IGameServerRepository _serverRepo;
         private readonly IPlayerRepository _playerRepo;
-
 
         private ObservableCollection<GameServer> _gameServers;
 
@@ -51,7 +51,6 @@ namespace Venom.Components.Dialogs
                 IsLoginButtonEnabled = false; //=> Reset Login Button
                 IsPlayerSelectionEnabled = false;
                 LoadPlayerNames( value );
-
                 SetProperty( ref _selectedServer, value );
             }
         }
@@ -83,7 +82,8 @@ namespace Venom.Components.Dialogs
 
         public AddAccountViewModel(
             IGameServerRepository serverRepo,
-            IPlayerRepository playerRepo
+            IPlayerRepository playerRepo,
+            DataContext dataContext
             )
         {
             _serverRepo = serverRepo;
@@ -107,13 +107,13 @@ namespace Venom.Components.Dialogs
                 GameServers = new ObservableCollection<GameServer>( servers );
             }
 
-            IsDefaultChecked = Properties.Settings.Default.DefaultSave;
+            //IsDefaultChecked = Properties.Settings.Default.DefaultSave;
 
-            if( IsDefaultChecked && Properties.Settings.Default.DefaultServer != null )
-            {
-                SelectedServer = DeserializeObject<GameServer>( Properties.Settings.Default.DefaultServer );
-                SelectedPlayer = DeserializeObject<string>( Properties.Settings.Default.DefaultAccount );
-            }
+            //if( IsDefaultChecked && Properties.Settings.Default.DefaultServer != null )
+            //{
+            //    SelectedServer = DeserializeObject<GameServer>( Properties.Settings.Default.DefaultServer );
+            //    SelectedPlayer = DeserializeObject<string>( Properties.Settings.Default.DefaultAccount );
+            //}
 
             IsProgressVisible = false;
         }
@@ -124,7 +124,7 @@ namespace Venom.Components.Dialogs
         {
             IsProgressVisible = true;
 
-            var names = await _playerRepo.GetPlayerNamesAsync( gameServer )
+            var names = await _playerRepo.GetPlayerNamesAsync()
                 .ConfigureAwait( false );
 
             Application.Current.Dispatcher.Invoke( new Action( ( ) =>
@@ -141,18 +141,18 @@ namespace Venom.Components.Dialogs
         public ICommand OnClickStart => new RelayCommand<object>( CmdClickStart );
         private void CmdClickStart( object param )
         {
-            Properties.Settings.Default.DefaultSave = IsDefaultChecked; //=> Save datas?
+            //Properties.Settings.Default.DefaultSave = IsDefaultChecked; //=> Save datas?
 
-            if( IsDefaultChecked )
-            {
-                Properties.Settings.Default.DefaultAccount = SerializeObject<string>( SelectedPlayer );
-                Properties.Settings.Default.DefaultServer = SerializeObject<GameServer>( SelectedServer );
-            }
-            else
-            {
-                Properties.Settings.Default.DefaultAccount = null;
-                Properties.Settings.Default.DefaultServer = null;
-            }
+            //if( IsDefaultChecked )
+            //{
+            //    Properties.Settings.Default.DefaultAccount = SerializeObject<string>( SelectedPlayer );
+            //    Properties.Settings.Default.DefaultServer = SerializeObject<GameServer>( SelectedServer );
+            //}
+            //else
+            //{
+            //    Properties.Settings.Default.DefaultAccount = null;
+            //    Properties.Settings.Default.DefaultServer = null;
+            //}
 
             Properties.Settings.Default.Save( );
             Properties.Settings.Default.Upgrade( );

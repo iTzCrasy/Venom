@@ -21,29 +21,12 @@
     Width="1280"
     Height="720"
     WindowState="Maximized"
-    helper:MvvmBehaviors.LoadedMethodName="LoadWindow">
+    helper:MvvmBehaviors.LoadedMethodName="LoadWindow"
+    Style="{DynamicResource VenomCleanWindow}">
 
-    <Controls:MetroWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Venom;component/Assets/Styles/VenomTabControl.xaml" />
-                <ResourceDictionary Source="/Venom;component/Assets/Styles/VenomMenu.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-
-            <Style x:Key="SmallTileStyle" TargetType="Controls:Tile">
-                <Setter Property="Height" Value="85" />
-                <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
-                <Setter Property="TextOptions.TextRenderingMode" Value="ClearType" />
-                <Setter Property="TitleFontSize" Value="10" />
-                <Setter Property="Width" Value="107" />
-            </Style>
-
-        </ResourceDictionary>
-    </Controls:MetroWindow.Resources>
-
-    <Controls:MetroWindow.Style>
+    <!--<Controls:MetroWindow.Style>
         <StaticResource ResourceKey="VenomCleanWindow"/>
-    </Controls:MetroWindow.Style>
+    </Controls:MetroWindow.Style>-->
 
     <Controls:MetroWindow.RightWindowCommands>
         <Controls:WindowCommands Style="{StaticResource VenomCleanWindowCommands}">
@@ -81,7 +64,7 @@
             <MenuItem Header="Test1" IsChecked="True"/>
         </Menu>
 
-        <Canvas x:Name="paintCanvas" Grid.Row="1">
+        <Canvas x:Name="paintCanvas" Grid.ColumnSpan="2" Margin="0,41,0,0" Grid.RowSpan="2">
             <!--<Rectangle Width="32" Height="32" Fill="Black" Opacity="1" Margin="0 0 0 0"/>
             <Rectangle Width="32" Height="32" Fill="Red" Opacity="1" Margin="32 32 32 32"/>-->
             <!--<Canvas.RenderTransform>
@@ -95,13 +78,13 @@
                     <TranslateTransform X="-500" />
                 </TransformGroup>
             </Canvas.RenderTransform>-->
-            
+
             <!--<Image Source="v2_b6_left.png" Margin="0 0 0 0"/>
             <Rectangle Width="53" Height="38" Fill="Red" Margin="0 38 0 53"/>
             <Image Source="v2_b4.png" Margin="0 38 0 53"/>
             <Image Source="v2_b6_left.png" Margin="53 0 0 0"/>
             <Image Source="v2_b5.png" Margin="53 38 0 0"/>-->
-            
+
         </Canvas>
 
         <!--<Views:ViewWorld Grid.Row="1"/>-->
@@ -170,10 +153,8 @@
             <TabItem Header="Item" />
         </TabControl>-->
 
-        <StatusBar Grid.Row="2">
-            <StatusBarItem>
-                <TextBlock x:Name="lblBackgroundTasks" Text="Development 0.3.1" />
-            </StatusBarItem>
+        <StatusBar Grid.Row="2" >
+            <StatusBarItem Style="{StaticResource VenomCleanWindowStatusBar}">Development 0.3.1</StatusBarItem>
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

@@ -23,7 +23,7 @@
     <Grid>
         <Image Margin="0 20 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" Width="200" Source="/Venom;component/Assets/Venom-Logo_300x300.png"/>
         <Controls:TransitioningContentControl Margin="0 180 0 0" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" Width="300" Height="250"/>
-        <TextBlock Margin="2" Text="Development 0.3.1" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray"/>
+        <!--<TextBlock Margin="2" Text="Development 0.3.1" VerticalAlignment="Bottom" FontSize="11" Foreground="Gray"/>-->
         <!--<StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Controls:ProgressRing Margin="50"/>
             <TextBlock Margin="50" Text="Searching for updates.." FontStyle="Italic"/>

@@ -17,8 +17,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Threading;
 using System.Windows.Shell;
-using Microsoft.Toolkit.Wpf.UI.XamlHost;
-using Windows.UI.Xaml.Controls;
 
 namespace Venom.Components.Windows.Main
 {

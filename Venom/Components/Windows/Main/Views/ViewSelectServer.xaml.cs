@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Venom.Components.Views.MainWindow
+namespace Venom.Components.Windows.Main.Views
 {
     /// <summary>
     /// Interaction logic for ViewSelectServer.xaml

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Venom.Components;
-using Venom.Components.Views;
 using Venom.Components.Windows;
 using Venom.Data;
 using Venom.Repositories;

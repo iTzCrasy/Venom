@@ -10,10 +10,11 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Dark.Blue.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/themes/mahapps.xaml" />
-
+         
                 <ResourceDictionary Source="Assets/Styles/Font.xaml" />
                 <ResourceDictionary Source="Assets/Styles/VenomWindow.xaml" /> <!-- Venom Window -->
+                <ResourceDictionary Source="Assets/Styles/VenomTabControl.xaml" />
+                <ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>
 
             </ResourceDictionary.MergedDictionaries>
 

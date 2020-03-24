@@ -5,7 +5,6 @@ using System.Windows;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
-using Venom.Components.Dialogs;
 using Venom.Utility;
 using Venom.ViewModels;
 using Venom.Helpers;
@@ -169,8 +168,8 @@ namespace Venom
 
         public void ShowSetupPlayerDialog( )
         {
-            var dialog = new AddEditAccount( this );
-            DialogManager.ShowMetroDialogAsync( this, dialog );
+            //var dialog = new AddEditAccount( this );
+            //DialogManager.ShowMetroDialogAsync( this, dialog );
         }
 
         private void ToggleFlyout( int index )

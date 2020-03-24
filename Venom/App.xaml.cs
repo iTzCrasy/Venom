@@ -41,11 +41,6 @@ namespace Venom
 
             //Current.MainWindow.Show( );
 
-            //await ShowPopup( new Components.Windows.DefaultTroup( ) ).ConfigureAwait( false );
-            //await ShowPopup( new Components.Windows.StartWindow( ) ).ConfigureAwait( false );
-
-
-
             //var windowStart = new Components.Windows.StartWindow( );
             //windowStart.Show( );
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -10,16 +10,15 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Windows.Threading;
 
-namespace Venom.Components.Windows.Start.Views
+namespace Venom.Components.Views.MainWindow
 {
     /// <summary>
-    /// Interaction logic for ViewLoading.xaml
+    /// Interaction logic for ViewSelectServer.xaml
     /// </summary>
-    public partial class ViewLoading : UserControl
+    public partial class ViewSelectServer : UserControl
     {
-        public ViewLoading( )
+        public ViewSelectServer( )
         {
             InitializeComponent( );
         }

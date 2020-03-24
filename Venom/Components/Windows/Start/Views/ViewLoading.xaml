@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
             <Controls:ProgressRing Margin="0"/>
-            <TextBlock Margin="0 50 0 0" Text="{Binding LoadingText}" FontStyle="Italic"/>
+            <TextBlock Margin="0 50 0 0" Text="Loading.." FontStyle="Italic"/>
             <!--<StackPanel Orientation="Horizontal">
                 <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>
                 <TextBox Margin="5" Width="50" TextAlignment="Center" MaxLength="5" CharacterCasing="Upper"/>

@@ -4,6 +4,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                  xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                 xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
                  mc:Ignorable="d" 
                  x:Name="settingsFlyout"
                  Width="250"
@@ -37,7 +38,7 @@
             <StackPanel Orientation="Vertical">
                 <DockPanel Margin="0,5,0,0">
                     <TextBlock Text="Theme:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <ComboBox ItemsSource="{Binding AppThemes, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right">
+                    <ComboBox ItemsSource="{Binding AppThemes, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right" SelectedItem="{Binding CurrentTheme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -51,7 +52,7 @@
                 
                 <DockPanel Margin="0,5,0,0">
                     <TextBlock Text="Accent:" VerticalAlignment="Center" DockPanel.Dock="Left" Width="100"/>
-                    <ComboBox ItemsSource="{Binding AccentColors, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right">
+                    <ComboBox ItemsSource="{Binding AccentColors, Mode=OneWay}" VerticalAlignment="Center" DockPanel.Dock="Right" SelectedItem="{Binding CurrentColorScheme}">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">

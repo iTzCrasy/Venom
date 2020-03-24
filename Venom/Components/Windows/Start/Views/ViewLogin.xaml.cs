@@ -18,11 +18,9 @@ namespace Venom.Components.Windows.Start.Views
     /// </summary>
     public partial class ViewLogin : UserControl
     {
-        public ViewLogin( Models.ViewModelLogin model )
+        public ViewLogin( )
         {
             InitializeComponent( );
-
-            DataContext = model;
         }
     }
 }

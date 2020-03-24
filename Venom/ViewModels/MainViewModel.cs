@@ -9,7 +9,6 @@ using System;
 using System.Windows.Media;
 using MahApps.Metro;
 using MahApps.Metro.Controls.Dialogs;
-using Venom.Components.Dialogs;
 using Venom.Data.Models.Configuration;
 using System.Collections.ObjectModel;
 using System.Windows.Data;
@@ -41,14 +40,6 @@ namespace Venom.ViewModels
         }
     }
 
-    public class AppThemeMenuData : AccentColorMenuData
-    {
-        protected override void DoChangeTheme( object sender )
-        {
-            ThemeManager.ChangeThemeBaseColor( Application.Current, Name );
-        }
-    }
-
     public class MainViewModel : ViewModelBase
     {
         private readonly IGameServerRepository _serverRepo;
@@ -56,9 +47,10 @@ namespace Venom.ViewModels
         private readonly IVillageRepository _villageRepo;
 
         public List<AccentColorMenuData> AccentColors { get; set; }
-        public List<AppThemeMenuData> AppThemes { get; set; }
+        public List<AccentColorMenuData> AppThemes { get; set; }
 
-        public AppThemeMenuData _selectedTheme;
+        public AccentColorMenuData _selectedTheme;
+        public AccentColorMenuData _selectedColor;
 
         private string _localUsername = "";
         private string _serverTime = "";
@@ -81,14 +73,10 @@ namespace Venom.ViewModels
             AppThemes = ThemeManager.Themes
                 .GroupBy( x => x.BaseColorScheme )
                 .Select( x => x.First( ) )
-                .Select( a => new AppThemeMenuData( ) { Name = a.BaseColorScheme, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush } )
+                .Select( a => new AccentColorMenuData( ) { Name = a.BaseColorScheme, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush } )
                 .ToList( );
 
             //_selectedTheme = AppThemes.Select( x => x.Name.Equals( ThemeManager.DetectTheme( ).ColorScheme ) );
-
-            var villages = _villageRepo.GetVillagesAsync( );
-
-            var test = ThemeManager.DetectTheme( );
         }
 
         #region Properties
@@ -97,7 +85,7 @@ namespace Venom.ViewModels
             get => _localUsername;
             set => SetProperty( ref _localUsername, value );
         }
-        
+
         public string ServerTime
         {
             get => _serverTime;
@@ -109,6 +97,27 @@ namespace Venom.ViewModels
             get => _serverPing;
             set => SetProperty( ref _serverPing, value );
         }
+
+        public AccentColorMenuData CurrentTheme
+        {
+            get => _selectedTheme;
+            set
+            {
+                SetProperty( ref _selectedTheme, value );
+                ThemeManager.ChangeThemeBaseColor( Application.Current, value.Name );
+            }
+        }
+
+        public AccentColorMenuData CurrentColorScheme
+        {
+            get => _selectedColor;
+            set
+            {
+                SetProperty( ref _selectedColor, value );
+                ThemeManager.ChangeThemeColorScheme( Application.Current, value.Name );
+            }
+        }
+
         #endregion
 
         #region Menu Commands
@@ -128,10 +137,10 @@ namespace Venom.ViewModels
         public ICommand OnExecuteMenu => new RelayCommand<object>( ExecuteMenu );
         private void ExecuteMenu( object param )
         {
-            Console.WriteLine( "ExecuteMenu" );
-            var dialog = new AddAccount( null );
+            //Console.WriteLine( "ExecuteMenu" );
+            //var dialog = new AddAccount( null );
 
-            DialogCoordinator.Instance.ShowMetroDialogAsync( this, dialog );
+            //DialogCoordinator.Instance.ShowMetroDialogAsync( this, dialog );
         }
 
 

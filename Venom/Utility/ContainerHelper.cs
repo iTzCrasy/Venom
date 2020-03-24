@@ -6,7 +6,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Venom.Components.Dialogs;
 using Venom.Components.Views;
 using Venom.Components.Windows;
 using Venom.Data;
@@ -43,10 +42,6 @@ namespace Venom.Utility
 
             //=> ViewModels
             _container.AddTransient<MainViewModel>( );
-            _container.AddTransient<AddAccountViewModel>( );
-            _container.AddTransient<AddEditAccountViewModel>( );
-            _container.AddTransient<DialogLoadVenomViewModel>( );
-            _container.AddTransient<ViewPlayerSelectionViewModel>( );
 
             //=> Start Window
             _container.AddTransient<Venom.Components.Windows.StartWindow>( );

@@ -10,18 +10,18 @@ using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-namespace Venom.Data.Utility
+namespace Venom.Utility
 {
-    public static class ResourceManager
+    public class ResourceManager
     {
-        private static readonly string _path = Path.Combine( Directory.GetCurrentDirectory( ), "Resource.zip" );
+        private readonly string _path = Path.Combine( Directory.GetCurrentDirectory( ), "Resource.zip" );
 
-        private static Dictionary<string, BitmapImage> _imagesMap;
-        private static Dictionary<string, BitmapImage> _imagesVillage;
-        private static Dictionary<string, BitmapImage> _imagesOther;
-        private static Dictionary<string, BitmapImage> _imagesUnits;
+        private Dictionary<string, BitmapImage> _imagesMap;
+        private Dictionary<string, BitmapImage> _imagesVillage;
+        private Dictionary<string, BitmapImage> _imagesOther;
+        private Dictionary<string, BitmapImage> _imagesUnits;
 
-        public static void Initialize()
+        public void Initialize()
         {
 			OpenArchive( ( archive ) =>
 			{
@@ -31,7 +31,7 @@ namespace Venom.Data.Utility
 			} );
         }
 
-		public static void OpenArchive( Action<ZipArchive> action )
+		public void OpenArchive( Action<ZipArchive> action )
 		{
 			if( !File.Exists( _path ) )
 			{
@@ -47,7 +47,7 @@ namespace Venom.Data.Utility
 			}
 		}
 
-		public static async Task OpenArchiveAsync( Func<ZipArchive, Task> action )
+		public async Task OpenArchiveAsync( Func<ZipArchive, Task> action )
 		{
 			if( !File.Exists( _path ) )
 			{
@@ -70,7 +70,7 @@ namespace Venom.Data.Utility
 		/// <param name="entry">path to file inside the archive</param>
 		/// <param name="action">action that is executed async</param>
 		/// <returns></returns>
-		public static Task OpenEntryAsync( string entry, Func<ZipArchiveEntry, Task> action )
+		public Task OpenEntryAsync( string entry, Func<ZipArchiveEntry, Task> action )
 		{
 			return OpenArchiveAsync( ( archive ) => action( archive.GetEntry( entry ) ) );
 		}
@@ -83,7 +83,7 @@ namespace Venom.Data.Utility
 		/// <param name="path"></param>
 		/// <returns></returns>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage( "Globalization", "CA1307:Specify StringComparison", Justification = "<Pending>" )]
-		private static Dictionary<string, BitmapImage> LoadImagesFromArchive( ZipArchive archive, string path )
+		private Dictionary<string, BitmapImage> LoadImagesFromArchive( ZipArchive archive, string path )
 		{
 			var entries = archive.Entries
 				.Where( ( _ ) => _.FullName.Contains( path ) && !_.FullName.Equals( path ) )
@@ -119,7 +119,7 @@ namespace Venom.Data.Utility
 		/// </summary>
 		/// <param name="stream"></param>
 		/// <returns></returns>
-		private static BitmapImage LoadBitmapFromStream( Stream stream )
+		private BitmapImage LoadBitmapFromStream( Stream stream )
 		{
 			var memoryStream = new MemoryStream( );
 			stream.CopyTo( memoryStream );
@@ -134,8 +134,8 @@ namespace Venom.Data.Utility
 			return bitmap;
 		}
 
-		public static BitmapImage GetMapImage( string imageName ) => _imagesMap.TryGetValue( imageName, out var image ) ? image : null;
-		public static BitmapImage GetVillageImage( string imageName ) => _imagesVillage.TryGetValue( imageName, out var image ) ? image : null;
-		public static BitmapImage GetImageOther( string imageName ) => _imagesOther.TryGetValue( imageName, out var image ) ? image : null;
+		public BitmapImage GetMapImage( string imageName ) => _imagesMap.TryGetValue( imageName, out var image ) ? image : null;
+		public BitmapImage GetVillageImage( string imageName ) => _imagesVillage.TryGetValue( imageName, out var image ) ? image : null;
+		public BitmapImage GetImageOther( string imageName ) => _imagesOther.TryGetValue( imageName, out var image ) ? image : null;
 	}
 }

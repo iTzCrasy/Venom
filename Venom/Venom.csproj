@@ -114,5 +114,7 @@
 
   <ItemGroup>
     <Folder Include="Components\Dialogs\" />
+    <Folder Include="Components\Windows\Main\Models\" />
+    <Folder Include="Components\Windows\Main\Views\" />
   </ItemGroup>
 </Project>

@@ -33,11 +33,11 @@ namespace Venom
             Venom.Properties.Settings.Default.Reload( );
 
             //=> Set Main Window
-            Current.MainWindow = new MainWindow( );
-            ContainerHelper.Provider.GetRequiredService<StartWindow>( ).Show( );
+            Current.MainWindow = new Components.Windows.Main.MainWindow( );
+            ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Show( );
             await Task.Delay( 3000 ).ConfigureAwait( true );
             Current.MainWindow.Show( );
-            ContainerHelper.Provider.GetRequiredService<StartWindow>( ).Hide( );
+            ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Hide( );
 
             //Current.MainWindow.Show( );
 

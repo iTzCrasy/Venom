@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Windows.Threading;
 using System.Linq;
 
-namespace Venom.ViewModels
+namespace Venom.Components.Windows.Main
 {
     public class AccentColorMenuData
     {

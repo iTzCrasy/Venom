@@ -49,7 +49,7 @@ namespace Venom.API
                 //options.IncludeXmlComments( xmlPath );
             } );
 
-            services.AddDbContext<DataContext>( options => options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) ) );
+            services.AddDbContext<Context.DataContext>( options => options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) ) );
 
             services.AddHttpContextAccessor( );
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>( );

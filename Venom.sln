@@ -23,9 +23,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venom.Data", "Venom.Data\Ve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venom.Network", "Venom.Network\Venom.Network.csproj", "{1ACCA054-246A-4990-BDB2-E057DB0BA063}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Venom.API", "Venom.API\Venom.API.csproj", "{A60B07B3-3569-4BE7-AE5E-319E845C8069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venom.API", "Venom.API\Venom.API.csproj", "{A60B07B3-3569-4BE7-AE5E-319E845C8069}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{12CD6DCE-D2DE-4CB5-8787-E03CA96F98EF}"
+	ProjectSection(SolutionItems) = preProject
+		ReadMe.txt = ReadMe.txt
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{95A40C99-A043-4501-85C6-691D4330FBC0}"
 EndProject

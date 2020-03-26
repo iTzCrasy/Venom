@@ -23,13 +23,10 @@ namespace Venom.API
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<DataContext>( );
+                    var context = services.GetRequiredService<Context.DataContext>( );
                     context.Initialize( );
-                   // context.Database.EnsureDeleted( );
-                    //context.Database.EnsureCreated( );
-                    //context._Players.Add( new Models.Game.GameAccounts { Id = 1337, PlayerName = "Test" } );
-                    //context._Accounts.Add( new Models.Account { Id = 1337, Username = "Test", Password = "1234" } );
-                    //context.SaveChanges( );
+                    
+                    //context.Database.EnsureDeleted( );
                 }
                 catch( Exception ex )
                 {

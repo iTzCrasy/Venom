@@ -24,8 +24,8 @@ namespace Venom.API
                 try
                 {
                     var context = services.GetRequiredService<Context.DataContext>( );
-                    context.Initialize( );
-                    
+                    context.Seed( );
+
                     //context.Database.EnsureDeleted( );
                 }
                 catch( Exception ex )

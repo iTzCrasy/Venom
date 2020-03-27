@@ -30,12 +30,15 @@ namespace Venom.API.Context
             base.OnModelCreating( modelBuilder );
         }
 
-        public void Initialize()
+        public void Seed()
         { 
-            Database.EnsureCreated( );
-
-            Server.Add( new ServerModel { Server = 101, Lang = 1 } );
-            SaveChanges( );
+            if( Database.EnsureDeleted() )
+            {
+                if( Database.EnsureCreated( ) )
+                {
+                    //=> Seed Database
+                }
+            }
         }
     }
 }

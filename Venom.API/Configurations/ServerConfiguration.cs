@@ -18,6 +18,16 @@ namespace Venom.API.Configurations
             //=> Last Update
             builder.Property( p => p.LastUpdate )
                 .ValueGeneratedOnUpdate( );
+
+            ////=> Data Updates
+            //builder.Property( p => p.NextPlayer )
+            //    .ValueGeneratedOnUpdate( );
+
+            //builder.Property( p => p.NextAlly )
+            //    .ValueGeneratedOnUpdate( );
+
+            //builder.Property( p => p.NextVillages )
+            //    .ValueGeneratedOnUpdate( );
         }
     }
 }

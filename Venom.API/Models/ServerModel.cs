@@ -10,8 +10,8 @@ namespace Venom.API.Models
     public class ServerModel
     {
         [Key]
-        public int Id { get; set; } //=> Primary
-        public int Lang { get; set; } 
+        public int Id { get; set; } 
+        public string Lang { get; set; } 
         public int Server { get; set; }
 
         [DatabaseGenerated( DatabaseGeneratedOption.Identity )]
@@ -20,6 +20,13 @@ namespace Venom.API.Models
         [DatabaseGenerated( DatabaseGeneratedOption.Computed )]
         public DateTime LastUpdate { get; set; } = DateTime.Now;
 
-        
+        //[DatabaseGenerated( DatabaseGeneratedOption.Computed )]
+        //public DateTime NextPlayer { get; set; } = DateTime.Now;
+
+        //[DatabaseGenerated( DatabaseGeneratedOption.Computed )]
+        //public DateTime NextAlly { get; set; } = DateTime.Now;
+
+        //[DatabaseGenerated( DatabaseGeneratedOption.Computed )]
+        //public DateTime NextVillages { get; set; } = DateTime.Now;
     }
 }

@@ -40,38 +40,31 @@ namespace Venom.API
             services.AddSwaggerGen( options =>
             {
                 options.SwaggerDoc( "v1", new Info { Title = "Venom API", Version = "v1" } );
-
-                //// Get xml comments path
-                //var xmlFile = $"{Assembly.GetExecutingAssembly( ).GetName( ).Name}.xml";
-                //var xmlPath = Path.Combine( AppContext.BaseDirectory, xmlFile );
-
-                //// Set xml path
-                //options.IncludeXmlComments( xmlPath );
             } );
 
             services.AddDbContext<Context.DataContext>( options => options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) ) );
 
             services.AddHttpContextAccessor( );
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>( );
+
+            services.AddHostedService<Services.ServerUpdateService>( );
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                //=> Swagger
+                app.UseSwagger( );
+                app.UseSwaggerUI( c =>
+                {
+                    c.SwaggerEndpoint( "/swagger/v1/swagger.json", "WideWorldImporters API V1" );
+                } );
             }
 
             app.UseSession( );
-
-            app.UseSwagger( );
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI( c =>
-            {
-                c.SwaggerEndpoint( "/swagger/v1/swagger.json", "WideWorldImporters API V1" );
-            } );
 
             app.UseHttpsRedirection();
 

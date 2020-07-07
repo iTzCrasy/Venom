@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
     <LangVersion>latest</LangVersion>
     <ApplicationManifest>app1.manifest</ApplicationManifest>
@@ -13,12 +13,7 @@
     <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Assets\Venom-Logo_300x300.png" />
-  </ItemGroup>
-
 <ItemGroup>
-    <Resource Include="Assets\Venom-Logo_300x300.png" />
     <Resource Include="Assets\Images\unit_archer.png" />
     <Resource Include="Assets\Images\unit_axe.png" />
     <Resource Include="Assets\Images\unit_catapult.png" />
@@ -35,13 +30,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="ControlzEx" Version="4.1.0" />
+    <PackageReference Include="ControlzEx" Version="4.3.0" />
+    <PackageReference Include="JetBrains.Annotations" Version="2020.2.0-eap" />
     <PackageReference Include="MahApps.Metro" Version="2.0.0-alpha0312" />
-    <PackageReference Include="MahApps.Metro.IconPacks" Version="3.0.0-alpha0088" />
+    <PackageReference Include="MahApps.Metro.IconPacks" Version="4.2.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
-    <PackageReference Include="JetBrains.Annotations" Version="2019.1.3" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" /> 
     <PackageReference Include="Microsoft.CodeAnalysis.VersionCheckAnalyzer" Version="2.9.2" />
     <PackageReference Include="Microsoft.CodeQuality.Analyzers" Version="2.9.2" />
@@ -56,6 +51,11 @@
     <PackageReference Include="Serilog.Extensions.Logging.File" Version="2.0.0-dev-00032" />
     <PackageReference Include="Serilog.Sinks.Async" Version="1.3.0" />
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
+    <PackageReference Include="SharpDX" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Desktop" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Direct2D1" Version="4.2.0" />
+    <PackageReference Include="SharpDX.DXGI" Version="4.2.0" />
+    <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
     <PackageReference Include="System.Buffers" Version="4.5.0" />
     <PackageReference Include="System.Linq" Version="4.3.0" />
     <PackageReference Include="System.Memory" Version="4.5.3" />
@@ -68,6 +68,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Hexagon\Hexagon.csproj" />
     <ProjectReference Include="..\Venom.Data\Venom.Data.csproj" />
     <ProjectReference Include="..\Venom.Network\Venom.Network.csproj" />
   </ItemGroup>
@@ -86,6 +87,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Lang\Lang.de.resx">
+      <Generator></Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -100,7 +104,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Assets\Styles\ZoomableCanvas\" />
     <Folder Include="Components\Dialogs\" />
-    <Folder Include="Components\Windows\Main\Models\" />
   </ItemGroup>
 </Project>

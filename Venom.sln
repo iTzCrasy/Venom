@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Venom", "Venom\Venom.csproj", "{2C3AA31E-183B-4685-A40D-1249787E20A7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A60B07B3-3569-4BE7-AE5E-319E845C8069} = {A60B07B3-3569-4BE7-AE5E-319E845C8069}
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6} = {2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B8F3334A-9B73-4F12-8E06-E0E3512515DB}"
 	ProjectSection(SolutionItems) = preProject
@@ -34,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{95A40C99
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{4D3AC77F-CC4D-4029-BB78-170809F21B5F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Hexagon", "Hexagon\Hexagon.csproj", "{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -60,6 +66,10 @@ Global
 		{A60B07B3-3569-4BE7-AE5E-319E845C8069}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A60B07B3-3569-4BE7-AE5E-319E845C8069}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A60B07B3-3569-4BE7-AE5E-319E845C8069}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +80,7 @@ Global
 		{B719D8CB-F14C-4A09-BB52-69E2B3370E9A} = {4D3AC77F-CC4D-4029-BB78-170809F21B5F}
 		{1ACCA054-246A-4990-BDB2-E057DB0BA063} = {4D3AC77F-CC4D-4029-BB78-170809F21B5F}
 		{A60B07B3-3569-4BE7-AE5E-319E845C8069} = {12CD6DCE-D2DE-4CB5-8787-E03CA96F98EF}
+		{2ECF02C8-1D30-4E53-A8CA-FCC763012FA6} = {4D3AC77F-CC4D-4029-BB78-170809F21B5F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A4A6822-6619-4039-9552-89D688DFDEF1}

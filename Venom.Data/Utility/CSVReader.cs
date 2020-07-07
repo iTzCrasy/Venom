@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
@@ -249,8 +250,16 @@ namespace Venom.Data.Utility
 
             using( var client = new HttpClient( ) )
             {
-                var stream = await client.GetStreamAsync( uri )
+                var response = await client.GetAsync( uri )
                     .ConfigureAwait( false );
+
+                Debug.WriteLine( $"Data Update {uri.OriginalString} Modify {response.Content.Headers.LastModified} UTC" );
+
+                var stream = await response.Content.ReadAsStreamAsync( )
+                    .ConfigureAwait( false );
+
+                //var stream = await client.GetStreamAsync( uri )
+                //    .ConfigureAwait( false );
 
                 await ReadStream( stream, creator, items )
                     .ConfigureAwait( false );

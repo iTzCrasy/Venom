@@ -31,7 +31,6 @@ namespace Venom.Data.Rest
 
                 var list = DeserializePhp.Deserialize( text );
 
-
                 if( list is IEnumerable serverList )
                 {
                     foreach( DictionaryEntry i in serverList )
@@ -41,9 +40,6 @@ namespace Venom.Data.Rest
                             Id = i.Key.ToString( ),
                             Url = new Uri( i.Value.ToString( ) ),
                         };
-
-                        if( Directory.Exists( i.Key.ToString() ) == false )
-                            Directory.CreateDirectory( i.Key.ToString( ) );
 
                         result.Add( data );
                     }

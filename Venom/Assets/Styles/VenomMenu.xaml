@@ -2,31 +2,95 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                  
                     xmlns:local="clr-namespace:Venom.Assets.Styles"
                     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
-                    xmlns:Behaviours="http://metro.mahapps.com/winfx/xaml/shared">
+                    xmlns:Behaviours="http://metro.mahapps.com/winfx/xaml/shared"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks">
 
     <SolidColorBrush x:Key="VenomMenuForeground" Color="{DynamicResource Gray4}" />
-    <SolidColorBrush x:Key="VenomMenuBackground" Color="Transparent" />
+    <SolidColorBrush x:Key="VenomMenuBackground" Color="{DynamicResource AccentColor}" />
     <SolidColorBrush x:Key="VenomMenuSelectorBrush" Color="{DynamicResource AccentColor}"/>
+    <SolidColorBrush x:Key="VenomMenuMain" Color="{DynamicResource Gray8}" />
     <SolidColorBrush x:Key="VenomMenuSelectorBrushHover" Color="{DynamicResource WhiteColor}"/>
 
-    <!-- Sub Menu Item Style -->
+    <BooleanToVisibilityConverter x:Key="VisibleIfTrueConverter" />
+
+    <!-- style a top level menu item -->
+    <ControlTemplate x:Key="VsMenuTop" TargetType="MenuItem">
+        <StackPanel TextBlock.FontSize="15px" Height="40">
+            <!-- label, icons, etc. -->
+            <Label Content="{TemplateBinding Header}" Margin="5" Foreground="White" />
+
+            <!-- sub items -->
+            <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False">
+                <Border BorderThickness="1" Background="White" BorderBrush="CadetBlue">
+                    <StackPanel IsItemsHost="True" />
+                </Border>
+            </Popup>
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver"  Value="True">
+                            <Setter Property="Background" Value="CadetBlue" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+        </StackPanel>
+    </ControlTemplate>
+
+    <!-- style a non-top level menu item -->
     <ControlTemplate x:Key="VsMenuSub" TargetType="MenuItem">
-        <DockPanel TextBlock.FontSize="15px">
+        <DockPanel TextBlock.FontSize="15px" x:Name="panel">
+            
             <!-- label, icons, etc. -->
             <Image Source="{Binding Icon, RelativeSource={RelativeSource TemplatedParent}}" Width="20" Margin="5,0" />
             <Label Content="{TemplateBinding Header}" Foreground="Black" Margin="0,5,5,5" />
 
             <!-- draw the right arrow only if this menu item has sub items -->
-            <!--<Image Source="icon_right.png" Visibility="{Binding HasItems, Converter={StaticResource btv}, RelativeSource={RelativeSource TemplatedParent}}" />-->
-
+            <!--<Image Source="icon_right.png" Visibility="{Binding HasItems, Converter={StaticResource btv}, RelativeSource={RelativeSource TemplatedParent}}" />!-->
+            <iconPacks:PackIconMaterial Kind="ArrowRight" 
+                                        Visibility="{Binding HasItems, Converter={StaticResource VisibleIfTrueConverter}, RelativeSource={RelativeSource TemplatedParent}}" 
+                                        VerticalAlignment="Center" 
+                                        HorizontalAlignment="Right" />
+            
             <!-- sub items -->
             <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False" Placement="Right" >
-                <Border BorderThickness="1" Background="White" BorderBrush="#E0E0E0">
+                <Border BorderThickness="1" Background="White" BorderBrush="CadetBlue">
                     <StackPanel IsItemsHost="True" />
                 </Border>
             </Popup>
         </DockPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsHighlighted" Value="True">
+                <Setter Property="Background" TargetName="panel" Value="CadetBlue" />
+            </Trigger>
+        </ControlTemplate.Triggers>
     </ControlTemplate>
+
+    <!-- style the separator -->
+    <ControlTemplate x:Key="VsMenuSep" TargetType="Separator">
+        <Border Height="1" Background="#E0E0E0" />
+    </ControlTemplate>
+
+    <!-- style the VSOnline -->
+    <ControlTemplate x:Key="VsOnline" TargetType="MenuItem">
+        <StackPanel TextBlock.FontSize="15px" Height="40" Orientation="Horizontal" Background="{StaticResource VenomMenuMain}">
+            <Label Content="{TemplateBinding Header}" Margin="5" Foreground="White" />
+            <Image Source="icon_down.png" Height="20" Margin="0,0,5,0" />
+
+            <!-- sub items -->
+            <Popup IsOpen="{TemplateBinding IsSubmenuOpen}" AllowsTransparency="True" Focusable="False">
+                <Border BorderThickness="1" Background="White" BorderBrush="#E0E0E0">
+                    <StackPanel IsItemsHost="True" />
+                </Border>
+            </Popup>
+        </StackPanel>
+    </ControlTemplate>
+
+    <!-- some base stuff -->
+    <Style TargetType="Menu">
+        <Setter Property="Background" Value="{StaticResource VenomMenuBackground}" />
+        <Setter Property="Height" Value="40px" />
+    </Style>
     
     <!--<Style x:Key="VenomSubMenuItemStyle" TargetType="{x:Type MenuItem}">
         <Setter Property="Template">

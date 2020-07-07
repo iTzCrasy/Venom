@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,36 +19,41 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
+using Venom.API.Server;
+using Venom.API.Database.Global;
+using Venom.API.Database.Server;
+using System.Runtime.InteropServices;
+
 namespace Venom.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+
+        public Startup( IConfiguration configuration )
         {
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
-
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-
-            services.AddDistributedMemoryCache( );
+            services.AddControllers().AddNewtonsoftJson( );
             services.AddSession( );
+            services.AddDistributedMemoryCache( );
 
             services.AddSwaggerGen( options =>
             {
                 options.SwaggerDoc( "v1", new Info { Title = "Venom API", Version = "v1" } );
             } );
 
-            services.AddDbContext<Context.DataContext>( options => options.UseSqlServer( Configuration.GetConnectionString( "DefaultConnection" ) ) );
+            services.AddDbContext<GlobalContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomGlobal;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
+            services.AddDbContext<ServerContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomServer;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
 
             services.AddHttpContextAccessor( );
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>( );
 
-            services.AddHostedService<Services.ServerUpdateService>( );
+            services.AddTransient<ServerFiles>();
+            services.AddTransient<ServerManager>( );
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -64,14 +70,26 @@ namespace Venom.API
                 } );
             }
 
+            using( var scope = app.ApplicationServices.CreateScope() )
+            {
+                var services = scope.ServiceProvider;
+                var globalContext = services.GetRequiredService<GlobalContext>( );
+                var serverContext = services.GetRequiredService<ServerContext>( );
+                var serverManager = services.GetRequiredService<ServerManager>( );
+
+                if( env.IsDevelopment() )
+                {
+                    globalContext.Database.EnsureCreated( );
+                    serverContext.Database.EnsureCreated( );
+                }
+
+                serverManager.Initialize( );
+            }
+
             app.UseSession( );
-
             app.UseHttpsRedirection();
-
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -81,7 +99,7 @@ namespace Venom.API
 
     internal class Info : OpenApiInfo
     {
-        public string Title { get; set; }
-        public string Version { get; set; }
+        public new string Title { get; set; }
+        public new string Version { get; set; }
     }
 }

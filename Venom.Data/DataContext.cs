@@ -40,15 +40,6 @@ namespace Venom.Data
             set => _currentServer = value;
         }
 
-        /// <summary>
-        /// Set / Get Current Player Selected
-        /// </summary>
-        public string CurrentPlayer
-        {
-            get => _currentPlayer;
-            set => _currentPlayer = value;
-        }
-
         public async Task<List<GameServer>> GetGameServers( )
         {
             const string cacheKey = "GameServers";
@@ -97,11 +88,9 @@ namespace Venom.Data
                 return await ServerApi.FetchBuildingConfiguration( CurrentServer );
             } );
         }
-
-        public static void Send()
-        {
-            //SetForegroundWindow( FindWindowByCaption( IntPtr.Zero, &quot; Untitled - Notepad & quot;));
-            //SendKeys.SendWait( "A" );
-        }
     }
 }
+
+
+
+

@@ -36,6 +36,7 @@ namespace Venom.Utility
             _container.AddScoped<IPlayerRepository, PlayerRepository>( );
             _container.AddScoped<IAllyRepository, AllyRepository>( );
             _container.AddScoped<IVillageRepository, VillageRepository>( );
+            _container.AddScoped<IResourceRepository, ResourceRepository>( );
 
             //=> Start Window
             _container.AddTransient<Components.Windows.Start.StartWindow>( );

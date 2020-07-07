@@ -42,9 +42,20 @@ namespace Venom.Components.Windows.Main
 
     public class MainViewModel : ViewModelBase
     {
+        #region Content Handling
+        private object _content = "";
+
+        public object Content
+        {
+            get => _content;
+            set => SetProperty( ref _content, value );
+        }
+        #endregion
+
         private readonly IGameServerRepository _serverRepo;
         private readonly IPlayerRepository _playerRepo;
         private readonly IVillageRepository _villageRepo;
+        private readonly IResourceRepository _resourceRepository;
 
         public List<AccentColorMenuData> AccentColors { get; set; }
         public List<AccentColorMenuData> AppThemes { get; set; }
@@ -59,12 +70,14 @@ namespace Venom.Components.Windows.Main
         public MainViewModel(
             IGameServerRepository serverRepo,
             IPlayerRepository playerRepo,
-            IVillageRepository villageRepo
+            IVillageRepository villageRepo,
+            IResourceRepository resourceRepository
         )
         {
             _serverRepo = serverRepo;
             _playerRepo = playerRepo;
             _villageRepo = villageRepo;
+            _resourceRepository = resourceRepository;
 
             AccentColors = ThemeManager.ColorSchemes
                 .Select( a => new AccentColorMenuData { Name = a.Name, ColorBrush = a.ShowcaseBrush } )
@@ -76,7 +89,10 @@ namespace Venom.Components.Windows.Main
                 .Select( a => new AccentColorMenuData( ) { Name = a.BaseColorScheme, BorderColorBrush = a.Resources["BlackColorBrush"] as Brush, ColorBrush = a.Resources["WhiteColorBrush"] as Brush } )
                 .ToList( );
 
-            //_selectedTheme = AppThemes.Select( x => x.Name.Equals( ThemeManager.DetectTheme( ).ColorScheme ) );
+            Content = new Venom.Components.Views.WorldView( );
+            //Content = new Venom.Components.Views.ServerListView( );
+
+            //_selectedTheme.ColorBrush = Brushes.Black;
         }
 
         #region Properties
@@ -151,6 +167,8 @@ namespace Venom.Components.Windows.Main
                 return;
             }
 
+            _resourceRepository.Initialize( );
+            //await _worldManager.Initialize( ).ConfigureAwait( false );
 
             //List<double> test = new List<double>( );
             //test.Add( 90 );

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using MahApps.Metro.Controls.Dialogs;
-using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Shapes;
+using System.Windows.Controls;
 using Venom.Helpers;
 using Venom.Utility;
 

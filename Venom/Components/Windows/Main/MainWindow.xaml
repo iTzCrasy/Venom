@@ -4,6 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+    xmlns:Hexagon="clr-namespace:Hexagon.Controls;assembly=Hexagon"
+    xmlns:Test="clr-namespace:Venom.Data.Models.Configuration;assembly=Venom.Data"
     xmlns:Flyouts="clr-namespace:Venom.Components.Flyouts"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -51,27 +53,93 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="Auto" MinHeight="25.04" />
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="0" Style="{StaticResource VenomMenuStyle}">
-            <MenuItem Header="Test1" IsChecked="True"/>
-            <MenuItem Header="Test1" IsChecked="True"/>
-            <MenuItem Header="Test1"/>
-            <MenuItem Header="Test1"/>
-            <MenuItem Header="Test1"/>
-            <MenuItem Header="Test1" IsChecked="True"/>
-        </Menu>
+        <StackPanel>
+            <!--<Menu IsMainMenu="True">
+                <MenuItem Header="Test">
+                    <MenuItem Header="Fuck" Click="MenuItem_Click"/>
+                    <MenuItem Header="Fuck" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="Fuck"/>
+                    <MenuItem Header="Fuck"/>
+                </MenuItem>
+                <MenuItem Header="Test">
 
-        <Canvas x:Name="paintCanvas" Grid.ColumnSpan="2" Margin="0,41,0,0" Grid.RowSpan="2">
-            <!--<Rectangle Width="32" Height="32" Fill="Black" Opacity="1" Margin="0 0 0 0"/>
+                </MenuItem>
+                <MenuItem Header="Test">
+
+                </MenuItem>
+                <MenuItem Header="Test">
+
+                </MenuItem>
+                <MenuItem Header="Test">
+
+                </MenuItem>
+            </Menu>-->
+
+            <!--<Button Content="Test" Click="MenuItem_Click" Grid.Row="0"/>-->
+            <!--<Menu IsMainMenu="True">
+                <MenuItem Header="_Menu" Template="{StaticResource VsOnline}" >
+                    --><!--<MenuItem Header="_Whatever" Template="{StaticResource VsMenuSub}" />--><!--
+                </MenuItem>
+                <MenuItem Header="_Dashboards" Template="{StaticResource VsMenuTop}">
+                    <MenuItem Header="_Overview" Template="{StaticResource VsMenuSub}" />
+                </MenuItem>
+                <MenuItem Header="_Code" Template="{StaticResource VsMenuTop}">
+                    <MenuItem Header="_Files" Template="{StaticResource VsMenuSub}" />
+                    <MenuItem Header="_Commits" Template="{StaticResource VsMenuSub}" />
+                    <MenuItem Header="_Pushes" Template="{StaticResource VsMenuSub}" />
+                </MenuItem>
+                <MenuItem Header="_Work" Template="{StaticResource VsMenuTop}">
+                    <MenuItem Header="_Backlogs" Template="{StaticResource VsMenuSub}" Icon="icon_backlogs.png" />
+                    <MenuItem Header="_Queries" Template="{StaticResource VsMenuSub}" Icon="icon_queries.png" />
+                    <Separator Template="{StaticResource VsMenuSep}" />
+                    <MenuItem Header="_New Work Item" Template="{StaticResource VsMenuSub}">
+                        <MenuItem Header="_Epic" Template="{StaticResource VsMenuSub}" Icon="icon_epic.png" />
+                        <MenuItem Header="_Feature" Template="{StaticResource VsMenuSub}" Icon="icon_feature.png" />
+                        <MenuItem Header="_Issue" Template="{StaticResource VsMenuSub}" Icon="icon_issue.png" />
+                        <MenuItem Header="_Task" Template="{StaticResource VsMenuSub}" Icon="icon_task.png" />
+                        <MenuItem Header="_Test Case" Template="{StaticResource VsMenuSub}" Icon="icon_testcase.png" />
+                        <MenuItem Header="_User Story" Template="{StaticResource VsMenuSub}" Icon="icon_userstory.png" />
+                    </MenuItem>
+                    <MenuItem Header="_Bug" Template="{StaticResource VsMenuSub}" Icon="icon_bug.png" />
+                </MenuItem>
+            </Menu>-->
+        </StackPanel>
+
+        <Controls:TransitioningContentControl Grid.Row="1" Content="{Binding Content, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Stretch"/>
+        <!--<ScrollViewer Grid.Row="1" PanningMode="Both" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" x:Name="ScrollViewerTest">
+            <Controls1:ZoomableCanvas x:Name="paintCanvas" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+
+                <Rectangle Canvas.Top="10" Canvas.Left="20"
+                   Width="30" Height="40" Fill="LightBlue"/>
+
+                <Button    Canvas.Top="10" Canvas.Left="60"
+                   Content="Hello, ZoomableCanvas!"/>
+
+                <Calendar  Canvas.Top="40" Canvas.Left="60"
+                   DisplayDate="6/18/2008"/>
+                
+                
+                --><!--<Canvas.LayoutTransform>
+                    <ScaleTransform CenterX="0" CenterY="0" ScaleX="1.0" ScaleY="1.0" />
+                </Canvas.LayoutTransform>
+
+                <Canvas.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform x:Name="TransCanvas" />
+                    </TransformGroup>
+                </Canvas.RenderTransform>-->
+
+                <!--<Rectangle Width="32" Height="32" Fill="Black" Opacity="1" Margin="0 0 0 0"/>
             <Rectangle Width="32" Height="32" Fill="Red" Opacity="1" Margin="32 32 32 32"/>-->
-            <!--<Canvas.RenderTransform>
+                <!--<Canvas.RenderTransform>
                 <ScaleTransform ScaleX="0.75" ScaleY="0.75"/>
             </Canvas.RenderTransform>-->
 
-            <!--<Canvas.RenderTransform>
+                <!--<Canvas.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1" />
                     <TranslateTransform Y="100" />
@@ -79,14 +147,15 @@
                 </TransformGroup>
             </Canvas.RenderTransform>-->
 
-            <!--<Image Source="v2_b6_left.png" Margin="0 0 0 0"/>
+                <!--<Image Source="v2_b6_left.png" Margin="0 0 0 0"/>
             <Rectangle Width="53" Height="38" Fill="Red" Margin="0 38 0 53"/>
             <Image Source="v2_b4.png" Margin="0 38 0 53"/>
             <Image Source="v2_b6_left.png" Margin="53 0 0 0"/>
-            <Image Source="v2_b5.png" Margin="53 38 0 0"/>-->
+            <Image Source="v2_b5.png" Margin="53 38 0 0"/>--><!--
 
-        </Canvas>
+            </Controls1:ZoomableCanvas>
 
+        </ScrollViewer>-->
         <!--<Views:ViewWorld Grid.Row="1"/>-->
 
         <!--<Canvas Height="200" Width="200" Background="DarkRed">
@@ -153,8 +222,54 @@
             <TabItem Header="Item" />
         </TabControl>-->
 
+        <!--<Hexagon:RadialMenu x:Name="TestMenu" Grid.Row="1">
+
+            <Hexagon:RadialMenu.CentralItem>
+                <Hexagon:RadialMenuCentralItem Command="{Binding CloseRadialMenu1}">
+                    <Rectangle Width="25" Height="25" Fill="Beige">
+                        
+                        --><!--<Rectangle.Fill>
+                            <VisualBrush Visual="{StaticResource appbar_close}"/>
+                        </Rectangle.Fill>--><!--
+                    </Rectangle>
+                </Hexagon:RadialMenuCentralItem>
+            </Hexagon:RadialMenu.CentralItem>
+            
+            
+            <Hexagon:RadialMenuItem>
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock FontSize="14" TextAlignment="Center"> Item 1</TextBlock>
+                </WrapPanel>
+            </Hexagon:RadialMenuItem>
+
+            <Hexagon:RadialMenuItem>
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock FontSize="14" TextAlignment="Center"> Item 2</TextBlock>
+                </WrapPanel>
+            </Hexagon:RadialMenuItem>
+
+            <Hexagon:RadialMenuItem>
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock FontSize="14" TextAlignment="Center"> Item 3</TextBlock>
+                </WrapPanel>
+            </Hexagon:RadialMenuItem>
+
+            <Hexagon:RadialMenuItem>
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock FontSize="14" TextAlignment="Center"> Item 4</TextBlock>
+                </WrapPanel>
+            </Hexagon:RadialMenuItem>
+
+            <Hexagon:RadialMenuItem>
+                <WrapPanel Orientation="Vertical">
+                    <TextBlock FontSize="14" TextAlignment="Center"> Item 5</TextBlock>
+                </WrapPanel>
+            </Hexagon:RadialMenuItem>
+        </Hexagon:RadialMenu>-->
+
         <StatusBar Grid.Row="2" >
             <StatusBarItem Style="{StaticResource VenomCleanWindowStatusBar}">Development 0.3.1</StatusBarItem>
+            <StatusBarItem Style="{StaticResource VenomCleanWindowStatusBar}" Content="{Binding ServerPing}"/>
         </StatusBar>
     </Grid>
 </Controls:MetroWindow>

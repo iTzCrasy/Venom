@@ -14,7 +14,7 @@
                 <ResourceDictionary Source="Assets/Styles/Font.xaml" />
                 <ResourceDictionary Source="Assets/Styles/VenomWindow.xaml" /> <!-- Venom Window -->
                 <ResourceDictionary Source="Assets/Styles/VenomTabControl.xaml" />
-                <ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>
+                <!--<ResourceDictionary Source="Assets/Styles/VenomMenu.xaml"/>-->
 
             </ResourceDictionary.MergedDictionaries>
 

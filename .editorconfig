@@ -30,7 +30,7 @@ dotnet_style_predefined_type_for_member_access = true:suggestion
  
 # Modifier preferences
 dotnet_style_require_accessibility_modifiers = always:warning
-dotnet_style_readonly_field = true:suggestion
+dotnet_style_readonly_field = true:warning
  
 # Parentheses preferences
 dotnet_style_parentheses_in_arithmetic_binary_operators = always_for_clarity:suggestion

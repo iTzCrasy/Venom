@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <Folder Include="Network\" />
+    <Folder Include="API\" />
   </ItemGroup>
 
 </Project>

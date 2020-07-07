@@ -34,10 +34,10 @@ namespace Venom
 
             //=> Set Main Window
             Current.MainWindow = new Components.Windows.Main.MainWindow( );
-            ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Show( );
-            await Task.Delay( 3000 ).ConfigureAwait( true );
+            //ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Show( );
+            //await Task.Delay( 3000 ).ConfigureAwait( true );
             Current.MainWindow.Show( );
-            ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Hide( );
+            //ContainerHelper.Provider.GetRequiredService<Components.Windows.Start.StartWindow>( ).Hide( );
 
             //Current.MainWindow.Show( );
 

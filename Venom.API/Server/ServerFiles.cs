@@ -69,7 +69,7 @@ namespace Venom.API.Server
             if( await reader.LoadFileAsync( ) )
             {
                 server.Size += reader.ContentLength;
-                
+
                 return await reader.ReadFileAsync( ( buffer ) => new Player( )
                 {
                     PlayerId = buffer.ReadInt( ),
@@ -78,9 +78,8 @@ namespace Venom.API.Server
                     Villages = buffer.ReadInt( ),
                     Points = buffer.ReadInt( ),
                     Rank = buffer.ReadInt( ),
-                    Server = server.Id,
-                    //Dataset = server.Dataset + 1,
-                } );
+                    Server = server.Id
+                } ); 
             }
             else
             {
@@ -106,8 +105,7 @@ namespace Venom.API.Server
                     Points = buffer.ReadInt( ),
                     AllPoints = buffer.ReadInt( ),
                     Rank = buffer.ReadInt( ),
-                    Server = server.Id,
-                    //Dataset = server.Dataset + 1,
+                    Server = server.Id
                 } );
             }
             else

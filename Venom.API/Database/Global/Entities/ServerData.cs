@@ -23,10 +23,10 @@ namespace Venom.API.Database.Global.Entities
         [Required]
         public DateTimeOffset Register { get; set; } = DateTimeOffset.Now;
 
-        public DateTimeOffset LastUpdate { get; set; }
-
-        public long Duration { get; set; }
-
         public long? Size { get; set; } = 0;
+
+        public int PlayerCount { get; set; } = 0;
+        public int AllyCount { get; set; } = 0;
+        public int VillageCount { get; set; } = 0;
     }
 }

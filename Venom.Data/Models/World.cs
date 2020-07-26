@@ -9,9 +9,16 @@ using System.Text;
 //
 //=> 1000x1000 = 1.000.000 Villages/Images
 
+/*
+var sector = Math.floor((y % 100) / 5) * 20 + Math.floor((x % 100) / 5);
+var field = Math.floor( ( ( y % 100 ) % 5 ) * 5 + ( ( x % 100 ) % 5 ) );
+field = (field< 10) ? '0' + field : field;
+sector = ((sector< 100) && (sector > 9)) ? '0' + sector : ((sector< 10) ? '00' + sector : sector);
+    */
+
 namespace Venom.Data.Models
 {
-    public class World
+    public class World2
     {
         protected byte[] _decoration = new byte[1000000];
 
@@ -34,6 +41,8 @@ namespace Venom.Data.Models
         // ...
         // 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 
 
+        public Dictionary<int, Sector> _sectors;
+
         public int Number { get; set; } 
     }
 
@@ -45,6 +54,8 @@ namespace Venom.Data.Models
         // ...
         // 90 | 91 | 92 | 93 | 94 | 95 | 96 | 97 | 98 | 99 
 
+        public Dictionary<int, SectorField> _sectorFields;
+
         public int Number { get; set; }
     }
 
@@ -55,6 +66,8 @@ namespace Venom.Data.Models
         // 10 | 11 | 12 | 13 | 14
         // 15 | 16 | 17 | 18 | 19
         // 20 | 21 | 22 | 23 | 24
+
+        //=> TODO: Villages / Background.
 
         public int Number { get; set; }
     }

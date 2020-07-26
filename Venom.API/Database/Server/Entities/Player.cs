@@ -32,5 +32,7 @@ namespace Venom.API.Database.Server.Entities
         public long BashDef { get; set; }
 
         public long BashAll { get; set; }
+
+        public DateTimeOffset Time { get; set; }
     }
 }

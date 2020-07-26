@@ -23,6 +23,7 @@ using Venom.API.Server;
 using Venom.API.Database.Global;
 using Venom.API.Database.Server;
 using System.Runtime.InteropServices;
+using Venom.API.Database.Logging;
 
 namespace Venom.API
 {
@@ -46,8 +47,9 @@ namespace Venom.API
                 options.SwaggerDoc( "v1", new Info { Title = "Venom API", Version = "v1" } );
             } );
 
-            services.AddDbContext<GlobalContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomGlobal;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
-            services.AddDbContext<ServerContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomServer;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
+            services.AddDbContextPool<GlobalContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomGlobal;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
+            services.AddDbContextPool<ServerContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomServer;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
+            services.AddDbContextPool<LoggingContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomLogging;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
 
             services.AddHttpContextAccessor( );
             services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>( );
@@ -66,7 +68,7 @@ namespace Venom.API
                 app.UseSwagger( );
                 app.UseSwaggerUI( c =>
                 {
-                    c.SwaggerEndpoint( "/swagger/v1/swagger.json", "WideWorldImporters API V1" );
+                    c.SwaggerEndpoint( "/swagger/v1/swagger.json", "API V1" );
                 } );
             }
 
@@ -76,11 +78,13 @@ namespace Venom.API
                 var globalContext = services.GetRequiredService<GlobalContext>( );
                 var serverContext = services.GetRequiredService<ServerContext>( );
                 var serverManager = services.GetRequiredService<ServerManager>( );
+                var loggingContext = services.GetRequiredService<LoggingContext>( );
 
                 if( env.IsDevelopment() )
                 {
                     globalContext.Database.EnsureCreated( );
                     serverContext.Database.EnsureCreated( );
+                    loggingContext.Database.EnsureCreated( );
                 }
 
                 serverManager.Initialize( );

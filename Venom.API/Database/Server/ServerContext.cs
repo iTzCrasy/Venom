@@ -24,12 +24,12 @@ namespace Venom.API.Database.Server
         {
             #region Player
             builder.Entity<Entities.Player>( )
-                .HasKey( p => new { p.PlayerId, p.Name, p.Server } );
+                .HasKey( p => new { p.PlayerId, p.Name, p.Server, p.Time } );
             #endregion
 
             #region Ally
             builder.Entity<Entities.Ally>( )
-                .HasKey( p => new { p.AllyId, p.Name, p.Tag, p.Server } );
+                .HasKey( p => new { p.AllyId, p.Name, p.Tag, p.Server, p.Time } );
             #endregion
 
             #region Village

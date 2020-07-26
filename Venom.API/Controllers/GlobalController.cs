@@ -25,42 +25,40 @@ namespace Venom.API.Controllers
         }
 
 
-        /// <summary>
-        /// User Login
-        /// </summary>
-        /// <param name="Username"></param>
-        /// <param name="Password">SHA256 Hash by Client!</param>
-        /// <returns>Login Type, if Blocked, License Requiered, Successfull, Wrong Data.</returns>
-        [HttpGet( "Login" )]
-        public async Task<Protocol.LoginTypes> Login( string Username, string Password )
-        {
-            if( string.IsNullOrEmpty( Username ) || string.IsNullOrEmpty( Password ) )
-            {
-                return Protocol.LoginTypes.WrongData;
-            }
+        ///// <summary>
+        ///// User Login
+        ///// </summary>
+        ///// <param name="Username"></param>
+        ///// <param name="Password">SHA256 Hash by Client!</param>
+        ///// <returns>Login Type, if Blocked, License Requiered, Successfull, Wrong Data.</returns>
+        //[HttpGet( "Login" )]
+        //public async Task<Protocol.LoginTypes> Login( string Username, string Password )
+        //{
+        //    if( string.IsNullOrEmpty( Username ) || string.IsNullOrEmpty( Password ) )
+        //    {
+        //        return Protocol.LoginTypes.WrongData;
+        //    }
 
-            var account = await _globalContext.Account.Where( p => p.Username == Username && p.Password == Password ).FirstOrDefaultAsync( ); 
-            if( account != null )
-            {
-                if( account.Blocked )
-                {
-                    return Protocol.LoginTypes.Blocked;
-                }
+        //    var account = await _globalContext.Account.Where( p => p.Username == Username && p.Password == Password ).FirstOrDefaultAsync( ); 
+        //    if( account != null )
+        //    {
+        //        if( account.Blocked )
+        //        {
+        //        }
 
-                if( DateTime.Now > account.LicenseDate )
-                {
-                    return Protocol.LoginTypes.Payment;
-                }
+        //        if( DateTime.Now > account.LicenseDate )
+        //        {
+        //        }
 
-                //////////////////////////////////////////////////////////////
-                //=> TODO: Create Session, Update Account State, Logging
-                //////////////////////////////////////////////////////////////
+        //        //////////////////////////////////////////////////////////////
+        //        //=> TODO: Create Session, Update Account State, Logging
+        //        //////////////////////////////////////////////////////////////
 
-                return Protocol.LoginTypes.Success;
-            }
+        //        //return Protocol.LoginTypes.Success;
+        //    }
 
-            return Protocol.LoginTypes.WrongData;
-        }
+        //    return Protocol.LoginTypes.WrongData;
+        //}
 
         /// <summary>
         /// Get Server List

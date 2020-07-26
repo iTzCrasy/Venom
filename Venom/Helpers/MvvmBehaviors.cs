@@ -26,7 +26,11 @@ namespace Venom.Helpers
         }
 
 
-
+        /// <summary>
+        /// Bypass Loaded Method 
+        /// </summary>
+        /// <param name="d"></param>
+        /// <param name="e"></param>
         private static void OnLoadedMethodNameChanged( DependencyObject d, DependencyPropertyChangedEventArgs e )
         {
             if( d is FrameworkElement element )
@@ -36,18 +40,13 @@ namespace Venom.Helpers
                     var viewModel = element.DataContext;
                     if( viewModel == null )
                     {
-                        return;
+                        throw new Exception( $"Failed to find ViewModel {e}!" );
                     }
-
                     var methodInfo = viewModel.GetType( ).GetMethod( e.NewValue.ToString( ) );
-
-#if DEBUG
                     if( methodInfo == null )
                     {
-                        Debug.WriteLine( $"failed to find method info of view model {e.NewValue.ToString( )}" );
+                        throw new Exception( $"Failed to find Method {e.NewValue.ToString( )}!" );
                     }
-#endif
-
                     methodInfo?.Invoke( viewModel, null );
                 };
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -33,7 +33,5 @@ namespace Venom.API.Database.Global
                 .IsUnique( );
             #endregion
         }
-
-        public DbSet<Venom.API.Database.Server.Entities.Player> Player { get; set; }
     }
 }

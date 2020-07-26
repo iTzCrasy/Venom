@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Venom.Components;
-using Venom.Components.Windows;
 using Venom.Data;
 using Venom.Repositories;
+using Venom.Components.ViewModels;
 
 namespace Venom.Utility
 {
@@ -24,12 +23,18 @@ namespace Venom.Utility
         {
             _container.AddLogging( ( builder ) =>
             {
-                builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
+                //builder.AddFile( "Logs/Venom-{Date}.txt", isJson: true );
             } );
 
 
             _container.AddSingleton<DataContext>( );
-            _container.AddSingleton<LocalStorage>( );
+
+            //=> Network
+            _container.AddScoped<Data.Api.IApiClient, Data.Api.ApiClient>( );
+
+            //=> View Models
+            _container.AddTransient<MainViewModel>( );
+            _container.AddTransient<ServerSelectionViewModel>( );
 
             //=> Repositories
             _container.AddScoped<IGameServerRepository, GameServerRepository>( );
@@ -38,15 +43,6 @@ namespace Venom.Utility
             _container.AddScoped<IVillageRepository, VillageRepository>( );
             _container.AddScoped<IResourceRepository, ResourceRepository>( );
 
-            //=> Start Window
-            _container.AddTransient<Components.Windows.Start.StartWindow>( );
-            _container.AddTransient<Components.Windows.Start.StartViewModel>( );
-            _container.AddTransient<Components.Windows.Start.Views.ViewLoading>( );
-            _container.AddTransient<Components.Windows.Start.Views.ViewLogin>( );
-            _container.AddTransient<Components.Windows.Start.Models.ViewModelLogin>( );
-
-            //=> Main Window
-            _container.AddTransient<Components.Windows.Main.MainViewModel>( );
 
             Provider = _container.BuildServiceProvider( );
         }

@@ -52,5 +52,22 @@ namespace Venom.Data.Api
                 }
             }
         }
+
+        // https://localhost:5001/api/Data/Village?Server=2
+
+        public async Task<List<Village>> FetchVillages( int Server )
+        {
+            using( var response = await _ApiClient.GetAsync( $"Data/Village?Server={Server}" ) )
+            {
+                if( response.IsSuccessStatusCode )
+                {
+                    return JsonConvert.DeserializeObject<List<Village>>( await response.Content.ReadAsStringAsync( ) );
+                }
+                else
+                {
+                    throw new Exception( response.ReasonPhrase );
+                }
+            }
+        }
     }
 }

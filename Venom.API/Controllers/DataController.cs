@@ -59,6 +59,7 @@ namespace Venom.API.Controllers
 
         [HttpGet( "Village" )]
         //[Authorize]
+        //[Produces( "application/gzip" )]
         public async Task<IEnumerable<Village>> GetVillageList( int Server )
         {
             //=> TODO: Make it safe!

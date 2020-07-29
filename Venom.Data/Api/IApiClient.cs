@@ -12,5 +12,6 @@ namespace Venom.Data.Api
 
         Task Login( string Username, string Password );
         Task<List<ServerData>> FetchServerList( );
+        Task<List<Village>> FetchVillages( int Server );
     }
 }

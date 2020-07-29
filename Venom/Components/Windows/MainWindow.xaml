@@ -34,7 +34,7 @@
 
         <Material:DialogHost Identifier="Wasted" CloseOnClickAway="False">
             <Material:Transitioner SelectedIndex="0" Margin="30">
-                <ContentControl Content="{Binding Content}"/>
+                <ContentControl Content="{Binding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Material:Transitioner>
         </Material:DialogHost>
 

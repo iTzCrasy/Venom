@@ -24,6 +24,7 @@ using Venom.API.Database.Global;
 using Venom.API.Database.Server;
 using System.Runtime.InteropServices;
 using Venom.API.Database.Logging;
+using Microsoft.AspNetCore.ResponseCompression;
 
 namespace Venom.API
 {
@@ -47,6 +48,18 @@ namespace Venom.API
                 options.SwaggerDoc( "v1", new Info { Title = "Venom API", Version = "v1" } );
             } );
 
+            services.AddResponseCompression( options =>
+            {
+                options.EnableForHttps = true;
+                options.Providers.Add<GzipCompressionProvider>( );
+                options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat( new[]
+                          {
+                               "image/svg+xml",
+                               "application/json"
+                            } ); ;
+            } );
+            services.Configure<GzipCompressionProviderOptions>( options => options.Level = System.IO.Compression.CompressionLevel.Optimal );
+
             services.AddDbContextPool<GlobalContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomGlobal;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
             services.AddDbContextPool<ServerContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomServer;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
             services.AddDbContextPool<LoggingContext>( options => options.UseSqlServer( "Server=(localdb)\\mssqllocaldb;Database=VenomLogging;Trusted_Connection=True;MultipleActiveResultSets=true" ) );
@@ -63,6 +76,8 @@ namespace Venom.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                app.UseResponseCompression( );
 
                 //=> Swagger
                 app.UseSwagger( );

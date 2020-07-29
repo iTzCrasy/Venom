@@ -67,9 +67,6 @@ namespace Venom.Components.Windows
 
         private async void UserNameButton_Click( object sender, RoutedEventArgs e )
         {
-            var mySettings = new MetroDialogSettings( )
-            {
-            };
         }
 
 

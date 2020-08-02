@@ -25,7 +25,7 @@ namespace Venom.Repositories
 	    }
 
 
-	    public Task< List< GameServer > > GetGameServersAsync( )
+	    public Task< List<ServerData> > GetGameServersAsync( )
 	    {
             return _context.GetGameServers( );
 	    }
@@ -33,6 +33,12 @@ namespace Venom.Repositories
         public Task<BuildingConfiguration> GetBuildingConfigurationAsync()
         {
             return _context.GetBuildingConfiguration();
+        }
+
+        public async Task<ServerData> GetServerAsync( int Server )
+        {
+            var data = await _context.GetGameServers( ).ConfigureAwait( false );
+            return data.Find( p => p.Id.Equals( Server ) );
         }
     }
 }

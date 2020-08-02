@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using GalaSoft.MvvmLight.Messaging;
 using JetBrains.Annotations;
 
 namespace Venom.Helpers
@@ -53,6 +54,14 @@ namespace Venom.Helpers
         protected virtual void OnPropertyChanged( [CallerMemberName] string propertyName = null )
         {
             PropertyChanged?.Invoke( this, new PropertyChangedEventArgs( propertyName ) );
+        }
+
+        protected IMessenger MessengerInstance
+        {
+            get
+            {
+                return Messenger.Default;
+            }
         }
     }
 }

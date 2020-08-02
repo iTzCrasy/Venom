@@ -20,15 +20,9 @@ namespace Venom.Repositories
             _context = context;
         }
 
-        public Task<IReadOnlyList<Village>> GetVillagesAsync()
+        public Task<IReadOnlyList<Village>> GetVillagesAsync( int Server )
         {
-            return null;
-            //return _context.GetVillages( );
-        }
-
-        public Task<IReadOnlyList<Player>> GetPlayersAsync( )
-        {
-            return _context.GetPlayers( );
+            return _context.GetVillages( Server );
         }
     }
 }

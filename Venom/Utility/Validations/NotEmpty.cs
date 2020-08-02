@@ -13,7 +13,7 @@ namespace Venom.Utility.Validations
         public override ValidationResult Validate( object value, CultureInfo cultureInfo )
         {
             return string.IsNullOrWhiteSpace( ( value ?? "" ).ToString( ) )
-                ? new ValidationResult( false, "Field is requiered." )
+                ? new ValidationResult( false, "" )
                 : ValidationResult.ValidResult;
         }
     }

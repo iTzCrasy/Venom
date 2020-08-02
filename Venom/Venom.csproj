@@ -42,6 +42,7 @@
     <PackageReference Include="MaterialDesignColors" Version="1.2.7-ci1779" />
     <PackageReference Include="MaterialDesignThemes" Version="3.2.0-ci1779" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.0.0" />
+    <PackageReference Include="MvvmLightLibs" Version="5.4.1.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.12" />
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.2" /> 

@@ -70,5 +70,17 @@ namespace Venom.Properties {
                 this["IsFirstStart"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int SelectedServer {
+            get {
+                return ((int)(this["SelectedServer"]));
+            }
+            set {
+                this["SelectedServer"] = value;
+            }
+        }
     }
 }

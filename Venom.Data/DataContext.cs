@@ -7,6 +7,7 @@ using Venom.Data.Cache;
 using Venom.Data.Models;
 using Venom.Data.Rest;
 using Venom.Data.Models.Configuration;
+using Venom.Data.Api;
 
 namespace Venom.Data
 {
@@ -14,6 +15,7 @@ namespace Venom.Data
     {
         private readonly ILogger _logger;
         private readonly CacheManager _cache;
+        private readonly ApiClient _apiClient;
 
         private GameServer _currentServer;
         private string _currentPlayer;
@@ -25,10 +27,8 @@ namespace Venom.Data
             )
         {
             _logger = logger;
-
-            _cache = new CacheManager(
-                loggerFactory.CreateLogger<CacheManager>( )
-                );
+            _cache = new CacheManager( loggerFactory.CreateLogger<CacheManager>( ) );
+            _apiClient = new ApiClient( loggerFactory.CreateLogger<ApiClient>( ) );
         }
 
         /// <summary>
@@ -40,13 +40,13 @@ namespace Venom.Data
             set => _currentServer = value;
         }
 
-        public async Task<List<GameServer>> GetGameServers( )
+        public async Task<List<ServerData>> GetGameServers( )
         {
             const string cacheKey = "GameServers";
 
             return await _cache.Get( cacheKey, async ( ) =>
             {
-                return await ServerApi.FetchGameServers( );
+                return await _apiClient.FetchServerList();
             } );
         }
 
@@ -69,13 +69,13 @@ namespace Venom.Data
             } );
         }
 
-        public async Task<IReadOnlyList<Village>> GetVillages()
+        public async Task<IReadOnlyList<Village>> GetVillages( int Server )
         {
-            var cacheKey = $"Villages_{CurrentServer.Id}";
+            var cacheKey = $"Villages_{Server}";
 
             return await _cache.Get( cacheKey, async ( ) =>
             {
-                return await ServerApi.FetchVillages( CurrentServer );
+                return await _apiClient.FetchVillages( Server );
             } );
         }
 

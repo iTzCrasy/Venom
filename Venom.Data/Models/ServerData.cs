@@ -15,5 +15,6 @@ namespace Venom.Data.Models
         public int PlayerCount { get; set; } = 0;
         public int AllyCount { get; set; } = 0;
         public int VillageCount { get; set; } = 0;
+        public int BarbarianCount { get; set; } = 0;
     }
 }

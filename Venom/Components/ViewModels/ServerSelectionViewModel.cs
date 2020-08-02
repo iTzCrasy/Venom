@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using GalaSoft.MvvmLight.Messaging;
 using MaterialDesignThemes.Wpf;
 using Venom.Data.Models;
 using Venom.Helpers;
+using Venom.Repositories;
 
 namespace Venom.Components.ViewModels
 {
     public class ServerSelectionViewModel : ViewModelBase
     {
-        private readonly Data.Api.IApiClient _ApiClient;
+        private readonly IGameServerRepository _gameServerRepository;
+        private readonly IVillageRepository _villageRepository;
 
         #region Properties
         private List<ServerData> _ServerList = new List<ServerData>( );
@@ -31,17 +34,20 @@ namespace Venom.Components.ViewModels
         }
         #endregion
 
-        public ServerSelectionViewModel( Data.Api.IApiClient ApiClient )
+        public ServerSelectionViewModel( 
+            IGameServerRepository gameServerRepository,
+            IVillageRepository villageRepository )
         {
-            _ApiClient = ApiClient;
-            _ApiClient.Initialize( );
+            _gameServerRepository = gameServerRepository;
+            _villageRepository = villageRepository;
+
         }
 
         public async Task OnLoaded()
         {
             await DialogHost.Show( new Dialogs.LoadingDialog( ), "Wasted", async ( sender, args ) =>
             {
-                ServerDefault = await _ApiClient.FetchServerList( ).ConfigureAwait( true );
+                ServerDefault = await _gameServerRepository.GetGameServersAsync( ).ConfigureAwait( true );
                 args.Session.Close( );
             }, null ).ConfigureAwait( false );
             IsVisible = Visibility.Visible;
@@ -56,8 +62,10 @@ namespace Venom.Components.ViewModels
                     IsVisible = Visibility.Hidden;
                     await DialogHost.Show( new Dialogs.LoadingDialog( ), "Wasted", async ( sender, args ) =>
                     {
-                        await _ApiClient.FetchVillages( ( int )obj ).ConfigureAwait( true );
+                        Properties.Settings.Default.SelectedServer = ( int )obj;
+                        await _villageRepository.GetVillagesAsync( ( int )obj ).ConfigureAwait( true );
                         args.Session.Close( );
+                        MessengerInstance.Send( new GenericMessage<int>( 1 ) );
                     }, null ).ConfigureAwait( false );
                 } );
             }

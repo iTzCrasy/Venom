@@ -10,7 +10,8 @@ namespace Venom.Repositories
 {
     public interface IGameServerRepository
     {
-	    Task< List< GameServer > > GetGameServersAsync( );
+	    Task< List<ServerData> > GetGameServersAsync( );
         Task<BuildingConfiguration> GetBuildingConfigurationAsync( );
+        Task<ServerData> GetServerAsync( int Server );
     }
 }

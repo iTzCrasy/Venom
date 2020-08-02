@@ -44,7 +44,7 @@ namespace Venom.API.Server
         private readonly ServerContext _serverContext;
         private readonly LoggingContext _loggingContext;
         private bool _serverUpdateReady = false;
-        private readonly DateTimeOffset _serverUpdateTime = DateTimeOffset.Now.Date.AddHours( DateTimeOffset.Now.Hour  ).AddMinutes( 0 ).AddHours( 1 );
+        private readonly DateTimeOffset _serverUpdateTime = DateTimeOffset.Now.Date.AddHours( DateTimeOffset.Now.Hour + 1 ).AddMinutes( 0 );
 
         public ServerManager(
            ILogger<ServerManager> logger,
@@ -149,7 +149,8 @@ namespace Venom.API.Server
                             {
                                 server.PlayerCount = dataPlayer.Count;
                                 server.AllyCount = dataAlly.Count;
-                                server.VillageCount = dataVillage.Count;
+                                server.VillageCount = dataVillage.Where( p => p.Owner != 0 ).Count();
+                                server.BarbarianCount = dataVillage.Where( p => p.Owner == 0 ).Count( );
 
                                 _globalContext.SaveChanges( );
 

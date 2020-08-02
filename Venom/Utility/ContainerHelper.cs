@@ -29,12 +29,10 @@ namespace Venom.Utility
 
             _container.AddSingleton<DataContext>( );
 
-            //=> Network
-            _container.AddScoped<Data.Api.IApiClient, Data.Api.ApiClient>( );
-
             //=> View Models
             _container.AddTransient<MainViewModel>( );
             _container.AddTransient<ServerSelectionViewModel>( );
+            _container.AddTransient<DashboardViewModel>( );
 
             //=> Repositories
             _container.AddScoped<IGameServerRepository, GameServerRepository>( );

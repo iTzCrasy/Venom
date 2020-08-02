@@ -29,6 +29,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using Venom.Components.ViewModels;
+using MaterialDesignThemes.Wpf;
 
 namespace Venom.Components.Windows
 {

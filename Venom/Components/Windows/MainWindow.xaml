@@ -6,6 +6,7 @@
         xmlns:Hexagon="clr-namespace:Hexagon.Controls;assembly=Hexagon"
         xmlns:Material="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:Helpers="clr-namespace:Venom.Helpers"
+        xmlns:Views="clr-namespace:Venom.Components.Views"
         Title="Venom"
         BorderThickness="0"
         Closing="MainWindow_Closing"              
@@ -22,22 +23,76 @@
         Background="{DynamicResource MaterialDesignPaper}"
         Helpers:MvvmBehaviors.LoadedMethodName="LoadWindow">
 
-    <!--<Window.TaskbarItemInfo>
-        <TaskbarItemInfo ProgressState="None" ProgressValue="1.0" Description="222255256205" />
-    </Window.TaskbarItemInfo>-->
+    <Material:DrawerHost IsLeftDrawerOpen="{Binding ElementName=MenuToggleButton, Path=IsChecked}">
+        <Material:DrawerHost.LeftDrawerContent>
+            <DockPanel MinWidth="212">
+                <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" 
+                              DockPanel.Dock="Top"
+                              HorizontalAlignment="Right" Margin="16"
+                              IsChecked="{Binding ElementName=MenuToggleButton, Path=IsChecked, Mode=TwoWay}" />
+                <Menu ItemsSource="{Binding NavigationItems}">
+                    <!--<Menu.Resources>
+                        <Style TargetType="MenuItem" BasedOn="{StaticResource {x:Type MenuItem}}">
+                            <Setter Property="utilities:TreeHelpers.Modifiers">
+                                <Setter.Value>
+                                    <utilities:ModifierCollection>
+                                        <utilities:Modifier Property="{x:Static Popup.PlacementProperty}" 
+                                                            Value="{x:Static PlacementMode.Right}" 
+                                                            TemplatePartName="PART_Popup" />
+                                    </utilities:ModifierCollection>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </Menu.Resources>-->
+                    <Menu.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel />
+                        </ItemsPanelTemplate>
+                    </Menu.ItemsPanel>
 
-    <Grid>
-        <!--<Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>-->
+                    <MenuItem Header="Message Maker" Command="{Binding SwitchContent}" CommandParameter="{Binding Path=Views, ElementName=MessageMaker}"/>
+                    <Separator/>
+                </Menu>
+            </DockPanel>
+        </Material:DrawerHost.LeftDrawerContent>
 
-        <Material:DialogHost Identifier="Wasted" CloseOnClickAway="False">
-            <Material:Transitioner SelectedIndex="0" Margin="30">
-                <ContentControl Content="{Binding Content}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-            </Material:Transitioner>
-        </Material:DialogHost>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <Material:Snackbar Message="hello 1" IsActive="False" x:Name="SnackbarOne" Grid.Row="1" HorizontalAlignment="Stretch"/>
-    </Grid>
+            <Material:DialogHost Identifier="Wasted" CloseOnClickAway="False">
+                <DockPanel>
+                    <Material:ColorZone Padding="16" 
+                                    Material:ShadowAssist.ShadowDepth="Depth2"                                   
+                                    Mode="PrimaryMid" 
+                                    DockPanel.Dock="Top"
+                                    Visibility="{Binding IsNavigationVisible}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="False"
+                                  x:Name="MenuToggleButton" Grid.Column="0"/>
+                        </Grid>
+                    </Material:ColorZone>
+
+                    <Material:TransitioningContent Margin="10" OpeningEffect="{Material:TransitionEffect ExpandIn}">
+                        <ContentControl Content="{Binding Content}"/>
+                    </Material:TransitioningContent>
+                </DockPanel>
+            </Material:DialogHost>
+
+            <Material:Snackbar Message="hello 1" IsActive="False" x:Name="SnackbarOne" HorizontalAlignment="Stretch"/>
+        </Grid>
+        
+    </Material:DrawerHost>
+
+
 </Window>
+
+    

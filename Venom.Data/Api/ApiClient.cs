@@ -4,17 +4,22 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Venom.Data.Models;
 
 namespace Venom.Data.Api
 {
-    public class ApiClient : IApiClient
+    public class ApiClient 
     {
+        private readonly ILogger _logger;
+
         private HttpClient _ApiClient { get; set; }
 
-        public void Initialize()
+        public ApiClient( ILogger<ApiClient> logger )
         {
+            _logger = logger;
+
             _ApiClient = new HttpClient
             {
                 BaseAddress = new Uri( "https://localhost:5001/api/" )
@@ -44,6 +49,7 @@ namespace Venom.Data.Api
             {
                 if( response.IsSuccessStatusCode )
                 {
+                    _logger.LogInformation( $"retrieving ServerList" );
                     return JsonConvert.DeserializeObject<List<ServerData>>( await response.Content.ReadAsStringAsync( ) );
                 }
                 else
@@ -61,6 +67,7 @@ namespace Venom.Data.Api
             {
                 if( response.IsSuccessStatusCode )
                 {
+                    _logger.LogInformation( $"retrieving Villages from Server {Server}" );
                     return JsonConvert.DeserializeObject<List<Village>>( await response.Content.ReadAsStringAsync( ) );
                 }
                 else

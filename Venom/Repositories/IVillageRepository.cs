@@ -10,6 +10,6 @@ namespace Venom.Repositories
 {
     public interface IVillageRepository
     {
-        Task<IReadOnlyList<Village>> GetVillagesAsync( );
+        Task<IReadOnlyList<Village>> GetVillagesAsync( int Server );
     }
 }
